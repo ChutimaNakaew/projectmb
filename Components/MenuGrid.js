@@ -20,10 +20,10 @@ const MenuGrid = (props) => {
     >
       <View style={{ ...styles.container, ...{ backgroundColor: props.color }, flexDirection: "row" }}>
         <Text style={styles.title} numberOfLines={2}>
-          {props.title}
+          {props.name}
         </Text>
         <Text style={styles.title} numberOfLines={2}>
-          {props.id}
+          {props.kcal}
         </Text>
       </View>
     </TouchableOpacity>

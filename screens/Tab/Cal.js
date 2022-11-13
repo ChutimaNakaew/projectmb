@@ -1,12 +1,29 @@
-import React from "react"
-import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList } from "react-native"
+import React, { useEffect, useState } from "react"
+import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, ImageBackground, ScrollView } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
-import { useFonts } from "expo-font";
-
-import { CATEGORIES } from "../../data/dummy-data"
-import MenuGrid from "../../Components/MenuGrid"
+import { useFonts } from "expo-font"
+import firebase from "../../Database/firebaseDB"
 
 const Cal = ({ props, navigation }) => {
+  const [food, setFood] = useState([])
+  const foodRef = firebase.firestore().collection("food")
+
+  useEffect(() => {
+    foodRef.onSnapshot((querySnapshot) => {
+      const food = []
+      querySnapshot.forEach((doc) => {
+        const { name, kcal, img } = doc.data()
+        food.push({
+          id: doc.id,
+          name,
+          kcal,
+          img,
+        })
+      })
+      setFood(food)
+    })
+  }, [])
+
   let [fontsLoaded] = useFonts({
     FCMuffinRegular: require("../../assets/fonts/FCMuffinRegular.otf"),
   })
@@ -15,54 +32,69 @@ const Cal = ({ props, navigation }) => {
     return null
   }
 
-  const renderGridItem = (itemData) => {
-    return (
-      <MenuGrid
-        id={itemData.item.id}
-        title={itemData.item.title}
-        color={itemData.item.color}
-      />
-    )
-  }
-
   return (
     <View>
-      <View style={{ alignItems: "flex-end", marginTop: 50, marginRight: 10 }}>
+      <ScrollView>
+        <View style={{ alignItems: "flex-end", marginTop: 50, marginRight: 10 }}>
+          <TouchableOpacity
+            style={{ backgroundColor: "#bbb", width: 100, padding: 10, borderRadius: 15 }}
+            onPress={() => {
+              navigation.navigate("HistoryMenu")
+            }}
+          >
+            <Text style={styles.text}>ประวัติ</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("AddMenu")
+            }}
+            style={{ backgroundColor: "#bbb", width: 100, padding: 10, borderRadius: 15, marginTop: 10 }}
+          >
+            <Text style={styles.text}>บันทึกเมนู</Text>
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity
-          style={{ backgroundColor: "#bbb", width: 100, padding: 10, borderRadius: 15 }}
-          onPress={() => {
-            navigation.navigate("HistoryMenu")
+          style={{
+            backgroundColor: "lightpink",
+            width: 250,
+            height: 250,
+            borderRadius: 200,
+            alignSelf: "center",
+            margin: 10,
+            borderColor: "#f25e97",
+            borderWidth: 5,
           }}
         >
-          <Text style={styles.text}>ประวัติ</Text>
+          <Text style={[styles.text, { fontSize: 30, marginTop: 45, marginBottom: 20 }]}>XXX</Text>
+          <Text style={{ borderBottomColor: "black", borderBottomWidth: 1, width: 240, alignSelf: "center" }}></Text>
+          <Text style={[styles.text, { fontSize: 30, marginTop: 20 }]}>2430</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("AddMenu")
-          }}
-          style={{ backgroundColor: "#bbb", width: 100, padding: 10, borderRadius: 15, marginTop: 10 }}
-        >
-          <Text style={styles.text}>บันทึกเมนู</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        style={{
-          backgroundColor: "lightpink",
-          width: 250,
-          height: 250,
-          borderRadius: 200,
-          alignSelf: "center",
-          margin: 10,
-          borderColor: "#f25e97",
-          borderWidth: 5,
-        }}
-      >
-        <Text style={[styles.text, { fontSize: 30, marginTop: 45, marginBottom: 20 }]}>XXX</Text>
-        <Text style={{ borderBottomColor: "black", borderBottomWidth: 1, width: 240, alignSelf: "center" }}></Text>
-        <Text style={[styles.text, { fontSize: 30, marginTop: 20 }]}>2430</Text>
-      </TouchableOpacity>
-
-      <FlatList data={CATEGORIES} renderItem={renderGridItem} numColumns={3} />
+        <FlatList
+          data={food}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <View>
+              <TouchableOpacity
+                style={styles.gridItem}
+                onPress={() => {
+                  props.onSelect()
+                }}
+              >
+                <ImageBackground source={{ uri: item.img }} style={{ flex: 1 }} resizeMode="cover">
+                  <View style={[styles.container, { flexDirection: "row" }]}>
+                    <Text style={styles.title} numberOfLines={1}>
+                      {item.name}
+                    </Text>
+                    <Text style={styles.title} numberOfLines={1}>
+                      {} {item.kcal} Kcal
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
+      </ScrollView>
     </View>
   )
 }
@@ -72,6 +104,33 @@ const styles = StyleSheet.create({
     fontFamily: "FCMuffinRegular",
     fontSize: 18,
     textAlign: "center",
+  },
+  gridItem: {
+    flex: 1,
+    margin: 5,
+    height: 120,
+    width: 185,
+  },
+  container: {
+    flex: 1,
+    // borderRadius: 10,
+    // shadowColor: "black",
+    // shadowOpacity: 0.26,
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowRadius: 10,
+    // elevation: 3,
+    // padding: 5,
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    // flexWrap: "wrap",
+  },
+  title: {
+    fontFamily: "FCMuffinRegular",
+    fontSize: 16,
+    textAlign: "center",
+    flexWrap: "wrap",
+    flex: 1,
+    backgroundColor: "#rgba(217, 217, 217, 0.8)",
   },
 })
 export default Cal

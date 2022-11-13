@@ -36,7 +36,7 @@ const MainNavigator = createDrawerNavigator()
 function CalNavigator() {
   return (
     <Stack.Navigator initialRouteName="Cal">
-      <Stack.Screen name="Cal" component={Cal} options={{ headerShown: false }} />
+      <Stack.Screen name="Cal" component={Cal} options={{ title: "" }} />
       <Stack.Screen name="AddMenu" component={AddMenu} options={{ title: "" }} />
       <Stack.Screen name="HistoryMenu" component={HistoryMenu} options={{ title: "" }} />
     </Stack.Navigator>
