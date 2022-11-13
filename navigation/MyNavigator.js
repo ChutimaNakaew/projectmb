@@ -22,6 +22,7 @@ import pilates from "../screens/Pilates"
 import yoga from "../screens/Yoga"
 import aerobic from "../screens/Aerobic"
 import BlogDetail from "../screens/BlogDetail"
+import SetTime from "../screens/SetTime"
 
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator()
@@ -83,6 +84,11 @@ function Myinfo_type() {
       <info_type.Screen
         name="Aerobic"
         component={aerobic}
+        // screenOptions={{          }}
+      />
+      <info_type.Screen
+        name="SetTime"
+        component={SetTime}
         // screenOptions={{          }}
       />
     </info_type.Navigator>

@@ -1,6 +1,6 @@
 // screens/UserScreen.js
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView, ActivityIndicator, View, TouchableOpacity, Image,ImageBackground} from 'react-native';
 import { ListItem } from 'react-native-elements'
 import firebase from '../../Database/firebaseDB'
 
@@ -27,13 +27,14 @@ class Tab4 extends Component   {
   getCollection = (querySnapshot) => {
     const userArr = [];
     querySnapshot.forEach((res) => { //เอาparameterมาloopโดยใช้foreach -> โดยรับparameter resมา(res=response/ข้อมูลที่ตอบกลับมา)
-      const { name, id, detail } = res.data(); //ดึงข้อมูลมาสร้างเป็นตัวแปร(ตัวแปร= name, id, detail)
+      const { name, id, detail, image } = res.data(); //ดึงข้อมูลมาสร้างเป็นตัวแปร(ตัวแปร= name, id, detail)
       userArr.push({ // pushค่าเข้าไปในarray
         key: res.id,
         res,
         name,
         id,
         detail,
+        image,
       });
     });
     this.setState({ //หลังจากpushค่าต้องทำการupdate
@@ -46,7 +47,7 @@ class Tab4 extends Component   {
     if(this.state.isLoading){
       return(
         <View style={styles.preloader}>
-          <ActivityIndicator size="large" color="#9E9E9E"/>
+          <ActivityIndicator size="large" color="#fff"/>
         </View>
       )
     }
@@ -60,18 +61,21 @@ class Tab4 extends Component   {
             this.state.userArr.map((item, i) => { //item = ข้อมูล , i = index
               return (
                 
-                <ListItem  style={{padding:30}}
+                <ListItem  style={{marginBottom:10}}
                   key={i}
                   chevron
                   bottomDivider
-                  onPress={()=> {this.props.navigation.navigate("BlogDetail",{blogId:item.id, blogdetail:item.detail, blogName:item.name})}}
+                  
+                  // image ={item.image}
+                  onPress={()=> {this.props.navigation.navigate("BlogDetail",{blogId:item.id, blogdetail:item.detail, blogName:item.name, blogImage:item.image})}}
                   >
-                   
+                   <ImageBackground source={{ uri: item.image }}>
                     <ListItem.Content style={styles.lists}>
-                        <ListItem.Subtitle> {item.name} </ListItem.Subtitle>
+                        <ListItem.Title > {item.name} </ListItem.Title>
+                        
                         
                     </ListItem.Content>
-                    
+                    </ImageBackground>
                 </ListItem>
                 
               );
@@ -100,7 +104,8 @@ const styles = StyleSheet.create({
     // marginBottom:10,
     padding:10,
     marginTop:10,
-    borderRadius:50,
+    // borderRadius:50,
+    backgroundColor:'transparent'
     // alignItems: 'center',
   }
 })
