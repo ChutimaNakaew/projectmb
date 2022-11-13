@@ -1,11 +1,13 @@
 import React from "react";
 import {View, StyleSheet, Text, Image, ScrollView, TouchableOpacity} from "react-native";
 
+
 const Tab3 =(props) => {
+  
     return (
         <View style={styles.container}>
           <ScrollView>
-            
+            <View style={styles.div}>
             <Text style={styles.text}>Cardio</Text>
             <TouchableOpacity onPress={()=> {props.navigation.navigate("Cardio")}}>
               <Image
@@ -15,7 +17,8 @@ const Tab3 =(props) => {
             }}
             />
             </TouchableOpacity >
-
+            </View>
+            <View style={styles.div}>
             <TouchableOpacity onPress={()=> {props.navigation.navigate("HIIT")}}>
             <Text style={styles.text}>HIIT</Text>
             <Image
@@ -25,7 +28,9 @@ const Tab3 =(props) => {
             }}
             />
             </TouchableOpacity>
+            </View>
 
+            <View style={styles.div}>
             <TouchableOpacity onPress={()=> {props.navigation.navigate("Weight_Training")}}>
             <Text style={styles.text}>Weight Training</Text>
             <Image
@@ -35,7 +40,9 @@ const Tab3 =(props) => {
             }}
             />
             </TouchableOpacity>
-
+            </View>
+            
+            <View style={styles.div}>
             <TouchableOpacity onPress={()=> {props.navigation.navigate("Pilates")}}>
             <Text style={styles.text}>Pilates</Text>
             <Image
@@ -45,7 +52,9 @@ const Tab3 =(props) => {
             }}
             />
             </TouchableOpacity>
-            
+            </View>
+
+            <View style={styles.div}>
             <TouchableOpacity onPress={()=> {props.navigation.navigate("Yoga")}}>
             <Text style={styles.text}>Yoga</Text>
             <Image
@@ -55,7 +64,9 @@ const Tab3 =(props) => {
             }}
             />
             </TouchableOpacity>
+            </View>
 
+            <View style={styles.div}>
             <TouchableOpacity onPress={()=> {props.navigation.navigate("Aerobic")}}>
             <Text style={styles.text}>Aerobic Exercise</Text>
             <Image
@@ -65,6 +76,7 @@ const Tab3 =(props) => {
             }}
             />
             </TouchableOpacity>
+            </View>
             </ScrollView>
         </View>
         );
@@ -79,19 +91,25 @@ const styles = StyleSheet.create({
       // justifyContent:'center',
       // marginHorizontal:10,
     },
+    div:{
+      padding:15,
+      marginBottom:20,
+    },
     text: {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      marginBottom:-60,
-      marginTop:10,
+      // marginBottom:-60,
+      // marginTop:10,
       fontSize:30,
     },
     image:{
-      width:400,
-      height:300,
+      
+      width:360,
+      height:140,
       resizeMode:'contain',
       borderRadius:50,
-      marginBottom:-70,    }
+      marginBottom:-30,    
+    }
   });
 export default Tab3;
