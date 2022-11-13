@@ -1,5 +1,6 @@
 import React from "react";
 import {View, StyleSheet, Text, ScrollView} from "react-native";
+import { useFonts } from "expo-font"
 
 const BlogDetail =({route, navigation}) => {
   const {blogId} = route.params;
@@ -8,7 +9,14 @@ const BlogDetail =({route, navigation}) => {
   const blogid = blogId;
   const blog_detail = blogdetail
   const blog_name = blogName
+
   console.log(blogid)
+  
+  let [fontsLoaded] = useFonts({
+    FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
+  })
+
+  
     return (
       
         <View style={styles.container}>
@@ -30,11 +38,13 @@ const styles = StyleSheet.create({
     fontWeight:"bold",
     justifyContent: "center",
     marginBottom:10,
+    fontFamily: "FCMuffinRegular",
   },
     text: {
       // flex: 1,
       justifyContent: "center",
-      fontSize:14,
+      fontSize:30,
+      fontFamily: "FCMuffinRegular",
       // alignItems: "center",
     },
   });
