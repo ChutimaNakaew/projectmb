@@ -1,26 +1,46 @@
 import React, { useEffect, useState } from "react"
-import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, ImageBackground, ScrollView } from "react-native"
+import { View, StyleSheet, Text, TouchableOpacity, FlatList, ImageBackground, ScrollView } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../../Database/firebaseDB"
 
 const Cal = ({ props, navigation }) => {
-  const [food, setFood] = useState([])
-  const foodRef = firebase.firestore().collection("food")
+  // const [food, setFood] = useState([])
+  // const foodRef = firebase.firestore().collection("food")
 
+  // useEffect(() => {
+  //   foodRef.onSnapshot((querySnapshot) => {
+  //     const food = []
+  //     querySnapshot.forEach((doc) => {
+  //       const { name, kcal, img } = doc.data()
+  //       food.push({
+  //         id: doc.id,
+  //         name,
+  //         kcal,
+  //         img,
+  //       })
+  //     })
+  //     setFood(food)
+  //   })
+  // }, [])
+
+  const addFood = firebase.firestore().collection("user").doc("u1").collection("addFood")
+  const [showMenu, setAddMenu] = useState([])
   useEffect(() => {
-    foodRef.onSnapshot((querySnapshot) => {
-      const food = []
+    addFood.orderBy("date", "desc").onSnapshot((querySnapshot) => {
+      const showMenu = []
       querySnapshot.forEach((doc) => {
-        const { name, kcal, img } = doc.data()
-        food.push({
-          id: doc.id,
+        const { name, kcal, id, date, img } = doc.data()
+        showMenu.push({
+          key: doc.id,
           name,
           kcal,
+          id,
+          date,
           img,
         })
       })
-      setFood(food)
+      setAddMenu(showMenu)
     })
   }, [])
 
@@ -33,68 +53,66 @@ const Cal = ({ props, navigation }) => {
   }
 
   return (
-    <View>
-      <ScrollView>
-        <View style={{ alignItems: "flex-end", marginTop: 50, marginRight: 10 }}>
-          <TouchableOpacity
-            style={{ backgroundColor: "#bbb", width: 100, padding: 10, borderRadius: 15 }}
-            onPress={() => {
-              navigation.navigate("HistoryMenu")
-            }}
-          >
-            <Text style={styles.text}>ประวัติ</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("AddMenu")
-            }}
-            style={{ backgroundColor: "#bbb", width: 100, padding: 10, borderRadius: 15, marginTop: 10 }}
-          >
-            <Text style={styles.text}>บันทึกเมนู</Text>
-          </TouchableOpacity>
-        </View>
+    <View style={{ flex: 2, marginTop: 40 }}>
+      <View style={{ alignItems: "flex-end", marginTop: 10, marginRight: 10 }}>
         <TouchableOpacity
-          style={{
-            backgroundColor: "lightpink",
-            width: 250,
-            height: 250,
-            borderRadius: 200,
-            alignSelf: "center",
-            margin: 10,
-            borderColor: "#f25e97",
-            borderWidth: 5,
+          style={{ backgroundColor: "#bbb", width: 100, padding: 10, borderRadius: 15 }}
+          onPress={() => {
+            navigation.navigate("HistoryMenu")
           }}
         >
-          <Text style={[styles.text, { fontSize: 30, marginTop: 45, marginBottom: 20 }]}>XXX</Text>
-          <Text style={{ borderBottomColor: "black", borderBottomWidth: 1, width: 240, alignSelf: "center" }}></Text>
-          <Text style={[styles.text, { fontSize: 30, marginTop: 20 }]}>2430</Text>
+          <Text style={styles.text}>ประวัติ</Text>
         </TouchableOpacity>
-        <FlatList
-          data={food}
-          numColumns={2}
-          renderItem={({ item }) => (
-            <View>
-              <TouchableOpacity
-                style={styles.gridItem}
-                onPress={() => {
-                  props.onSelect()
-                }}
-              >
-                <ImageBackground source={{ uri: item.img }} style={{ flex: 1 }} resizeMode="cover">
-                  <View style={[styles.container, { flexDirection: "row" }]}>
-                    <Text style={styles.title} numberOfLines={1}>
-                      {item.name}
-                    </Text>
-                    <Text style={styles.title} numberOfLines={1}>
-                      {} {item.kcal} Kcal
-                    </Text>
-                  </View>
-                </ImageBackground>
-              </TouchableOpacity>
-            </View>
-          )}
-        />
-      </ScrollView>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("AddMenuNavigator")
+          }}
+          style={{ backgroundColor: "#bbb", width: 100, padding: 10, borderRadius: 15, marginTop: 10 }}
+        >
+          <Text style={styles.text}>บันทึกเมนู</Text>
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity
+        style={{
+          backgroundColor: "lightpink",
+          width: 250,
+          height: 250,
+          borderRadius: 200,
+          alignSelf: "center",
+          margin: 10,
+          borderColor: "#f25e97",
+          borderWidth: 5,
+        }}
+      >
+        <Text style={[styles.text, { fontSize: 30, marginTop: 45, marginBottom: 20 }]}>XXX</Text>
+        <Text style={{ borderBottomColor: "black", borderBottomWidth: 1, width: 240, alignSelf: "center" }}></Text>
+        <Text style={[styles.text, { fontSize: 30, marginTop: 20 }]}>2430</Text>
+      </TouchableOpacity>
+      <FlatList
+        data={showMenu}
+        numColumns={2}
+        renderItem={({ item }) => (
+          <View>
+            <TouchableOpacity
+              style={styles.gridItem}
+              onPress={() => {
+                props.onSelect()
+              }}
+            >
+              <ImageBackground source={{ uri: item.img }} style={{ flex: 1 }} resizeMode="cover">
+                <View style={[styles.container, { flexDirection: "row" }]}>
+                  <Text style={styles.title} numberOfLines={1}>
+                    {item.name}
+                  </Text>
+                  <Text style={styles.title} numberOfLines={1}>
+                    {} {item.kcal} Kcal
+                  </Text>
+                </View>
+              </ImageBackground>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
     </View>
   )
 }

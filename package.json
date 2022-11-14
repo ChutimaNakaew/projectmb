@@ -9,9 +9,6 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@expo-google-fonts/inter": "^0.2.2",
-    "@expo-google-fonts/kodchasan": "^0.2.2",
-    "@expo-google-fonts/mali": "^0.2.2",
     "@expo/webpack-config": "^0.17.0",
     "@react-native-firebase/firestore": "^16.4.3",
     "@react-navigation/bottom-tabs": "^6.4.0",

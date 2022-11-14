@@ -16,9 +16,9 @@ export default function App() {
   });
   // เพิ่มโค้ดส่วนนี้ เพื่อจัดการ Stack Navigation
   return (
-    // <MyNavigator/>
+    <MyNavigator/>
     // <Login />
-    <QuestionActivityPage/>
+    // <QuestionActivityPage/>
   )
 }
 

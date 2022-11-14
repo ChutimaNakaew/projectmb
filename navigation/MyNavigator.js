@@ -23,6 +23,7 @@ import yoga from "../screens/Yoga"
 import aerobic from "../screens/Aerobic"
 import BlogDetail from "../screens/BlogDetail"
 import SetTime from "../screens/SetTime"
+import AllMenu from "../screens/AllMenu"
 
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator()
@@ -37,9 +38,18 @@ const MainNavigator = createDrawerNavigator()
 function CalNavigator() {
   return (
     <Stack.Navigator initialRouteName="Cal">
-      <Stack.Screen name="Cal" component={Cal} options={{ title: "" }} />
-      <Stack.Screen name="AddMenu" component={AddMenu} options={{ title: "" }} />
+      <Stack.Screen name="Cal" component={Cal} options={{ title: "", headerShown: false }} />
+      <Stack.Screen name="AddMenuNavigator" component={AddMenuNavigator} options={{ title: "", headerShown: false }} />
       <Stack.Screen name="HistoryMenu" component={HistoryMenu} options={{ title: "" }} />
+    </Stack.Navigator>
+  )
+}
+
+function AddMenuNavigator() {
+  return (
+    <Stack.Navigator initialRouteName="Addmenu">
+      <Stack.Screen name="AddMenu" component={AddMenu} options={{ title: "" , headerShown: false}} />
+      <Stack.Screen name="AllMenu" component={AllMenu} options={{ title: "เมนูทั้งหมด" }} />
     </Stack.Navigator>
   )
 }
