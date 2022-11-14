@@ -22,12 +22,12 @@ const BlogDetail =({route, navigation}) => {
     return (
       
         <View style={styles.container}>
-          <ImageBackground source={{ uri: blog_image }}>
+          {/* <ImageBackground source={{ uri: blog_image }}> */}
             <ScrollView>
             <Text style={styles.textTitle}> {blog_name} </Text>
             <Text style={styles.text}> {blog_detail} </Text>
             </ScrollView>
-            </ImageBackground>
+            {/* </ImageBackground> */}
         </View>
         );
 

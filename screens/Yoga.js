@@ -1,117 +1,113 @@
-// screens/UserScreen.js
-import React, { Component } from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, View, TouchableOpacity, FlatList } from 'react-native';
-import { ListItem } from 'react-native-elements'
-import firebase from '../Database/firebaseDB'
+import React, { useEffect, useState } from "react"
+import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, ImageBackground, ScrollView } from "react-native"
+import { Ionicons } from "@expo/vector-icons"
+import { useFonts } from "expo-font"
+import firebase from "../Database/firebaseDB"
 
+const Yoga = ({ props, navigation }) => {
+  const [yoga, setYoga] = useState([])
+  const workoutRef = firebase.firestore().collection('workout').doc('XXVlurGq69GuDCTFmCU2').collection('exercise').doc('Yoga').collection('Yoga_posture')
 
+  useEffect(() => {
+    workoutRef.onSnapshot((querySnapshot) => {
+      const yoga = []
+      querySnapshot.forEach((doc) => {
+        const { posture_name, kcal, id, image, video } = doc.data()
+        yoga.push({
+          id: doc.id,
+          posture_name,
+          kcal,
+          id,
+          image,
+          video,
+        })
+      })
+      setYoga(yoga)
+    })
+  }, [])
 
-class Yoga extends Component   {
- 
+  let [fontsLoaded] = useFonts({
+    FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
+  })
 
-  constructor() {
-    
-    super();
-    this.firestoreRef = firebase.firestore().collection('workout').doc('XXVlurGq69GuDCTFmCU2').collection('exercise').doc('Yoga').collection('Yoga_posture');
-    this.state = {
-      isLoading: true,
-      userArr: []
-    };
+  if (!fontsLoaded) {
+    return null
   }
-  componentDidMount() { //ถูกเรียกใช้งานหลังrenderเสร็จ
-    this.unsubscribe = this.firestoreRef.onSnapshot(this.getCollection);
-  }
-  componentWillUnmount(){ //หากcomponentมีการถูกลบออกไป 
-    this.unsubscribe();//จะมาเรียกใช้อันนี้
-  }
-  getCollection = (querySnapshot) => {
-    const userArr = [];
-    querySnapshot.forEach((res) => { //เอาparameterมาloopโดยใช้foreach -> โดยรับparameter resมา(res=response/ข้อมูลที่ตอบกลับมา)
-      const { posture_name, id, } = res.data(); //ดึงข้อมูลมาสร้างเป็นตัวแปร(ตัวแปร= name, id, detail)
-      userArr.push({ // pushค่าเข้าไปในarray
-        key: res.id,
-        res,
-        posture_name,
-        id,
-        // detail,
-      });
-    });
-    this.setState({ //หลังจากpushค่าต้องทำการupdate
-      userArr,
-      isLoading: false, //หลังจากมีข้อมูลไม่ต้องขึ้นloading
-   });
-  }
-  render=() =>{
-    
-    if(this.state.isLoading){
-      return(
-        <View style={styles.preloader}>
-          <ActivityIndicator size="large" color="#9E9E9E"/>
-        </View>
-      )
-    }
 
-    return (
-      
-      <ScrollView style={styles.container}>
-        
-          {
-             
-            this.state.userArr.map((item, i) => { //item = ข้อมูล , i = index
-              return (
-                
-                <ListItem style={{padding:20} } 
-                  key={i}
-                  chevron
-                  bottomDivider
-                  
-                  // onPress={()=> {this.props.navigation.navigate("BlogDetail",{blogId:item.id, blogdetail:item.detail, blogName:item.name})}}
-                  >
-                   
-                    <ListItem.Content style={styles.lists}>
-                        <ListItem.Subtitle> {item.posture_name}  </ListItem.Subtitle>
-                        
-                    </ListItem.Content>
-                    
-                </ListItem>
-                
-              );
-            })
-          }
-          
-      </ScrollView>
-    );
-  }
+  return (
+    <View>
+       {/* <ScrollView > */}
+       <FlatList
+          data={yoga}
+          // scrollEnabled={false}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <View>
+              <TouchableOpacity
+                style={styles.gridItem}
+                onPress={() => { navigation.navigate("Video_posture", { postureId: item.id, postureName: item.posture_name, postureVideo: item.video, postureKcal: item.kcal }) }}
+              >
+                <Text numberOfLines={1} style={styles.title}>
+                      {item.posture_name}
+                    </Text>
+                <ImageBackground source={{ uri: item.image }} style={styles.img_bg} resizeMode='stretch'>
+                  <View style={[styles.container, { flexDirection: "row" }]}>
+                    {/* <Text style={styles.title} numberOfLines={1}>
+                      {item.posture_name}
+                    </Text> */}
+                    {/* <Text style={styles.title} numberOfLines={1}>
+                      {} {item.kcal} Kcal
+                    </Text> */}
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
+       {/* </ScrollView> */}
+    </View>
+  )
 }
 const styles = StyleSheet.create({
-  container: {
-   flex: 1,
-   margin:0,
-   padding:0,
-  //  flexDirection: 'row',
-  //  flexWrap: 'wrap',
-  //  alignItems: 'flex-start'
-  //  paddingBottom: 
+  text: {
+    fontFamily: "FCMuffinRegular",
+    fontSize: 18,
+    textAlign: "center",
   },
-  preloader: {
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'flex-start'
-  },
-  lists:{
+  gridItem: {
     flex: 1,
-    // flexDirection: 'row',
+    margin: 5,
+    height: 200,
+    width: 185,
+  },
+  container: {
+    flex: 1,
+    // borderRadius: 10,
+    // shadowColor: "black",
+    // shadowOpacity: 0.26,
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowRadius: 10,
+    // elevation: 3,
+    // padding: 5,
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    // marginBottom:20
+    // flexWrap: "wrap",
+  },
+  title: {
+    fontFamily: "FCMuffinRegular",
+    fontSize: 25,
+    textAlign: "center",
+    flexWrap: "wrap",
     // marginBottom:10,
-    // padding:10,
-    // marginTop:10,
-    // borderRadius:50,
-    // width: '100%',
-    // alignItems: 'center',
-  }
+    // flex: 1,
+    // backgroundColor: "#rgba(217, 217, 217, 0.8)",
+  },
+  img_bg:{
+    flex: 1 ,
+    width:180,
+    height:150
+  },
+  
 })
-export default Yoga;
-
+export default Yoga

@@ -11,7 +11,7 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons"
 import Home from "../screens/Tab/Home"
 import Cal from "../screens/Tab/Cal"
 import tab3 from "../screens/Tab/tab3"
-import tab4 from "../screens/Tab/tab4"
+import Blog from "../screens/Tab/Blog"
 import CustomHeaderButton from "../Components/CustomHeaderButton"
 import AddMenu from "../screens/AddMenu"
 import HistoryMenu from "../screens/HistoryMenu"
@@ -63,14 +63,14 @@ function Myinfo_type() {
         component={tab3}
         options={
           {
-            // title: ""
+            title: ""
           }
         }
       />
       <info_type.Screen
         name="Cardio"
         component={cardio}
-        // screenOptions={{          }}
+        // screenOptions={{    title: ""      }}
       />
       <info_type.Screen
         name="HIIT"
@@ -115,10 +115,10 @@ function Myblogdetail() {
     <Blogdetail.Navigator initialRouteName="Blog">
       <Blogdetail.Screen
         name="Blog"
-        component={tab4}
+        component={Blog}
         options={
           {
-            // title: ""
+            title: ""
           }
         }
       />
@@ -127,6 +127,8 @@ function Myblogdetail() {
         component={BlogDetail}
         screenOptions={
           {
+            // headerShown: false,
+            title: ""
             // headerTintColor: "white",
             // headerC
           }

@@ -60,7 +60,7 @@ const Tab3 =(props) => {
             <Image
             style={styles.image}
             source={{
-              uri:'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/yoga2.png?alt=media&token=2d52dc38-045d-48b1-88c4-2583e6a71e57'
+              uri:'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/yoga.jpg?alt=media&token=f2920031-32ff-4c66-9f9d-c900150511b3'
             }}
             />
             </TouchableOpacity>
