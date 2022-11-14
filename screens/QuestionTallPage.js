@@ -2,7 +2,6 @@ import React from "react";
 import {
     StyleSheet,
     ImageBackground,
-    Image,
     View,
     Text,
     TextInput,
@@ -14,9 +13,13 @@ import {
 import { useFonts } from "expo-font";
 
 const QuestionTallPage = () => {
-    const [fontsLoaded] = useFonts({
+    let [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
-    });
+      })
+    
+      if (!fontsLoaded) {
+        return null
+      }
     return (
         <View style={styles.container}>
             {/* ใส่พื้นหลัง */}
@@ -29,12 +32,12 @@ const QuestionTallPage = () => {
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                     style={styles.boxInfo}
                 >
-                    <Text style={styles.textTitle}>น้ำหนักของคุณ</Text>
+                    <Text style={styles.textTitle}>ส่วนสูงของคุณ</Text>
                     <ScrollView style={styles.scrollView}>
 
                     <TextInput
         style={styles.TextInput}
-        placeholder="กก."
+        placeholder="ซม."
         keyboardType= "numeric"
       />
                         
@@ -64,9 +67,9 @@ const styles = StyleSheet.create({
     },
     boxInfo: {
         borderWidth: 2,
-        borderRadius: "10%",
+        borderRadius: 10,
         backgroundColor: "white",
-        flex: 0.37,
+        flex: 0.45,
         width: "85%",
         justifyContent: "center",
         alignSelf: "center",
@@ -88,7 +91,6 @@ const styles = StyleSheet.create({
     textTitle: {
         fontFamily: "FCMuffinRegular",
         fontSize: 60,
-        fontWeight: "bold",
         marginBottom: 20,
         marginTop: 20,
     },
@@ -96,7 +98,6 @@ const styles = StyleSheet.create({
         fontFamily: "FCMuffinRegular",
         fontSize: 25,
         marginBottom: 0,
-        fontWeight: "bold",
         alignSelf: "start",
         marginHorizontal: 12,
     },
@@ -104,7 +105,6 @@ const styles = StyleSheet.create({
         fontFamily: "FCMuffinRegular",
         fontSize: 25,
         marginBottom: 0,
-        fontWeight: "bold",
         alignSelf: "center",
     },
     scrollView: {
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     },
     TextInput: {
         height: 100,
-        width: 100,
+        width: 200,
         marginTop: 0,
         marginHorizontal: 12,
         marginBottom: 0,

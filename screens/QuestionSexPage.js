@@ -2,13 +2,10 @@ import React from "react";
 import {
     StyleSheet,
     ImageBackground,
-    Image,
     View,
     Text,
-    TextInput,
     KeyboardAvoidingView,
     ScrollView,
-    Button,
     Pressable,
 } from "react-native";
 import { useFonts } from "expo-font";
@@ -89,7 +86,6 @@ const styles = StyleSheet.create({
     textTitle: {
         fontFamily: "FCMuffinRegular",
         fontSize: 60,
-        fontWeight: "bold",
         marginBottom: 20,
         marginTop: 20,
     },
@@ -97,7 +93,6 @@ const styles = StyleSheet.create({
         fontFamily: "FCMuffinRegular",
         fontSize: 25,
         marginBottom: 0,
-        fontWeight: "bold",
         alignSelf: "start",
         marginHorizontal: 12,
     },
@@ -105,7 +100,6 @@ const styles = StyleSheet.create({
         fontFamily: "FCMuffinRegular",
         fontSize: 25,
         marginBottom: 0,
-        fontWeight: "bold",
         alignSelf: "center",
     },
     scrollView: {

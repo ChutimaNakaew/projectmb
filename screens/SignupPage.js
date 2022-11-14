@@ -5,7 +5,7 @@ import { AntDesign } from "@expo/vector-icons"
 
 const SignupPage = () => {
 
-  let [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     'FCMuffinRegular': require('../assets/fonts/FCMuffinRegular.otf'),
   });
 
