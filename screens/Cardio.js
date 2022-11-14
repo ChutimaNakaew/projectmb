@@ -66,7 +66,7 @@ class Cardio extends Component {
               chevron
               bottomDivider
 
-              onPress={() => { this.props.navigation.navigate("SetTime", { postureId: item.id, postureName: item.posture_name, postureVideo: item.video }) }}
+              onPress={() => { this.props.navigation.navigate("Video_posture", { postureId: item.id, postureName: item.posture_name, postureVideo: item.video }) }}
             >
 
               <ListItem.Content style={styles.lists}>
