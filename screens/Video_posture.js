@@ -218,7 +218,7 @@ const Video_posture = ({ route, navigation }) => {
             {/* <View > */}
             <View style={styles.subcontainer}>
                 <Text style={styles.time}>{`${mins}:${secs}`}</Text>
-                {/* <View style={styles.btn}>
+                <View style={styles.btn}>
                     <TouchableOpacity onPress={this.toggle} style={styles.buttonStart}>
                         <Text style={styles.text}>{isActive ? 'หยุด' : 'เริ่ม'}</Text>
                     </TouchableOpacity>
@@ -232,7 +232,7 @@ const Video_posture = ({ route, navigation }) => {
                             <Text style={styles.text}>บันทึก</Text>
                         </TouchableOpacity>
                     </View>
-                </View> */}
+                </View>
             </View>
             {/* <Button title="Stop" onClick={() => { incrementCount('stop') }} ></Button> */}
             {/* </View> */}
