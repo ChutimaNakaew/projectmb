@@ -6,6 +6,7 @@ import { NavigationContainer, StackActions } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import { HeaderButtons, Item } from "react-navigation-header-buttons"
+import { useFonts } from "expo-font"
 
 // import screen ที่เกี่ยวข้อง
 import Home from "../screens/Tab/Home"
@@ -49,8 +50,8 @@ function CalNavigator() {
 function AddMenuNavigator() {
   return (
     <Stack.Navigator initialRouteName="Addmenu">
-      <Stack.Screen name="AddMenu" component={AddMenu} options={{ title: "" , headerShown: false}} />
-      <Stack.Screen name="AllMenu" component={AllMenu} options={{ title: "เมนูทั้งหมด" }} />
+      <Stack.Screen name="AddMenu" component={AddMenu} options={{ title: "", headerShown: false, }} />
+      <Stack.Screen name="AllMenu" component={AllMenu} options={{ title: "เมนูทั้งหมด", headerTitleStyle:{fontFamily: "FCMuffinRegular", fontSize: 28} }} />
     </Stack.Navigator>
   )
 }
@@ -61,11 +62,9 @@ function Myinfo_type() {
       <info_type.Screen
         name="Catagories"
         component={tab3}
-        options={
-          {
-            title: ""
-          }
-        }
+        options={{
+          title: "",
+        }}
       />
       <info_type.Screen
         name="Cardio"
@@ -116,23 +115,19 @@ function Myblogdetail() {
       <Blogdetail.Screen
         name="Blog"
         component={Blog}
-        options={
-          {
-            title: ""
-          }
-        }
+        options={{
+          title: "",
+        }}
       />
       <Blogdetail.Screen
         name="BlogDetail"
         component={BlogDetail}
-        screenOptions={
-          {
-            // headerShown: false,
-            title: ""
-            // headerTintColor: "white",
-            // headerC
-          }
-        }
+        screenOptions={{
+          // headerShown: false,
+          title: "",
+          // headerTintColor: "white",
+          // headerC
+        }}
       />
     </Blogdetail.Navigator>
   )
@@ -140,6 +135,14 @@ function Myblogdetail() {
 
 // สร้าง Navigator หลัก
 export default function MyNavigator() {
+  let [fontsLoaded] = useFonts({
+    FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
+  })
+
+  if (!fontsLoaded) {
+    return null
+  }
+
   return (
     <NavigationContainer>
       <Tab.Navigator initialRouteName="คำนวณแคล">

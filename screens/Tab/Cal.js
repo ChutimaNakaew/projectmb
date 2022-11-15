@@ -93,7 +93,7 @@ const Cal = ({ props, navigation }) => {
         numColumns={2}
         renderItem={({ item }) => (
           <View>
-            <TouchableOpacity
+            <View
               style={styles.gridItem}
               onPress={() => {
                 props.onSelect()
@@ -109,7 +109,7 @@ const Cal = ({ props, navigation }) => {
                   </Text>
                 </View>
               </ImageBackground>
-            </TouchableOpacity>
+            </View>
           </View>
         )}
       />

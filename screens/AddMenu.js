@@ -1,6 +1,5 @@
 import React, { Component, useEffect, useState } from "react"
 import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList } from "react-native"
-import Search from "../Components/Search"
 import { useFonts } from "expo-font"
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons"
 import firebase from "../Database/firebaseDB"
@@ -26,6 +25,19 @@ const AddMenu = ({ props, navigation }) => {
     })
   }, [])
 
+  const delMenu = (item) => {
+    addFood
+      .doc(item.key)
+      .delete()
+      .then(() => {
+        console.log("Delete " + item.name)
+        alert("❌ ลบเมนู " + "'" + item.name + "'")
+      })
+      .catch((err) => {
+        alert(err)
+      })
+  }
+
   let [fontsLoaded] = useFonts({
     FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
   })
@@ -35,8 +47,7 @@ const AddMenu = ({ props, navigation }) => {
   }
 
   return (
-    <View style={{ backgroundColor: "#e1e8ee", flex: 2, marginTop: 50 }}>
-      <Search />
+    <View style={{ flex: 2, marginTop: 50 }}>
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity
           onPress={() => {
@@ -59,7 +70,7 @@ const AddMenu = ({ props, navigation }) => {
           <View
             style={{
               flexDirection: "row",
-              backgroundColor: "#2C2C2C",
+              backgroundColor: "#ccc",
               marginHorizontal: 30,
               marginVertical: 10,
               shadowColor: "#171717",
@@ -73,23 +84,18 @@ const AddMenu = ({ props, navigation }) => {
             }}
           >
             <Image style={styles.image} source={{ uri: item.img }} />
-            <View style={{ flexDirection: "column", justifyContent: "center", flex: 2, }}>
-              <Text style={[styles.text, {color: "#fff"}]}>{item.name}</Text>
-              <Text style={[styles.text, {color: "#fff"}]}>{item.kcal} Kcal</Text>
+            <View style={{ flexDirection: "column", justifyContent: "center", flex: 2 }}>
+              <Text style={[styles.text, { color: "#000" }]}>{item.name}</Text>
+              <Text style={[styles.text, { color: "#000" }]}>{item.kcal} Kcal</Text>
             </View>
             <TouchableOpacity
+              onPress={()=> delMenu(item)}
               style={{
-                // backgroundColor: "#ff3f5b",
-                // borderRadius: 50,
-                // width: 39,
-                // padding: 10,
-                // height: 39,
                 marginRight: 4,
                 marginBottom: 4,
                 alignSelf: "flex-end",
               }}
             >
-              {/* <AntDesign name="delete" size={20} color="#fff" /> */}
               <MaterialCommunityIcons name="delete-circle" size={32} color="#ff3f5b" />
             </TouchableOpacity>
           </View>
