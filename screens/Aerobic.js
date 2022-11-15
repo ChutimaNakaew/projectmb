@@ -8,6 +8,7 @@ const Aerobic = ({ props, navigation }) => {
   const [aerobic, setAerobic] = useState([])
   const workoutRef = firebase.firestore().collection('workout').doc('XXVlurGq69GuDCTFmCU2').collection('exercise').doc('Aerobic').collection('Aerobic_posture')
 
+
   useEffect(() => {
     workoutRef.onSnapshot((querySnapshot) => {
       const aerobic = []
@@ -36,9 +37,10 @@ const Aerobic = ({ props, navigation }) => {
 
   return (
     <View>
-       <ScrollView>
+       {/* <ScrollView > */}
        <FlatList
           data={aerobic}
+          // scrollEnabled={false}
           numColumns={2}
           renderItem={({ item }) => (
             <View>
@@ -63,7 +65,7 @@ const Aerobic = ({ props, navigation }) => {
             </View>
           )}
         />
-       </ScrollView>
+       {/* </ScrollView> */}
     </View>
   )
 }

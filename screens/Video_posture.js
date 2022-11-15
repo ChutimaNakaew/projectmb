@@ -179,10 +179,13 @@ const Video_posture = ({ route, navigation }) => {
     record = () => {
         let totalKcal = ((pos_kal) * (remainingSecs / 60)) //หาร60เพราะคิดเป็นper minute
         // setTotalKcal(totalKcal => (totalKcal + pos_kal)*(remainingSecs/60));
-        console.log('you time second is : ' + remainingSecs)
-        console.log('this posture Kcal is : ' + pos_kal)
-        console.log('Your burn Calory is : ' + totalKcal)
-
+        alert('Your got to burn calories ' + totalKcal+ ' Kcal')
+        console.log('you time second is : ' + remainingSecs + ' sec.')
+        console.log('this posture Kcal is : ' + pos_kal + ' Kcal')
+        console.log('Your got to burn calories ' + totalKcal+ ' Kcal')
+        
+        setRemainingSecs(0);
+        setIsActive(false);
     }
     useEffect(() => {
         let interval = null;
