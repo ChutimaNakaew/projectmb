@@ -25,15 +25,12 @@ import aerobic from "../screens/Aerobic"
 import BlogDetail from "../screens/BlogDetail"
 import AllMenu from "../screens/AllMenu"
 import VideoScreen from "../screens/Video_posture"
-<<<<<<< Updated upstream
 import Video_pos from "../screens/Video_pose(Mix ver.)"
 import History from "../screens/Record_history"
-=======
 import MyMenu from "../screens/MyMenu"
 import CreateMenu from "../screens/CreateMenu"
 
 
->>>>>>> Stashed changes
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
