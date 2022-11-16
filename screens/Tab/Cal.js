@@ -44,6 +44,31 @@ const Cal = ({ props, navigation }) => {
     })
   }, [])
 
+
+// --------------ดึงข้อมูลKcalมาแสดงผลจ้า------------------------
+  const [history, setHistory] = useState([])
+  const workoutRef = firebase.firestore().collection("user").doc("u1").collection("addWorkout");
+  useEffect(() => {
+    workoutRef.onSnapshot((querySnapshot) => {
+      const history = []
+      querySnapshot.forEach((doc) => {
+        const { kcal } = doc.data()
+        history.push({
+          id: doc.id,
+          kcal,
+        })
+      })
+      setHistory(history)
+    })
+  }, [])
+  let total = 0;
+  history.forEach(item => {
+    total += item.kcal
+  });
+  
+// --------------------------------------------------------------
+
+
   let [fontsLoaded] = useFonts({
     FCMuffinRegular: require("../../assets/fonts/FCMuffinRegular.otf"),
   })
@@ -84,7 +109,7 @@ const Cal = ({ props, navigation }) => {
           borderWidth: 5,
         }}
       >
-        <Text style={[styles.text, { fontSize: 30, marginTop: 45, marginBottom: 20 }]}>XXX</Text>
+        <Text style={[styles.text, { fontSize: 30, marginTop: 45, marginBottom: 20 }]}>{total}</Text>
         <Text style={{ borderBottomColor: "black", borderBottomWidth: 1, width: 240, alignSelf: "center" }}></Text>
         <Text style={[styles.text, { fontSize: 30, marginTop: 20 }]}>2430</Text>
       </TouchableOpacity>
@@ -105,7 +130,7 @@ const Cal = ({ props, navigation }) => {
                     {item.name}
                   </Text>
                   <Text style={styles.title} numberOfLines={1}>
-                    {} {item.kcal} Kcal
+                    { } {item.kcal} Kcal
                   </Text>
                 </View>
               </ImageBackground>

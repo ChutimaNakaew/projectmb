@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   textTitle:{
     fontSize:30,
-    fontWeight:"bold",
+    // fontWeight:"bold",
     justifyContent: "center",
     marginBottom:10,
     fontFamily: "FCMuffinRegular",

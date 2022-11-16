@@ -1,12 +1,37 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 // import { useFonts, Mali_400Regular, Mali_700Bold } from "@expo-google-fonts/mali"
 import { useFonts } from "expo-font";
+import firebase from "../../Database/firebaseDB"
 
-const Home = (props) => {
+const Home = ({props, navigation}) => {
   const [weight, onChangeWeight] = React.useState(null)
   const [height, onChangeHeight] = React.useState(null)
+
+
+  // --------------ดึงข้อมูลKcalมาแสดงผลจ้า------------------------
+  const [history, setHistory] = useState([])
+  const workoutRef = firebase.firestore().collection("user").doc("u1").collection("addWorkout");
+  useEffect(() => {
+    workoutRef.onSnapshot((querySnapshot) => {
+      const history = []
+      querySnapshot.forEach((doc) => {
+        const { kcal } = doc.data()
+        history.push({
+          id: doc.id,
+          kcal,
+        })
+      })
+      setHistory(history)
+    })
+  }, [])
+  let total = 0;
+  history.forEach(item => {
+    total += item.kcal
+  });
+
+  // --------------------------------------------------------------
 
   let [fontsLoaded] = useFonts({
     FCMuffinRegular: require("../../assets/fonts/FCMuffinRegular.otf"),
@@ -25,7 +50,7 @@ const Home = (props) => {
       </View>
 
       <TouchableOpacity style={styles.btnCalendar}>
-        <Text style={{fontFamily: "FCMuffinRegular", fontSize: 18}}>ปฎิทิน</Text>
+        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 18 }}>ปฎิทิน</Text>
       </TouchableOpacity>
 
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
@@ -68,7 +93,7 @@ const Home = (props) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.resultWorkout}>
+      <TouchableOpacity style={styles.resultWorkout} onPress={() => { navigation.navigate("Record_history")}}>
         <Text style={styles.text}>
           <Ionicons name="ios-trophy" size={20} color="#ffb81c" />
           บันทึกการออกกำลังกาย
@@ -78,10 +103,10 @@ const Home = (props) => {
       <View style={{ margin: 10, flexDirection: "row" }}>
         <View style={{ flexDirection: "column", marginRight: 120 }}>
           <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, marginTop: 10 }}>Total Workout</Text>
-          <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, color: "red", marginLeft: 25 }}>325 KCAL</Text>
+          <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, color: "red" }}> {total} KCAL</Text>
         </View>
         <TouchableOpacity style={{ backgroundColor: "lightpink", width: 115, height: 115, borderRadius: 100 }}>
-          <Text style={[styles.text, { marginTop: 10 }]}>XXX</Text>
+          <Text style={[styles.text, { marginTop: 10 }]}> {total} </Text>
           <Text style={{ borderBottomColor: "black", borderBottomWidth: 1, width: 115, alignSelf: "center", marginBottom: 10 }}></Text>
           <Text style={styles.text}>2430</Text>
         </TouchableOpacity>

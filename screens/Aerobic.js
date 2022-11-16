@@ -13,7 +13,7 @@ const Aerobic = ({ props, navigation }) => {
     workoutRef.onSnapshot((querySnapshot) => {
       const aerobic = []
       querySnapshot.forEach((doc) => {
-        const { posture_name, kcal, id, image, video } = doc.data()
+        const { posture_name, kcal, id, image, video, video_time } = doc.data()
         aerobic.push({
           id: doc.id,
           posture_name,
@@ -21,6 +21,7 @@ const Aerobic = ({ props, navigation }) => {
           id,
           image,
           video,
+          video_time
         })
       })
       setAerobic(aerobic)
@@ -46,7 +47,7 @@ const Aerobic = ({ props, navigation }) => {
             <View>
               <TouchableOpacity
                 style={styles.gridItem}
-                onPress={() => { navigation.navigate("Video_posture", { postureId: item.id, postureName: item.posture_name, postureVideo: item.video, postureKcal: item.kcal }) }}
+                onPress={() => { navigation.navigate("Video_pose(Mix ver.)", { postureId: item.id, postureName: item.posture_name, postureVideo: item.video, postureKcal: item.kcal, postureTiming: item.video_time }) }}
               >
                 <Text numberOfLines={1} style={styles.title}>
                       {item.posture_name}

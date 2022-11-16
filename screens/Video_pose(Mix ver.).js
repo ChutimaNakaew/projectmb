@@ -13,11 +13,13 @@ const Video_posture = ({ route, navigation }) => {
     const { postureName } = route.params;
     const { postureVideo } = route.params;
     const { postureKcal } = route.params;
+    const { postureTiming } = route.params;
 
     const pos_id = postureId
     const pos_name = postureName
     const pos_video = postureVideo
     const pos_kal = postureKcal
+    const post_timing = postureTiming 
 
     // const addWorkout = firebase.firestore().collection("user").doc("u1").collection("addWorkout")
     // const video = React.useRef(null);
@@ -34,167 +36,24 @@ const Video_posture = ({ route, navigation }) => {
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
     })
 
-    // CounterApp ()  {
-    const [state, setState] = useState({
-        count: 0,
-        isStart: false,
-        minutes_Counter: '00',
-        seconds_Counter: '00',
-    });
-    function timer() {
-        let time = setInterval(() => {
-            let second = (Number(state.seconds_Counter) + 1).toString()
-            let minute = state.minutes_Counter
-
-
-            if (Number(state.seconds_Counter) == 59) {
-                minute = (Number(state.minutes_Counter) + 1).toString()
-                second = '00'
-            }
-
-            setState({
-                minutes_Counter: minute.length == 1 ? '0' + minute : minute,
-                seconds_Counter: second.length == 1 ? '0' + second : second,
-
-            })
-        }, 1000)
-
-        setState({ time })
-        setState({ isStart: true })
-        console.log({ state })
-    }
-    function stop() {
-        console.log({ state })
-        clearInterval(state.time);
-        setState({ isStart: false });
-    }
-    // let CountTime;
-    function incrementCount(press) {
-        // let second 
-        // let CountTime;
-        console.log(press)
-        // if (press === 'start') {
-        let CountTime = setInterval(() => {
-
-            let second = state.count++
-            setState({ count: second });
-            console.log(state.count)
-        }
-
-            , 1000);
-
-        console.log({ CountTime })
-        setState({ CountTime })
-        // }
-        // else if (press === 'stop'){
-        //     console.log(state.CountTime)
-        //     clearInterval(CountTime);
-        //     console.log({ state })
-
-        // }
-
-        // setState({
-        //     count: state.count + 1
-        // });
-        // state.count = 10;
-
-        // if (!CountTime) {
-        //     CountTime = setInterval(add, 1000);
-
-        // CountTime = setInterval(function () {
-        // let second = (Number(state.count) + 1).toString()
-
-        // console.log(state.count);
-        // state.count++
-        // setState({
-        //     count: state.count
-
-        // });
-
-        // }, 1000);
-    }
-    // setState({ CountTime })
-    // setState({ isStart: true })
-
-
-
-    function add() {
-        state.count++
-        setState({
-            count: state.count
-
-        });
-    }
-
-
-    function decrementCount(press) {
-        console.log(press)
-        if (press === 'stop') {
-            console.log(state.CountTime)
-            clearInterval(state.CountTime);
-            console.log({ state })
-            // setState({
-            //     isStart: false
-            // });
-            // CountTime = null;
-            // console.log({ CountTime })
-        }
-        // clearInterval(incrementCount);
-        // setState({
-        //     count: state.count - 1,
-        // });
-    }
-
-    // return (
-    // <div>
-    //     <h1>{state.count}</h1>
-
-    //     <button onClick={incrementCount}>Increment</button>
-    //     <button onClick={decrementCount}>Decrement</button>
-    // </div>
-    // );
-    // };
-
-    const formatNumber = number => `0${number}`.slice(-2);
-
-    const getRemaining = (time) => {
-        const mins = Math.floor(time / 60);
-        const secs = time - mins * 60;
-        return { mins: formatNumber(mins), secs: formatNumber(secs) };
-    }
-    const [remainingSecs, setRemainingSecs] = useState(0);
-    // const [totalKcal, setTotalKcal] = useState(0);
-    // const totalKcal = 0
-    const [isActive, setIsActive] = useState(false);
-    const { mins, secs } = getRemaining(remainingSecs);
-    toggle = () => {
-        setIsActive(!isActive);
-    }
-
-    reset = () => {
-        console.log('total' + remainingSecs)
-        setRemainingSecs(0);
-        setIsActive(false);
-
-    }
 
     record = () => {
-        
-        let totalKcal = ((pos_kal) * (remainingSecs / 60)).toFixed(2) //หาร60เพราะคิดเป็นper minute
+
+        // let totalKcal = pos_kal 
         // setTotalKcal(totalKcal => (totalKcal + pos_kal)*(remainingSecs/60));
-        // alert('You have burned calories ' + totalKcal + ' Kcal')
-        console.log('you time second is : ' + remainingSecs/60 + ' min.')
+        // alert('You have burned calories ' + pos_kal + ' Kcal')
+        // console.log('you time is : ' + remainingSecs + ' sec.')
         console.log('this posture Kcal is : ' + pos_kal + ' Kcal')
-        console.log('You have burned calories ' + totalKcal + ' Kcal')
+        console.log('You have burned calories ' + pos_kal + ' Kcal')
 
         // if (item.pos_name && item.pos_id && item.pos_kal) {
         const timestamp = firebase.firestore.FieldValue.serverTimestamp()
         firebase.firestore().collection("user").doc("u1").collection("addWorkout").add({
             name: pos_name,
             date: timestamp,
-            kcal: Number(totalKcal),
+            kcal: pos_kal,
             id: pos_id,
-            time: Number((remainingSecs/60).toFixed(2))
+            time: Number((post_timing).toFixed(2)),
         })
             .then(() => {
                 console.log("Success to Add calories of " + pos_name)
@@ -204,32 +63,11 @@ const Video_posture = ({ route, navigation }) => {
             })
 
             ;
-
-        // addWorkout
-        //     .add(data)
-        //     .then(() => {
-        //         console.log("Add " + pos_name)
-        //     })
-        //     .catch((err) => {
-        //         alert(err)
-        //     })
-        // }
-        setRemainingSecs(0);
-        setIsActive(false);
-        navigation.navigate("Record_history")
+         navigation.navigate("Record_history")
+        // setRemainingSecs(0);
+        // setIsActive(false);
     }
-    useEffect(() => {
-        let interval = null;
-        if (isActive) {
-            interval = setInterval(() => {
-                setRemainingSecs(remainingSecs => remainingSecs + 1);
-                console.log(remainingSecs)
-            }, 1000);
-        } else if (!isActive && remainingSecs !== 0) {
-            clearInterval(interval);
-        }
-        return () => clearInterval(interval);
-    }, [isActive, remainingSecs]);
+   
     return (
 
         <View style={styles.container}>
@@ -251,19 +89,11 @@ const Video_posture = ({ route, navigation }) => {
             <Text style={styles.textTitle}>{'- ' + pos_name + ' -'}</Text>
             {/* <View > */}
             <View style={styles.subcontainer}>
-                <Text style={styles.time}>{`${mins}:${secs}`}</Text>
-                <View style={styles.btn}>
-                    <TouchableOpacity onPress={this.toggle} style={styles.buttonStart}>
-                        <Text style={styles.text}>{isActive ? 'หยุด' : 'เริ่ม'}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={this.reset} style={styles.buttonReset}>
-                        <Text style={styles.text}>รีเซต</Text>
-                    </TouchableOpacity>
-                </View>
+               
                 <View>
                     <View style={styles.btn2}>
                         <TouchableOpacity onPress={() => record()} style={styles.buttonRecord}>
-                            <Text style={styles.text}>บันทึก</Text>
+                            <Text style={styles.text}>บันทึกผล</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

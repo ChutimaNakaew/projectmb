@@ -26,7 +26,8 @@ import BlogDetail from "../screens/BlogDetail"
 
 import AllMenu from "../screens/AllMenu"
 import VideoScreen from "../screens/Video_posture"
-
+import Video_pos from "../screens/Video_pose(Mix ver.)"
+import History from "../screens/Record_history"
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -36,6 +37,16 @@ const Blogdetail = createNativeStackNavigator()
 // const FavNavigator = createNativeStackNavigator()
 // const FiltersNavigator = createNativeStackNavigator()
 const MainNavigator = createDrawerNavigator()
+
+function HomeNavigator(){
+  return (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="Home" component={Home} options={{ title: "", headerShown: false }} />
+      <Stack.Screen name="Record_history" component={History} options={{ title: "", headerShown: false }} />
+      {/* <Stack.Screen name="HistoryMenu" component={HistoryMenu} options={{ title: "" }} /> */}
+    </Stack.Navigator>
+  )
+}
 
 function CalNavigator() {
   return (
@@ -101,6 +112,16 @@ function Myinfo_type() {
         component={VideoScreen}
         // screenOptions={{          }}
       />
+      <info_type.Screen
+        name="Video_pose(Mix ver.)"
+        component={Video_pos}
+        // screenOptions={{          }}
+      />
+      <info_type.Screen
+        name="Record_history"
+        component={History}
+        // screenOptions={{          }}
+      />
     </info_type.Navigator>
   )
 }
@@ -143,7 +164,7 @@ export default function MyNavigator() {
       <Tab.Navigator initialRouteName="คำนวณแคล">
         <Tab.Screen
           name="หน้าหลัก"
-          component={Home}
+          component={HomeNavigator}
           options={{
             title: "",
             headerRight: () => (
