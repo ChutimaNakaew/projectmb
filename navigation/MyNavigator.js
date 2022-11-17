@@ -74,7 +74,8 @@ function Myinfo_type() {
         name="Catagories"
         component={tab3}
         options={{
-          title: "",
+          title:'',
+          
         }}
       />
       <info_type.Screen

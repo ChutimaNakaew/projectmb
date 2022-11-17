@@ -36,10 +36,8 @@ const Cardio = ({ props, navigation }) => {
 
   return (
     <View>
-       {/* <ScrollView > */}
        <FlatList
           data={cardio}
-          // scrollEnabled={false}
           numColumns={2}
           renderItem={({ item }) => (
             <View>
@@ -52,19 +50,12 @@ const Cardio = ({ props, navigation }) => {
                     </Text>
                 <ImageBackground source={{ uri: item.image }} style={styles.img_bg} resizeMode='stretch'>
                   <View style={[styles.container, { flexDirection: "row" }]}>
-                    {/* <Text style={styles.title} numberOfLines={1}>
-                      {item.posture_name}
-                    </Text> */}
-                    {/* <Text style={styles.title} numberOfLines={1}>
-                      {} {item.kcal} Kcal
-                    </Text> */}
                   </View>
                 </ImageBackground>
               </TouchableOpacity>
             </View>
           )}
         />
-       {/* </ScrollView> */}
     </View>
   )
 }
