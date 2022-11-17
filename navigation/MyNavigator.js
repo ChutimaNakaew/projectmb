@@ -23,19 +23,19 @@ import pilates from "../screens/Pilates"
 import yoga from "../screens/Yoga"
 import aerobic from "../screens/Aerobic"
 import BlogDetail from "../screens/BlogDetail"
-
 import AllMenu from "../screens/AllMenu"
 import VideoScreen from "../screens/Video_posture"
 import Video_pos from "../screens/Video_pose(Mix ver.)"
 import History from "../screens/Record_history"
+import MyMenu from "../screens/MyMenu"
+import CreateMenu from "../screens/CreateMenu"
+
+
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 const info_type = createNativeStackNavigator()
 const Blogdetail = createNativeStackNavigator()
-// const MealsNavigator = createNativeStackNavigator()
-// const FavNavigator = createNativeStackNavigator()
-// const FiltersNavigator = createNativeStackNavigator()
 const MainNavigator = createDrawerNavigator()
 
 function HomeNavigator(){
@@ -61,8 +61,26 @@ function CalNavigator() {
 function AddMenuNavigator() {
   return (
     <Stack.Navigator initialRouteName="Addmenu">
-      <Stack.Screen name="AddMenu" component={AddMenu} options={{ title: "", headerShown: false, }} />
-      <Stack.Screen name="AllMenu" component={AllMenu} options={{ title: "เมนูทั้งหมด", headerTitleStyle:{fontFamily: "FCMuffinRegular", fontSize: 28} }} />
+      <Stack.Screen name="AddMenu" component={AddMenu} options={{ title: "", headerShown: false }} />
+      <Stack.Screen
+        name="AllMenu"
+        component={AllMenu}
+        options={{ title: "เมนูทั้งหมด", headerTitleStyle: { fontFamily: "FCMuffinRegular", fontSize: 28 } }}
+      />
+      <Stack.Screen name="AddMyMenuNavigator" component={AddMyMenuNavigator} options={{ title: "", headerShown: false }} />
+    </Stack.Navigator>
+  )
+}
+
+function AddMyMenuNavigator() {
+  return (
+    <Stack.Navigator initialRouteName="MyMenu">
+      <Stack.Screen
+        name="MyMenu"
+        component={MyMenu}
+        options={{ title: "เมนูของฉัน", headerTitleStyle: { fontFamily: "FCMuffinRegular", fontSize: 28 } }}
+      />
+      <Stack.Screen name="CreateMenu" component={CreateMenu} options={{ title: "", headerShown: false }} />
     </Stack.Navigator>
   )
 }

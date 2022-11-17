@@ -57,7 +57,12 @@ const AddMenu = ({ props, navigation }) => {
         >
           <Text style={styles.text}>เมนูอาหาร</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ backgroundColor: "lightblue", padding: 10, width: 120, borderRadius: 15, marginLeft: 100, marginVertical: 10 }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("AddMyMenuNavigator")
+          }}
+          style={{ backgroundColor: "lightblue", padding: 10, width: 120, borderRadius: 15, marginLeft: 100, marginVertical: 10 }}
+        >
           <Text style={styles.text}>เมนูของฉัน</Text>
         </TouchableOpacity>
       </View>
@@ -89,7 +94,7 @@ const AddMenu = ({ props, navigation }) => {
               <Text style={[styles.text, { color: "#000" }]}>{item.kcal} Kcal</Text>
             </View>
             <TouchableOpacity
-              onPress={()=> delMenu(item)}
+              onPress={() => delMenu(item)}
               style={{
                 marginRight: 4,
                 marginBottom: 4,
