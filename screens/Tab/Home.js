@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput } from "react-native"
-import { Ionicons } from "@expo/vector-icons"
+import { Ionicons, FontAwesome5 } from "@expo/vector-icons"
 // import { useFonts, Mali_400Regular, Mali_700Bold } from "@expo-google-fonts/mali"
 import { useFonts } from "expo-font";
 import firebase from "../../Database/firebaseDB"
@@ -155,6 +155,7 @@ const Home = ({props, navigation}) => {
         </View>
         <TouchableOpacity style={{ backgroundColor: "lightpink", width: 115, height: 115, borderRadius: 100 }}>
           <Text style={[styles.text, { marginTop: 10 }]}> {total} </Text>
+          
           <Text style={{ borderBottomColor: "black", borderBottomWidth: 1, width: 115, alignSelf: "center", marginBottom: 10 }}></Text>
           <Text style={styles.text}>2430</Text>
         </TouchableOpacity>
