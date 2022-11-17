@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, Image, ScrollView, TouchableOpacity, Animated, Modal } from "react-native";
+import { View, StyleSheet, Text, Image, ScrollView, StatusBar, TouchableOpacity, Animated, Modal } from "react-native";
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import { useFonts } from "expo-font"
 
@@ -58,6 +58,11 @@ const Tab3 = (props) => {
   return (
     <View style={styles.container}>
       <ScrollView>
+        <StatusBar
+        barStyle='dark-content'
+        translucent
+        backgroundColor='rgba(0,0,0,0.0)'
+        />
         {/* ---------------------------------------------------Modal Cardio---------------------------- */}
         <ModalPoup visible={visible}>
           <View style={{ alignItems: 'center' }}>
@@ -71,7 +76,7 @@ const Tab3 = (props) => {
             </View>
           </View>
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, marginTop: -20 }} >-คำแนะนำ-
+            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 40, marginTop: -20 }} >-คำแนะนำ-
               <Image
                 source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/doctor2.png?alt=media&token=e62ab87b-4146-4ec8-ba9d-3360b1c68bd5' }}
                 style={{ height: 100, width: 100 }}
@@ -80,7 +85,7 @@ const Tab3 = (props) => {
           </View>
 
           <Text style={styles.detail}>
-            ผู้ป่วยโรคข้อต่ออักเสบ ความดันโลหิตสูง และโรคเบาหวาน ควรปรึกษาแพทย์ก่อนเริ่มการออกกำลังกาย
+            ผู้ป่วยโรคข้อต่ออักเสบ ความดันโลหิตสูง และโรคเบาหวาน ควรปรึกษาแพทย์ก่อนเริ่มการออกกำลังกายแบบ Cardio
 
           </Text>
         </ModalPoup>
@@ -118,7 +123,7 @@ const Tab3 = (props) => {
             </View>
           </View>
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, marginTop: -20 }} >-คำแนะนำ-
+            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 40, marginTop: -20 }} >-คำแนะนำ-
               <Image
                 source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/doctor2.png?alt=media&token=e62ab87b-4146-4ec8-ba9d-3360b1c68bd5' }}
                 style={{ height: 100, width: 100 }}
@@ -161,7 +166,7 @@ const Tab3 = (props) => {
             </View>
           </View>
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, marginTop: -20 }} >-คำแนะนำ-
+            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 40, marginTop: -20 }} >-คำแนะนำ-
               <Image
                 source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/doctor2.png?alt=media&token=e62ab87b-4146-4ec8-ba9d-3360b1c68bd5' }}
                 style={{ height: 100, width: 100 }}
@@ -205,7 +210,7 @@ const Tab3 = (props) => {
             </View>
           </View>
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, marginTop: -20 }} >-คำแนะนำ-
+            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 40, marginTop: -20 }} >-คำแนะนำ-
               <Image
                 source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/doctor2.png?alt=media&token=e62ab87b-4146-4ec8-ba9d-3360b1c68bd5' }}
                 style={{ height: 100, width: 100 }}
@@ -248,7 +253,7 @@ const Tab3 = (props) => {
             </View>
           </View>
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, marginTop: -20 }} >-คำแนะนำ-
+            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 40, marginTop: -20 }} >-คำแนะนำ-
               <Image
                 source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/doctor2.png?alt=media&token=e62ab87b-4146-4ec8-ba9d-3360b1c68bd5' }}
                 style={{ height: 100, width: 100 }}
@@ -291,7 +296,7 @@ const Tab3 = (props) => {
             </View>
           </View>
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, marginTop: -20 }} >-คำแนะนำ-
+            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 40, marginTop: -20 }} >-คำแนะนำ-
               <Image
                 source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/doctor2.png?alt=media&token=e62ab87b-4146-4ec8-ba9d-3360b1c68bd5' }}
                 style={{ height: 100, width: 100 }}
@@ -328,6 +333,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
+    marginTop:50,
     // justifyContent:'center',
     // marginHorizontal:10,
   },

@@ -34,126 +34,7 @@ const Video_posture = ({ route, navigation }) => {
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
     })
 
-    // CounterApp ()  {
-    const [state, setState] = useState({
-        count: 0,
-        isStart: false,
-        minutes_Counter: '00',
-        seconds_Counter: '00',
-    });
-    function timer() {
-        let time = setInterval(() => {
-            let second = (Number(state.seconds_Counter) + 1).toString()
-            let minute = state.minutes_Counter
-
-
-            if (Number(state.seconds_Counter) == 59) {
-                minute = (Number(state.minutes_Counter) + 1).toString()
-                second = '00'
-            }
-
-            setState({
-                minutes_Counter: minute.length == 1 ? '0' + minute : minute,
-                seconds_Counter: second.length == 1 ? '0' + second : second,
-
-            })
-        }, 1000)
-
-        setState({ time })
-        setState({ isStart: true })
-        console.log({ state })
-    }
-    function stop() {
-        console.log({ state })
-        clearInterval(state.time);
-        setState({ isStart: false });
-    }
-    // let CountTime;
-    function incrementCount(press) {
-        // let second 
-        // let CountTime;
-        console.log(press)
-        // if (press === 'start') {
-        let CountTime = setInterval(() => {
-
-            let second = state.count++
-            setState({ count: second });
-            console.log(state.count)
-        }
-
-            , 1000);
-
-        console.log({ CountTime })
-        setState({ CountTime })
-        // }
-        // else if (press === 'stop'){
-        //     console.log(state.CountTime)
-        //     clearInterval(CountTime);
-        //     console.log({ state })
-
-        // }
-
-        // setState({
-        //     count: state.count + 1
-        // });
-        // state.count = 10;
-
-        // if (!CountTime) {
-        //     CountTime = setInterval(add, 1000);
-
-        // CountTime = setInterval(function () {
-        // let second = (Number(state.count) + 1).toString()
-
-        // console.log(state.count);
-        // state.count++
-        // setState({
-        //     count: state.count
-
-        // });
-
-        // }, 1000);
-    }
-    // setState({ CountTime })
-    // setState({ isStart: true })
-
-
-
-    function add() {
-        state.count++
-        setState({
-            count: state.count
-
-        });
-    }
-
-
-    function decrementCount(press) {
-        console.log(press)
-        if (press === 'stop') {
-            console.log(state.CountTime)
-            clearInterval(state.CountTime);
-            console.log({ state })
-            // setState({
-            //     isStart: false
-            // });
-            // CountTime = null;
-            // console.log({ CountTime })
-        }
-        // clearInterval(incrementCount);
-        // setState({
-        //     count: state.count - 1,
-        // });
-    }
-
-    // return (
-    // <div>
-    //     <h1>{state.count}</h1>
-
-    //     <button onClick={incrementCount}>Increment</button>
-    //     <button onClick={decrementCount}>Decrement</button>
-    // </div>
-    // );
-    // };
+    
 
     const formatNumber = number => `0${number}`.slice(-2);
 
@@ -205,15 +86,6 @@ const Video_posture = ({ route, navigation }) => {
 
             ;
 
-        // addWorkout
-        //     .add(data)
-        //     .then(() => {
-        //         console.log("Add " + pos_name)
-        //     })
-        //     .catch((err) => {
-        //         alert(err)
-        //     })
-        // }
         setRemainingSecs(0);
         setIsActive(false);
         navigation.navigate("Record_history")
@@ -233,23 +105,12 @@ const Video_posture = ({ route, navigation }) => {
     return (
 
         <View style={styles.container}>
-            {/* <Text>
-                {pos_id}
-
-            </Text> */}
-
-            {/* <Text style={styles.text}>
-                {pos_video}
-
-            </Text> */}
-            {/* <Text style={styles.textTitle}>{pos_name}</Text> */}
             <YoutubePlayer
                 height={220}
                 play={true}
                 videoId={pos_video}
             />
             <Text style={styles.textTitle}>{'- ' + pos_name + ' -'}</Text>
-            {/* <View > */}
             <View style={styles.subcontainer}>
                 <Text style={styles.time}>{`${mins}:${secs}`}</Text>
                 <View style={styles.btn}>
@@ -268,29 +129,6 @@ const Video_posture = ({ route, navigation }) => {
                     </View>
                 </View>
             </View>
-            {/* <Button title="Stop" onClick={() => { incrementCount('stop') }} ></Button> */}
-            {/* </View> */}
-            {/* <Video
-            resizeMode='stretch'
-            useNativeControls
-            isLooping
-        onPlaybackStatusUpdate={status => setStatus(() => status)}
-                style={{
-                    width: screenWidth,
-                    height: (screenWidth * 9) / 16
-                }}
-                source={{
-                    uri: pos_video,
-                }}
-            />
-             */}
-            {/* <ImageBackground source={{ uri: blog_image }}>
-            <ScrollView>
-            <Text style={styles.textTitle}> {blog_name} </Text>
-            <Text style={styles.text}> {blog_detail} </Text>
-            </ScrollView>
-            </ImageBackground> */}
-            {/* <Text>Welcome to Video screen</Text> */}
         </View>
     );
 
@@ -298,8 +136,9 @@ const Video_posture = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        padding: 5,
+        marginTop: 60,
+        // flex: 1,
+        // padding: 5,
         // backgroundColor:'#000',
     },
     subcontainer: {

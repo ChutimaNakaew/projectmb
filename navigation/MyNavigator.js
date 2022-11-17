@@ -93,47 +93,73 @@ function Myinfo_type() {
         component={tab3}
         options={{
           title:'',
-          
+          headerShown: false
         }}
       />
       <info_type.Screen
         name="Cardio"
         component={cardio}
-        // screenOptions={{    title: ""      }}
+        options={{
+          title:'',
+          headerShown: false
+        }}
       />
       <info_type.Screen
         name="HIIT"
         component={hiit}
-        // screenOptions={{          }}
+        options={{
+          title:'',
+          headerShown: false
+        }}
       />
       <info_type.Screen
         name="Weight_Training"
         component={weight_training}
-        // screenOptions={{          }}
+        options={{
+          title:'',
+          headerShown: false
+        }}
       />
       <info_type.Screen
         name="Pilates"
         component={pilates}
-        // screenOptions={{          }}
+        options={{
+          title:'',
+          headerShown: false
+        }}
       />
       <info_type.Screen
         name="Yoga"
         component={yoga}
-        // screenOptions={{          }}
+        options={{
+          title:'',
+          headerShown: false
+        }}
       />
       <info_type.Screen
         name="Aerobic"
         component={aerobic}
-        // screenOptions={{          }}
+        options={{
+          title:'',
+          headerShown: false
+        }}
       />
       <info_type.Screen
         name="Video_posture"
         component={VideoScreen}
+        options={{
+          title:'',
+          headerShown: false
+        }}
         // screenOptions={{          }}
       />
       <info_type.Screen
         name="Video_pose(Mix ver.)"
         component={Video_pos}
+        options={{
+          title:'',
+          headerShown: false
+        }}
         // screenOptions={{          }}
       />
       <info_type.Screen
@@ -152,13 +178,14 @@ function Myblogdetail() {
         component={Blog}
         options={{
           title: "",
+          headerShown: false,
         }}
       />
       <Blogdetail.Screen
         name="BlogDetail"
         component={BlogDetail}
-        screenOptions={{
-          // headerShown: false,
+        options={{
+          headerShown: false,
           title: "",
           // headerTintColor: "white",
           // headerC

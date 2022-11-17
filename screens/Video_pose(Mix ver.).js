@@ -19,7 +19,7 @@ const Video_posture = ({ route, navigation }) => {
     const pos_name = postureName
     const pos_video = postureVideo
     const pos_kal = postureKcal
-    const post_timing = postureTiming 
+    const post_timing = postureTiming
 
     // const addWorkout = firebase.firestore().collection("user").doc("u1").collection("addWorkout")
     // const video = React.useRef(null);
@@ -63,73 +63,44 @@ const Video_posture = ({ route, navigation }) => {
             })
 
             ;
-         navigation.navigate("Record_history")
+        navigation.navigate("Record_history")
         // setRemainingSecs(0);
         // setIsActive(false);
     }
-   
+
     return (
 
         <View style={styles.container}>
-            {/* <Text>
-                {pos_id}
+                <YoutubePlayer
+                    height={220}
+                    play={true}
+                    videoId={pos_video}
+                />
+                <Text style={styles.textTitle}>{'- ' + pos_name + ' -'}</Text>
 
-            </Text> */}
+                <View style={styles.subcontainer}>
 
-            {/* <Text style={styles.text}>
-                {pos_video}
-
-            </Text> */}
-            {/* <Text style={styles.textTitle}>{pos_name}</Text> */}
-            <YoutubePlayer
-                height={220}
-                play={true}
-                videoId={pos_video}
-            />
-            <Text style={styles.textTitle}>{'- ' + pos_name + ' -'}</Text>
-            {/* <View > */}
-            <View style={styles.subcontainer}>
-               
-                <View>
-                    <View style={styles.btn2}>
-                        <TouchableOpacity onPress={() => record()} style={styles.buttonRecord}>
-                            <Text style={styles.text}>บันทึกผล</Text>
-                        </TouchableOpacity>
+                    <View>
+                        <View style={styles.btn2}>
+                            <TouchableOpacity onPress={() => record()} style={styles.buttonRecord}>
+                                <Text style={styles.text}>บันทึกผล</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
-            {/* <Button title="Stop" onClick={() => { incrementCount('stop') }} ></Button> */}
-            {/* </View> */}
-            {/* <Video
-            resizeMode='stretch'
-            useNativeControls
-            isLooping
-        onPlaybackStatusUpdate={status => setStatus(() => status)}
-                style={{
-                    width: screenWidth,
-                    height: (screenWidth * 9) / 16
-                }}
-                source={{
-                    uri: pos_video,
-                }}
-            />
-             */}
-            {/* <ImageBackground source={{ uri: blog_image }}>
-            <ScrollView>
-            <Text style={styles.textTitle}> {blog_name} </Text>
-            <Text style={styles.text}> {blog_detail} </Text>
-            </ScrollView>
-            </ImageBackground> */}
-            {/* <Text>Welcome to Video screen</Text> */}
         </View>
     );
 
 };
 
 const styles = StyleSheet.create({
+    header: {
+        marginTop: 60,
+    },
     container: {
-        flex: 1,
-        padding: 5,
+        // flex: 1,
+        // padding: 5,
+        marginTop: 60,
         // backgroundColor:'#000',
     },
     subcontainer: {
@@ -157,6 +128,7 @@ const styles = StyleSheet.create({
         // alignSelf: 'center',
         width: 320,
         height: 150,
+        // marginTop:60,
     },
     time: {
         fontSize: 70,

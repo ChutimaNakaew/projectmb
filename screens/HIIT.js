@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, ImageBackground, ScrollView } from "react-native"
-import { Ionicons } from "@expo/vector-icons"
+import { Ionicons, FontAwesome5 } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 
@@ -37,11 +37,11 @@ const HIIT = ({ props, navigation }) => {
   }
 
   return (
-    <View>
-       {/* <ScrollView > */}
+    <View style={styles.header}>
+    <Text onPress={navigation.goBack} style={{paddingLeft:8}}><FontAwesome5 name="chevron-left" size={30} color="#000" /> </Text>
+       
        <FlatList
           data={hiit}
-          // scrollEnabled={false}
           numColumns={2}
           renderItem={({ item }) => (
             <View>
@@ -53,20 +53,12 @@ const HIIT = ({ props, navigation }) => {
                       {item.posture_name}
                     </Text>
                 <ImageBackground source={{ uri: item.image }} style={styles.img_bg} resizeMode='stretch'>
-                  <View style={[styles.container, { flexDirection: "row" }]}>
-                    {/* <Text style={styles.title} numberOfLines={1}>
-                      {item.posture_name}
-                    </Text> */}
-                    {/* <Text style={styles.title} numberOfLines={1}>
-                      {} {item.kcal} Kcal
-                    </Text> */}
-                  </View>
+                 
                 </ImageBackground>
               </TouchableOpacity>
             </View>
           )}
         />
-       {/* </ScrollView> */}
     </View>
   )
 }
@@ -81,6 +73,9 @@ const styles = StyleSheet.create({
     margin: 5,
     height: 200,
     width: 185,
+  },
+  header:{
+    marginTop:60,
   },
   container: {
     flex: 1,

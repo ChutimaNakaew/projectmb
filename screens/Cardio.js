@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, ImageBackground, ScrollView } from "react-native"
-import { Ionicons } from "@expo/vector-icons"
+import { Ionicons, Icon, FontAwesome5 } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 
@@ -35,7 +35,10 @@ const Cardio = ({ props, navigation }) => {
   }
 
   return (
-    <View>
+    // <View>
+    <View style={styles.header}>
+      <Text onPress={navigation.goBack} style={{paddingLeft:8}}><FontAwesome5 name="chevron-left" size={30} color="#000" /> </Text>
+      
        <FlatList
           data={cardio}
           numColumns={2}
@@ -49,8 +52,7 @@ const Cardio = ({ props, navigation }) => {
                       {item.posture_name}
                     </Text>
                 <ImageBackground source={{ uri: item.image }} style={styles.img_bg} resizeMode='stretch'>
-                  <View style={[styles.container, { flexDirection: "row" }]}>
-                  </View>
+                  
                 </ImageBackground>
               </TouchableOpacity>
             </View>
@@ -60,6 +62,10 @@ const Cardio = ({ props, navigation }) => {
   )
 }
 const styles = StyleSheet.create({
+  header:{
+    marginTop:60,
+    paddingBottom:20
+  },
   text: {
     fontFamily: "FCMuffinRegular",
     fontSize: 18,

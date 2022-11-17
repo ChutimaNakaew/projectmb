@@ -35,7 +35,7 @@ const Blog = ({ props, navigation }) => {
   }
 
   return (
-    <View>
+    <View style={styles.header}>
       <FlatList
         data={blog}
         // numColumns={1}
@@ -65,6 +65,9 @@ const styles = StyleSheet.create({
     fontFamily: "FCMuffinRegular",
     fontSize: 18,
     textAlign: "center",
+  },
+  header:{
+    marginTop:50
   },
   gridItem: {
     flex: 1,
