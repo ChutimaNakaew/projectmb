@@ -5,50 +5,47 @@ import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 import * as ImagePicker from "expo-image-picker"
 
-const CreateMenu = ({ navigation }) => {
+const UpdateMyMenu = ({ navigation, route }) => {
   const [image, setImage] = useState(null)
   const [uploading, setUploading] = useState(false)
   const [show, setShow] = useState(true)
-  const [inputName, setInputName] = useState("")
-  const [inputCal, setInputCal] = useState(0)
-  // const [food, setFood] = useState([])
   const myMenu = firebase.firestore().collection("user").doc("u1").collection("myMenu")
+  const [name, setName] = useState(route.params.item.name)
+  const [kcal, setKcal] = useState(route.params.item.kcal)
+  const [img, setImg] = useState(route.params.item.img)
 
-  // useEffect(() => {
-  //   myMenu.onSnapshot((querySnapshot) => {
-  //     const food = []
-  //     querySnapshot.forEach((doc) => {
-  //       const { name, kcal, img } = doc.data()
-  //       food.push({
-  //         id: doc.id,
-  //         name,
-  //         kcal,
-  //         img,
-  //       })
-  //     })
-  //     setFood(food)
-  //   })
-  // }, [])
-
-  const add = () => {
-    const name = inputName 
-    const cal = inputCal
-    const img = image
-    // check have this menu
-    if (name && cal && img) {
-      // get timestamp
+  const update = () => {
+    if (image == null) {
       const timestamp = firebase.firestore.FieldValue.serverTimestamp()
-      const data = {
-        name: name,
-        date: timestamp,
-        kcal: cal,
-        img: img.uri,
-      }
       myMenu
-        .add(data)
+        .doc(route.params.item.id)
+        .update({
+          name: name,
+          kcal: kcal,
+          date: timestamp,
+        })
         .then(() => {
-          console.log("Add " + name)
-          alert("✅ เพิ่มเมนู " + "'" + name + "'")
+          console.log("Update " + name)
+          alert("✏️ อัพเดทเมนู " + "'" + name + "'")
+          navigation.navigate("MyMenu")
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    } else {
+      const img = image
+      const timestamp = firebase.firestore.FieldValue.serverTimestamp()
+      myMenu
+        .doc(route.params.item.id)
+        .update({
+          name: name,
+          kcal: kcal,
+          img: img.uri,
+          date: timestamp,
+        })
+        .then(() => {
+          console.log("Update " + name)
+          alert("✏️ อัพเดทเมนู " + "'" + name + "'")
           navigation.navigate("MyMenu")
         })
         .catch((err) => {
@@ -99,39 +96,53 @@ const CreateMenu = ({ navigation }) => {
     <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
       {show ? (
         <TouchableOpacity onPressIn={pickImage} onPressOut={() => setShow(!show)}>
-          <Image style={{ width: 320, height: 200 }} source={{ uri: "https://getstamped.co.uk/wp-content/uploads/WebsiteAssets/Placeholder.jpg" }} />
+          <Image style={{ width: 320, height: 200 }} source={{ uri: img }} />
         </TouchableOpacity>
       ) : null}
       <View>
         {image && <Image source={{ uri: image.uri }} style={{ width: 300, height: 300 }} />}
         <Text style={[styles.text, { textAlign: "left", marginTop: 15 }]}>ชื่อเมนู</Text>
         <TextInput
-          onChangeText={(text) => setInputName(text)}
+          value={name}
+          onChangeText={setName}
           style={[styles.text, { width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }]}
         ></TextInput>
 
-        <Text style={[styles.text, { textAlign: "left",}]}>ปริมาณแคลอรี่</Text>
+        <Text style={[styles.text, { textAlign: "left" }]}>ปริมาณแคลอรี่</Text>
         <View style={{ flexDirection: "row" }}>
           <TextInput
-            onChangeText={(text) => setInputCal(text)}
+            value={kcal}
+            onChangeText={setKcal}
             keyboardType="numeric"
-            style={[styles.text, { width: 220, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5,}]}
+            style={[styles.text, { width: 220, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }]}
           ></TextInput>
-          <Text style={[styles.text, { width: 95, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginLeft: 5, marginVertical: 5 }]}>Kcal</Text>
+          <Text style={[styles.text, { width: 95, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginLeft: 5, marginVertical: 5 }]}>
+            Kcal
+          </Text>
         </View>
-        <TouchableOpacity
-          style={{ width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }}
-          onPressIn={uploadImage}
-          onPressOut={add}
-        >
-          <Text style={styles.text}>สร้างเมนู</Text>
-        </TouchableOpacity>
+        {image === null ? (
+          <TouchableOpacity
+            style={{ width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }}
+            // onPressIn={uploadImage}
+            onPress={update}
+          >
+            <Text style={styles.text}>อัพเดทเมนู</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={{ width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }}
+            onPressIn={uploadImage}
+            onPressOut={update}
+          >
+            <Text style={styles.text}>อัพเดทเมนู</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   )
 }
 
-export default CreateMenu
+export default UpdateMyMenu
 
 const styles = StyleSheet.create({
   text: {

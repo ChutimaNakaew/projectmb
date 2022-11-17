@@ -3,21 +3,21 @@ import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, I
 import { Ionicons, AntDesign, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
-import { SearchBar } from "react-native-elements"
+// import { SearchBar } from "react-native-elements"
 
 const MyMenu = ({ navigation }) => {
   const [input, setInput] = useState("")
   const [showMenu, setShowMenu] = useState("")
   const myMenu = firebase.firestore().collection("user").doc("u1").collection("myMenu")
   const addFood = firebase.firestore().collection("user").doc("u1").collection("addFood")
-  const [data, setData] = useState("")
+  // const [data, setData] = useState("")
   const [food, setFood] = useState([])
 
-  useEffect(()=>{
-    if(data == ""){
-      return setData(food)
-    } 
-  })
+  // useEffect(()=>{
+  //   if(data == ""){
+  //     return setData(food)
+  //   } 
+  // })
 
   useEffect(() => {
     myMenu.onSnapshot((querySnapshot) => {
@@ -61,7 +61,7 @@ const MyMenu = ({ navigation }) => {
 
   const delMenu = (item) => {
     myMenu
-      .doc(item.key)
+      .doc(item.id)
       .delete()
       .then(() => {
         console.log("Delete " + item.name)
@@ -70,26 +70,6 @@ const MyMenu = ({ navigation }) => {
       .catch((err) => {
         alert(err)
       })
-  }
-
-  const updateMenu = (item) => {
-    myMenu
-    .doc(route.params.item.id)
-    .update()
-  }
-
-  const searchFunction = (text) => {
-    if (text.length > -1 && text !== " ") {
-      const updatedData = food.filter((item) => {
-        const item_data = `${item.name.toUpperCase()})`
-        const text_data = text.toUpperCase()
-        return item_data.indexOf(text_data) > -1
-      })
-      setData(updatedData)
-      setInput(text)
-    } else {
-      setData(food)
-    }
   }
 
   let [fontsLoaded] = useFonts({
@@ -102,7 +82,6 @@ const MyMenu = ({ navigation }) => {
 
   return (
     <View style={{ flex: 2, backgroundColor: "#e1e8ee" }}>
-      <SearchBar placeholder="ค้นหา" lightTheme round value={input} onChangeText={(text) => searchFunction(text)} autoCorrect={false} />
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("CreateMenu")
@@ -113,7 +92,7 @@ const MyMenu = ({ navigation }) => {
       </TouchableOpacity>
 
       <FlatList
-        data={data}
+        data={food}
         numColumns={1}
         renderItem={({ item }) => (
           <View
@@ -151,7 +130,7 @@ const MyMenu = ({ navigation }) => {
               </TouchableOpacity>
               <View style={{ justifyContent: "flex-end", flexDirection: "row" }}>
                 <TouchableOpacity
-                  onPress={() => delMenu(item)}
+                  onPress={() => navigation.navigate("UpdateMyMenu", {item})}
                   style={{
                     marginRight: 4,
                     marginBottom: 4,

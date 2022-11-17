@@ -53,7 +53,7 @@ const AddMenu = ({ props, navigation }) => {
           onPress={() => {
             navigation.navigate("AllMenu")
           }}
-          style={{ backgroundColor: "lightblue", padding: 10, width: 120, borderRadius: 15, marginLeft: 30, marginVertical: 10 }}
+          style={{ backgroundColor: "#d9d9d9", padding: 10, width: 120, borderRadius: 15, marginLeft: 30, marginVertical: 10 }}
         >
           <Text style={styles.text}>เมนูอาหาร</Text>
         </TouchableOpacity>
@@ -61,7 +61,7 @@ const AddMenu = ({ props, navigation }) => {
           onPress={() => {
             navigation.navigate("AddMyMenuNavigator")
           }}
-          style={{ backgroundColor: "lightblue", padding: 10, width: 120, borderRadius: 15, marginLeft: 100, marginVertical: 10 }}
+          style={{ backgroundColor: "#d9d9d9", padding: 10, width: 120, borderRadius: 15, marginLeft: 100, marginVertical: 10 }}
         >
           <Text style={styles.text}>เมนูของฉัน</Text>
         </TouchableOpacity>

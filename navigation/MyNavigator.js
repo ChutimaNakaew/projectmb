@@ -29,6 +29,7 @@ import Video_pos from "../screens/Video_pose(Mix ver.)"
 import History from "../screens/Record_history"
 import MyMenu from "../screens/MyMenu"
 import CreateMenu from "../screens/CreateMenu"
+import UpdateMyMenu from "../screens/UpdateMyMenu"
 
 
 // สร้าง navigator ตามโจทย์กำหนด
@@ -60,7 +61,7 @@ function CalNavigator() {
 
 function AddMenuNavigator() {
   return (
-    <Stack.Navigator initialRouteName="Addmenu">
+    <Stack.Navigator initialRouteName="AddMenu">
       <Stack.Screen name="AddMenu" component={AddMenu} options={{ title: "", headerShown: false }} />
       <Stack.Screen
         name="AllMenu"
@@ -80,7 +81,8 @@ function AddMyMenuNavigator() {
         component={MyMenu}
         options={{ title: "เมนูของฉัน", headerTitleStyle: { fontFamily: "FCMuffinRegular", fontSize: 28 } }}
       />
-      <Stack.Screen name="CreateMenu" component={CreateMenu} options={{ title: "", headerShown: false }} />
+      <Stack.Screen name="CreateMenu" component={CreateMenu} options={{ title: "",}} />
+      <Stack.Screen name="UpdateMyMenu" component={UpdateMyMenu} options={{ title: "",}} />
     </Stack.Navigator>
   )
 }
