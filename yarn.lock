@@ -2228,6 +2228,13 @@
     "prompts" "^2.4.0"
     "semver" "^6.3.0"
 
+"@react-native-community/datetimepicker@^6.7.0":
+  "integrity" "sha512-R8WA1nv6j2Q54+QFNkhzUzkOcN5lrtOCPyker272e8PopduAiirDMgu9hxNnfxd6NuB4n0VbRbRc7yl0O1V72Q=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/datetimepicker/-/datetimepicker-6.7.0.tgz"
+  "version" "6.7.0"
+  dependencies:
+    "invariant" "^2.2.4"
+
 "@react-native-firebase/app@16.4.3":
   "integrity" "sha512-6cXm4D3CIVK3N8WMAz+vL/rzjKmoAuFdtdnjLTYsFU/fsQGcsKkZSGiWfMbZASCwcnspRR1/FjyRC5Y4tzqiuA=="
   "resolved" "https://registry.npmjs.org/@react-native-firebase/app/-/app-16.4.3.tgz"

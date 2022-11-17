@@ -4,11 +4,49 @@ import { Ionicons } from "@expo/vector-icons"
 // import { useFonts, Mali_400Regular, Mali_700Bold } from "@expo-google-fonts/mali"
 import { useFonts } from "expo-font";
 import firebase from "../../Database/firebaseDB"
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const Home = ({props, navigation}) => {
   const [weight, onChangeWeight] = React.useState(null)
   const [height, onChangeHeight] = React.useState(null)
 
+// -----------------------------------ปฎิทินจ้า----------------------------------------------------------------------------
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+  const [text, setText] = useState('Empty');
+  const [getdate, setGetdate] = useState('');
+
+// ---------------------------------set default ของปฎฺิทิน--------------------------
+  useEffect(() => {
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    setGetdate(
+      date + '/' + month + '/' + year 
+    );
+  }, []);
+// ------------------------------------------------------------
+  const onChange = (event, selectedDate) =>{
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'androi' );
+    setDate(currentDate);
+
+    let tempDate = new Date(currentDate);
+    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' +tempDate.getFullYear();
+
+    setText(fDate)
+    console.log(fDate)
+    setGetdate (getdate => getdate = fDate) //---------------------วันที่ที่เลือกจะถูกเก็บค่าไว้ที่ getdate
+    
+  }
+
+  const showMode = (currentMode) =>{
+    setShow(true);
+    setMode(currentMode)
+  }
+
+  // ----------------------------------------------------------------------จบปฎิทิน---------------------------------
 
   // --------------ดึงข้อมูลKcalมาแสดงผลจ้า------------------------
   const [history, setHistory] = useState([])
@@ -44,12 +82,22 @@ const Home = ({props, navigation}) => {
   return (
     <View>
       <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 5, }}>
-        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center" }}>16 </Text>
-        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center" }}>ตุลาคม </Text>
-        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center" }}>2556</Text>
+
+        {/* {show &&} */}
+        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center" }} > {getdate} </Text>
+        {show && (
+          <DateTimePicker
+          testID="dateTimePicket"
+          value={date}
+          mode = {mode}
+          is24Hour = {true}
+          display = 'default'
+          onChange={onChange}
+          />
+          )} 
       </View>
 
-      <TouchableOpacity style={styles.btnCalendar}>
+      <TouchableOpacity style={styles.btnCalendar} onPress={() => showMode('date')} >
         <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 18 }}>ปฎิทิน</Text>
       </TouchableOpacity>
 

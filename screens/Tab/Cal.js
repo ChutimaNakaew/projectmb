@@ -5,6 +5,7 @@ import { useFonts } from "expo-font"
 import firebase from "../../Database/firebaseDB"
 
 const Cal = ({ props, navigation }) => {
+  
   // const [food, setFood] = useState([])
   // const foodRef = firebase.firestore().collection("food")
 
