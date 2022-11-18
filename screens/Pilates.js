@@ -49,7 +49,7 @@ const Pilates = ({ props, navigation }) => {
                 onPress={() => { navigation.navigate("Video_pose(Mix ver.)", { postureId: item.id, postureName: item.posture_name, postureVideo: item.video, postureKcal: item.kcal, postureTiming: item.video_time }) }}
               >
                 <Text numberOfLines={1} style={styles.title}>
-                      {item.posture_name}
+                      {item.posture_name} 
                     </Text>
                 <ImageBackground source={{ uri: item.image }} style={styles.img_bg} resizeMode='stretch'>
                   

@@ -4,10 +4,10 @@ import { Ionicons, FontAwesome5 } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 
-const History = ({ route, navigation }) => {
-    // const { date_pick } = route.params;
+const Calender = ({ route, navigation }) => {
+    const { date_pick } = route.params;
 
-    // const date_cal = date_pick
+    const date_cal = date_pick
     const [history, setHistory] = useState([])
     const [date, setDate] = useState('')
     // const [total, setTotal] = useState([])
@@ -69,44 +69,44 @@ const History = ({ route, navigation }) => {
     // const [name_posture, setName] = useState('');
     const [time_posture, setTime] = useState('');
     const name_posture = [];
-
+    
     // const time_posture = '';
     history.forEach(item => {
-        if (item.date !== null) {
-            const date_kcal = new Date(item.date.toDate().toISOString());
-            const year_kcal = date_kcal.getFullYear();
-            const month_kcal = date_kcal.getMonth() + 1;
-            const dt_kcal = date_kcal.getDate();
+        if(item.date !== null) {
+        const date_kcal = new Date(item.date.toDate().toISOString());
+        const year_kcal = date_kcal.getFullYear();
+        const month_kcal = date_kcal.getMonth() + 1;
+        const dt_kcal = date_kcal.getDate();
+        
 
-
-            if (dt_kcal < 10) {
-                dt_kcal = '0' + dt_kcal;
-            }
-            if (month_kcal < 10) {
-                month_kcal = '0' + month_kcal;
-            }
-            const date_picker = (dt_kcal + '/' + month_kcal + '/' + year_kcal)
-            if (date_picker === date) {
-                console.log('kcal ' + item.kcal)
-                // setName(item.name)
-                console.log('name is ' + item.name)
-                // name_posture = item.name
-                // console.log(name_posture)
-                total += item.kcal
-                let obj = {
-                    name: item.name,
-                    time: item.time
-
-                }
-                name_posture.push(obj)
-                console.log(name_posture)
-                // setName(name_posture => name_posture = item.name)
-                // setTime(time_posture => time_posture = item.time)
-                // name_posture = item.name;
-                // time_posture = item.time;
-            }
-
+        if (dt_kcal < 10) {
+            dt_kcal = '0' + dt_kcal;
         }
+        if (month_kcal < 10) {
+            month_kcal = '0' + month_kcal;
+        }
+        const date_picker = (dt_kcal + '/' + month_kcal + '/' + year_kcal)
+        if (date_picker === date_cal) {
+            console.log('kcal ' + item.kcal)
+            // setName(item.name)
+            console.log('name is '+item.name)
+            // name_posture = item.name
+            // console.log(name_posture)
+            total += item.kcal
+            let obj = {
+                name : item.name,
+                time: item.time
+
+            }
+            name_posture.push(obj)
+            console.log(name_posture)
+            // setName(name_posture => name_posture = item.name)
+            // setTime(time_posture => time_posture = item.time)
+            // name_posture = item.name;
+            // time_posture = item.time;
+        }
+        
+    }
     });
     let total_workout = total.toFixed(2)
     // console.log("Total: ", total);
@@ -122,6 +122,42 @@ const History = ({ route, navigation }) => {
     // -----------------------------------------------------------
 
 
+
+    const calculate = (item) => {
+        console.log(history)
+
+        // return total;
+        // const total = []
+        // total.push(item.kcal)
+
+        // item.kcal ++
+        // let total = 0
+        // console.log('abc------')
+        // console.log(total)
+        // console.log(item.kcal)
+        // console.log(item.kcal)
+        // item.kcal++
+        // setTotal = setTotal + item.kcal ;
+        // console.log(total)
+        // {
+
+        // total.map((item) => {
+        //     setTotal(total + item.kcal)
+        // })}
+
+
+        // if (item.kcal) {
+        // let total = 0;
+        // for (let i = 0; i < item.kcal.length; i++) {
+
+        //     setTotal += item.kcal[i]
+        // }
+        // let final = item.kcal++
+        // console.log('final total' + total)
+        // }
+
+    }
+
     let [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
     })
@@ -132,12 +168,12 @@ const History = ({ route, navigation }) => {
 
     return (
         <View style={{ flex: 2 }}>
-            {/* { name_posture.map((item, key)=>(
+             {/* { name_posture.map((item, key)=>(
          <Text key={key} >{ item.name } </Text>)
          )} */}
             {/* <Text style={styles.title}> {name_posture} </Text> */}
             {/* <ScrollView > */}
-            {/* <Text> {date_cal} </Text> */}
+            <Text style={{textAlign:'center', marginTop:5, fontFamily: "FCMuffinRegular", fontSize:25}}> บันทึกการออกกำลังกายประจำวันที่ {date_cal} </Text>
             <FlatList
                 data={name_posture}
                 // scrollEnabled={false}
@@ -148,6 +184,20 @@ const History = ({ route, navigation }) => {
                             <Text style={styles.title}> {item.name} </Text>
                             <Text style={styles.title}> {item.time} min. <FontAwesome5 name="check" size={24} color="#61B15A" /> </Text>
 
+                            {/* <Text  style={styles.title}> {item.kcal} Kcal</Text> */}
+                            {/* <TouchableOpacity onPress={() => calculate(item)}><Text>กด</Text></TouchableOpacity> */}
+
+
+                            {/* <ImageBackground source={{ uri: item.image }} style={styles.img_bg} resizeMode='stretch'> */}
+                            {/* <View style={[styles.container, { flexDirection: "row" }]}> */}
+                            {/* <Text style={styles.title} numberOfLines={1}>
+                        {item.posture_name}
+                      </Text> */}
+                            {/* <Text style={styles.title} numberOfLines={1}>
+                        {} {item.kcal} Kcal
+                      </Text> */}
+                            {/* </View> */}
+                            {/* </ImageBackground> */}
                         </View>
 
                     </View>
@@ -219,4 +269,4 @@ const styles = StyleSheet.create({
     },
 
 })
-export default History
+export default Calender

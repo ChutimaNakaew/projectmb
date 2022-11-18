@@ -61,7 +61,7 @@ const Video_posture = ({ route, navigation }) => {
 
     record = () => {
         
-        let totalKcal = ((pos_kal) * (remainingSecs / 60)).toFixed(2) //หาร60เพราะคิดเป็นper minute
+        let totalKcal = ((pos_kal) * (remainingSecs / 60)).toFixed(0) //หาร60เพราะคิดเป็นper minute
         // setTotalKcal(totalKcal => (totalKcal + pos_kal)*(remainingSecs/60));
         // alert('You have burned calories ' + totalKcal + ' Kcal')
         console.log('you time second is : ' + remainingSecs/60 + ' min.')
@@ -73,7 +73,7 @@ const Video_posture = ({ route, navigation }) => {
         firebase.firestore().collection("user").doc("u1").collection("addWorkout").add({
             name: pos_name,
             date: timestamp,
-            kcal: Number(totalKcal),
+            kcal: Number((totalKcal)),
             id: pos_id,
             time: Number((remainingSecs/60).toFixed(2))
         })

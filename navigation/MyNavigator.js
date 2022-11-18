@@ -30,6 +30,7 @@ import History from "../screens/Record_history"
 import MyMenu from "../screens/MyMenu"
 import CreateMenu from "../screens/CreateMenu"
 import UpdateMyMenu from "../screens/UpdateMyMenu"
+import Calender from "../screens/Calender_workout"
 
 
 // สร้าง navigator ตามโจทย์กำหนด
@@ -43,7 +44,7 @@ function HomeNavigator(){
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={Home} options={{ title: "", headerShown: false }} />
-      <Stack.Screen name="Record_history" component={History} options={{ title: "", headerShown: false }} />
+      <Stack.Screen name="Calender_workout" component={Calender} options={{ title: "", headerShown: false }} />
       {/* <Stack.Screen name="HistoryMenu" component={HistoryMenu} options={{ title: "" }} /> */}
     </Stack.Navigator>
   )

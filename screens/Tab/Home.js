@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput } from "react-native"
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons"
 // import { useFonts, Mali_400Regular, Mali_700Bold } from "@expo-google-fonts/mali"
@@ -6,69 +6,115 @@ import { useFonts } from "expo-font";
 import firebase from "../../Database/firebaseDB"
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const Home = ({props, navigation}) => {
+const Home = ({ props, navigation }) => {
   const [weight, onChangeWeight] = React.useState(null)
   const [height, onChangeHeight] = React.useState(null)
 
-// -----------------------------------ปฎิทินจ้า----------------------------------------------------------------------------
+  // -----------------------------------ปฎิทินจ้า----------------------------------------------------------------------------
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [text, setText] = useState('Empty');
   const [getdate, setGetdate] = useState('');
 
-// ---------------------------------set default ของปฎฺิทิน--------------------------
+  // ---------------------------------set default ของปฎฺิทิน--------------------------
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
     var year = new Date().getFullYear(); //Current Year
     setGetdate(
-      date + '/' + month + '/' + year 
+      date + '/' + month + '/' + year
     );
   }, []);
-// ------------------------------------------------------------
-  const onChange = (event, selectedDate) =>{
+  // ------------------------------------------------------------
+  const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'androi' );
+    setShow(Platform.OS === 'androi');
     setDate(currentDate);
 
     let tempDate = new Date(currentDate);
-    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' +tempDate.getFullYear();
+    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
 
     setText(fDate)
     console.log(fDate)
-    setGetdate (getdate => getdate = fDate) //---------------------วันที่ที่เลือกจะถูกเก็บค่าไว้ที่ getdate
-    
+    setGetdate(getdate => getdate = fDate) //---------------------วันที่ที่เลือกจะถูกเก็บค่าไว้ที่ getdate
+
   }
 
-  const showMode = (currentMode) =>{
+  const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode)
   }
 
   // ----------------------------------------------------------------------จบปฎิทิน---------------------------------
 
-  // --------------ดึงข้อมูลKcalมาแสดงผลจ้า------------------------
+  // --------------ดึงข้อมูลKcal workoutมาแสดงผลจ้า------------------------
   const [history, setHistory] = useState([])
+  const [history_food, setHistory_food] = useState([])
   const workoutRef = firebase.firestore().collection("user").doc("u1").collection("addWorkout");
+  const addfoodRef = firebase.firestore().collection("user").doc("u1").collection("addFood");
+  //-------------------------KCAl workout---------------------
   useEffect(() => {
     workoutRef.onSnapshot((querySnapshot) => {
       const history = []
       querySnapshot.forEach((doc) => {
-        const { kcal } = doc.data()
+        const { kcal, date } = doc.data()
         history.push({
           id: doc.id,
           kcal,
+          date
         })
       })
       setHistory(history)
     })
   }, [])
+  //------------------------------------------------------
+  //-------------------KCAL food-------------------------
+  useEffect(() => {
+    addfoodRef.onSnapshot((querySnapshot) => {
+      const history_food = []
+      querySnapshot.forEach((doc) => {
+        const { kcal, date } = doc.data()
+        history_food.push({
+          id: doc.id,
+          kcal,
+          date
+        })
+      })
+      setHistory_food(history_food)
+    })
+  }, [])
+  let Kcal_food = 0;
+  history_food.forEach(item => {
+    Kcal_food += item.kcal
+    
+  })
+  console.log(Kcal_food)
+  //---------------------------------------------------
   let total = 0;
   history.forEach(item => {
-    total += item.kcal
-  });
 
+    const date_kcal = new Date(item.date.toDate().toISOString());
+    const year_kcal = date_kcal.getFullYear();
+    const month_kcal = date_kcal.getMonth() + 1;
+    const dt_kcal = date_kcal.getDate();
+
+    if (dt_kcal < 10) {
+      dt_kcal = '0' + dt_kcal;
+    }
+    if (month_kcal < 10) {
+      month_kcal = '0' + month_kcal;
+    }
+    const date_picker = (dt_kcal + '/' + month_kcal + '/' + year_kcal )
+    if(date_picker === getdate){
+      console.log('same')
+      total += item.kcal
+    }
+  });
+  console.log(total)
+  let total_workout = total.toFixed(2)
+  let total_kcal = (Kcal_food - total).toFixed(2) 
+  console.log('total '+total_kcal)
   // --------------------------------------------------------------
 
   let [fontsLoaded] = useFonts({
@@ -87,14 +133,14 @@ const Home = ({props, navigation}) => {
         <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center" }} > {getdate} </Text>
         {show && (
           <DateTimePicker
-          testID="dateTimePicket"
-          value={date}
-          mode = {mode}
-          is24Hour = {true}
-          display = 'default'
-          onChange={onChange}
+            testID="dateTimePicket"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display='default'
+            onChange={onChange}
           />
-          )} 
+        )}
       </View>
 
       <TouchableOpacity style={styles.btnCalendar} onPress={() => showMode('date')} >
@@ -141,7 +187,7 @@ const Home = ({props, navigation}) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.resultWorkout} onPress={() => { navigation.navigate("Record_history")}}>
+      <TouchableOpacity style={styles.resultWorkout} onPress={() => { navigation.navigate("Calender_workout", { date_pick: getdate}) }}>
         <Text style={styles.text}>
           <Ionicons name="ios-trophy" size={20} color="#ffb81c" />
           บันทึกการออกกำลังกาย
@@ -151,11 +197,11 @@ const Home = ({props, navigation}) => {
       <View style={{ margin: 10, flexDirection: "row" }}>
         <View style={{ flexDirection: "column", marginRight: 120 }}>
           <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, marginTop: 10 }}>Total Workout</Text>
-          <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, color: "red" }}> {total} KCAL</Text>
+          <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, color: "red" }}> {total_workout} KCAL</Text>
         </View>
         <TouchableOpacity style={{ backgroundColor: "lightpink", width: 115, height: 115, borderRadius: 100 }}>
-          <Text style={[styles.text, { marginTop: 10 }]}> {total} </Text>
-          
+          <Text style={[styles.text, { marginTop: 10 }]}> {total_kcal} </Text>
+
           <Text style={{ borderBottomColor: "black", borderBottomWidth: 1, width: 115, alignSelf: "center", marginBottom: 10 }}></Text>
           <Text style={styles.text}>2430</Text>
         </TouchableOpacity>
