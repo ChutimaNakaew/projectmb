@@ -31,8 +31,8 @@ const CreateMenu = ({ navigation }) => {
   // }, [])
 
   const add = () => {
-    const name = inputName 
-    const cal = inputCal
+    const name = inputName
+    const cal = Number(inputCal)
     const img = image
     // check have this menu
     if (name && cal && img) {
@@ -110,14 +110,16 @@ const CreateMenu = ({ navigation }) => {
           style={[styles.text, { width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }]}
         ></TextInput>
 
-        <Text style={[styles.text, { textAlign: "left",}]}>ปริมาณแคลอรี่</Text>
+        <Text style={[styles.text, { textAlign: "left" }]}>ปริมาณแคลอรี่</Text>
         <View style={{ flexDirection: "row" }}>
           <TextInput
-            onChangeText={(text) => setInputCal(text)}
+            onChangeText={(num) => setInputCal(num)}
             keyboardType="numeric"
-            style={[styles.text, { width: 220, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5,}]}
+            style={[styles.text, { width: 220, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }]}
           ></TextInput>
-          <Text style={[styles.text, { width: 95, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginLeft: 5, marginVertical: 5 }]}>Kcal</Text>
+          <Text style={[styles.text, { width: 95, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginLeft: 5, marginVertical: 5 }]}>
+            Kcal
+          </Text>
         </View>
         <TouchableOpacity
           style={{ width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }}

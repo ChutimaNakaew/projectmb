@@ -32,7 +32,6 @@ import CreateMenu from "../screens/CreateMenu"
 import UpdateMyMenu from "../screens/UpdateMyMenu"
 import Calender from "../screens/Calender_workout"
 
-
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -40,7 +39,7 @@ const info_type = createNativeStackNavigator()
 const Blogdetail = createNativeStackNavigator()
 const MainNavigator = createDrawerNavigator()
 
-function HomeNavigator(){
+function HomeNavigator() {
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={Home} options={{ title: "", headerShown: false }} />
@@ -54,8 +53,23 @@ function CalNavigator() {
   return (
     <Stack.Navigator initialRouteName="Cal">
       <Stack.Screen name="Cal" component={Cal} options={{ title: "", headerShown: false }} />
-      <Stack.Screen name="AddMenuNavigator" component={AddMenuNavigator} options={{ title: "", headerShown: false }} />
-      <Stack.Screen name="HistoryMenu" component={HistoryMenu} options={{ title: "" }} />
+      <Stack.Screen
+        name="AddMenuNavigator"
+        component={AddMenuNavigator}
+        // options={({ navigation, route }) => ({
+        //   title: "",
+        //   props: route.params.getDate,
+        //   navigate: route.params.getDate,
+        // })}
+      />
+      <Stack.Screen
+        name="HistoryMenu"
+        component={HistoryMenu}
+        options={({ route }) => ({
+          title: "เมนูวันที่ " + route.params.fDate,
+          headerTitleStyle: { fontFamily: "FCMuffinRegular", fontSize: 28 },
+        })}
+      />
     </Stack.Navigator>
   )
 }
@@ -63,7 +77,7 @@ function CalNavigator() {
 function AddMenuNavigator() {
   return (
     <Stack.Navigator initialRouteName="AddMenu">
-      <Stack.Screen name="AddMenu" component={AddMenu} options={{ title: "", headerShown: false }} />
+      <Stack.Screen name="AddMenu" component={AddMenu} />
       <Stack.Screen
         name="AllMenu"
         component={AllMenu}
@@ -82,8 +96,8 @@ function AddMyMenuNavigator() {
         component={MyMenu}
         options={{ title: "เมนูของฉัน", headerTitleStyle: { fontFamily: "FCMuffinRegular", fontSize: 28 } }}
       />
-      <Stack.Screen name="CreateMenu" component={CreateMenu} options={{ title: "",}} />
-      <Stack.Screen name="UpdateMyMenu" component={UpdateMyMenu} options={{ title: "",}} />
+      <Stack.Screen name="CreateMenu" component={CreateMenu} options={{ title: "" }} />
+      <Stack.Screen name="UpdateMyMenu" component={UpdateMyMenu} options={{ title: "" }} />
     </Stack.Navigator>
   )
 }
@@ -95,64 +109,64 @@ function Myinfo_type() {
         name="Catagories"
         component={tab3}
         options={{
-          title:'',
-          headerShown: false
+          title: "",
+          headerShown: false,
         }}
       />
       <info_type.Screen
         name="Cardio"
         component={cardio}
         options={{
-          title:'',
-          headerShown: false
+          title: "",
+          headerShown: false,
         }}
       />
       <info_type.Screen
         name="HIIT"
         component={hiit}
         options={{
-          title:'',
-          headerShown: false
+          title: "",
+          headerShown: false,
         }}
       />
       <info_type.Screen
         name="Weight_Training"
         component={weight_training}
         options={{
-          title:'',
-          headerShown: false
+          title: "",
+          headerShown: false,
         }}
       />
       <info_type.Screen
         name="Pilates"
         component={pilates}
         options={{
-          title:'',
-          headerShown: false
+          title: "",
+          headerShown: false,
         }}
       />
       <info_type.Screen
         name="Yoga"
         component={yoga}
         options={{
-          title:'',
-          headerShown: false
+          title: "",
+          headerShown: false,
         }}
       />
       <info_type.Screen
         name="Aerobic"
         component={aerobic}
         options={{
-          title:'',
-          headerShown: false
+          title: "",
+          headerShown: false,
         }}
       />
       <info_type.Screen
         name="Video_posture"
         component={VideoScreen}
         options={{
-          title:'',
-          headerShown: false
+          title: "",
+          headerShown: false,
         }}
         // screenOptions={{          }}
       />
@@ -160,8 +174,8 @@ function Myinfo_type() {
         name="Video_pose(Mix ver.)"
         component={Video_pos}
         options={{
-          title:'',
-          headerShown: false
+          title: "",
+          headerShown: false,
         }}
         // screenOptions={{          }}
       />
