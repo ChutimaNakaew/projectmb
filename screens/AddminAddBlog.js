@@ -11,10 +11,9 @@ const SignupPage = ({navigation}) => {
     'FCMuffinRegular': require('../assets/fonts/FCMuffinRegular.otf'),
   });
 
-  const [info, setInfo] = useState({username:"", email:"", password:"", uuid: uuid()});
-  const [username, setUsername] = useState("");
+  const [info, setInfo] = useState({image: "", detail: "", name: "", background: ""});
 
-  const dbRef = firebase.firestore().collection('user');
+  const dbRef = firebase.firestore().collection('workout').doc("XXVlurGq69GuDCTFmCU2").collection('blog');
 
   const InputValueUpdate = (val, props) =>{
     info[props] = val;
@@ -24,16 +23,17 @@ const SignupPage = ({navigation}) => {
 
   const StoreUser = () =>{
     console.log("เข้าแล้วจ้า")
-    if (info.username == "") {
-      alert('Please fill username');
+    if (info.image == "" || info.detail == "" || info.name == "" || info.background == "") {
+      alert('กรุณาใส่ข้อมูลให้ครบ');
     }else {
       dbRef.add({
-        username: info.username,
-        email: info.email,
-        password: info.password,
-        uuid: info.uuid
+        detail: info.detail,
+        name: info.name,
+        background: info.background,
+        image: info.image,
+        id: uuid()
       })
-      navigation.navigate('QuestionSexPage')
+      navigation.navigate('AddminBlog')
     }
     } 
 
@@ -43,7 +43,7 @@ const SignupPage = ({navigation}) => {
       {/* ใส่พื้นหลัง */}
       <ImageBackground source={require("../assets/ImageBackground/loginPageBG.png")} resizeMode="cover" style={styles.image}>
 
-      <Pressable style={styles.buttonBack} onPress={() => navigation.navigate('FristScreen')}>
+      <Pressable style={styles.buttonBack} onPress={() => navigation.navigate('AddminHome')}>
       <AntDesign name="arrowleft" size={40} color="white" />
       </Pressable>
       
@@ -51,37 +51,43 @@ const SignupPage = ({navigation}) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.boxInfo}
     >
-      <Text style={styles.textTitle}>สมัครสมาชิก</Text>
+      <Text style={styles.textTitle}>เพิ่มบล๊อก</Text>
       <ScrollView style={styles.scrollView}>
-      <Image
-        style={styles.logo}
-        source={require('../assets/WORKY_LOGO.gif')}
-      />
-
-<Text style={styles.textNomal}>ชื่อผู้ใช้</Text>
+<Text style={styles.textNomal}>ชื่อบล๊อก</Text>
       <TextInput
         style={styles.TextInput}
-        placeholder="ชื่อผู้ใช้"
-        onChangeText={val => InputValueUpdate(val, 'username')}
+        placeholder="ชื่อบล๊อก"
+        onChangeText={val => InputValueUpdate(val, 'name')}
       />
 
-      <Text style={styles.textNomal}>อีเมล</Text>
+      <Text style={styles.textNomal}>รูปภาพ</Text>
       <TextInput
         style={styles.TextInput}
-        placeholder="อีเมล"
-        onChangeText={val => InputValueUpdate(val, 'email')}
+        placeholder="รูปภาพ"
+        onChangeText={val => InputValueUpdate(val, 'image')}
       />
 
-<Text style={styles.textNomal}>รหัสผ่าน</Text>
+<Text style={styles.textNomal}>รายละเอียด</Text>
+
+<TextInput
+   multiline={true}
+   numberOfLines={12}
+   textAlignVertical = "top"
+   style={styles.TextArea}
+        placeholder="รายละเอียด"
+        onChangeText={(val) => InputValueUpdate(val, 'detail')}
+        />
+
+<Text style={styles.textNomal}>ภาพพื้นหลัง</Text>
       <TextInput
         style={styles.TextInput}
-        placeholder="รหัสผ่าน"
-        onChangeText={(val) => InputValueUpdate(val, 'password')}
+        placeholder="ภาพพื้นหลัง"
+        onChangeText={(val) => InputValueUpdate(val, 'background')}
       />
 
       <TouchableOpacity style={styles.button}
       onPress={() => StoreUser()} >
-      <Text style={styles.textButton}>ลงทะเบียน</Text>
+      <Text style={styles.textButton}>สำเร็จ</Text>
       </TouchableOpacity>
 
       </ScrollView>
@@ -181,6 +187,17 @@ const styles = StyleSheet.create({
     top: 60,
     left: 20,
     zIndex: 1,
-  },
+  },TextArea: {
+    height: 200,
+    width: "90%",
+    marginTop: 2,
+    marginHorizontal: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: "lightgrey",
+    fontFamily: "FCMuffinRegular",
+  }
 })
 export default SignupPage

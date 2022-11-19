@@ -11,10 +11,9 @@ const SignupPage = ({navigation}) => {
     'FCMuffinRegular': require('../assets/fonts/FCMuffinRegular.otf'),
   });
 
-  const [info, setInfo] = useState({username:"", email:"", password:"", uuid: uuid()});
-  const [username, setUsername] = useState("");
+  const [info, setInfo] = useState({img:"", kcal:0, name:""});
 
-  const dbRef = firebase.firestore().collection('user');
+  const dbRef = firebase.firestore().collection('food');
 
   const InputValueUpdate = (val, props) =>{
     info[props] = val;
@@ -24,16 +23,15 @@ const SignupPage = ({navigation}) => {
 
   const StoreUser = () =>{
     console.log("เข้าแล้วจ้า")
-    if (info.username == "") {
-      alert('Please fill username');
+    if (info.name == "" || info.img == "" || info.kcal == "") {
+      alert('กรุณาใส่ข้อมูลให้ครบ');
     }else {
       dbRef.add({
-        username: info.username,
-        email: info.email,
-        password: info.password,
-        uuid: info.uuid
+        img: info.img,
+        name: info.name,
+        kcal: parseFloat(info.kcal),
       })
-      navigation.navigate('QuestionSexPage')
+      navigation.navigate('AddminFood')
     }
     } 
 
@@ -43,7 +41,7 @@ const SignupPage = ({navigation}) => {
       {/* ใส่พื้นหลัง */}
       <ImageBackground source={require("../assets/ImageBackground/loginPageBG.png")} resizeMode="cover" style={styles.image}>
 
-      <Pressable style={styles.buttonBack} onPress={() => navigation.navigate('FristScreen')}>
+      <Pressable style={styles.buttonBack} onPress={() => navigation.navigate('AddminFood')}>
       <AntDesign name="arrowleft" size={40} color="white" />
       </Pressable>
       
@@ -51,40 +49,35 @@ const SignupPage = ({navigation}) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.boxInfo}
     >
-      <Text style={styles.textTitle}>สมัครสมาชิก</Text>
+      <Text style={styles.textTitle}>เพิ่มเมนู</Text>
       <ScrollView style={styles.scrollView}>
-      <Image
-        style={styles.logo}
-        source={require('../assets/WORKY_LOGO.gif')}
-      />
 
-<Text style={styles.textNomal}>ชื่อผู้ใช้</Text>
+<Text style={styles.textNomal}>ชื่อเมนู</Text>
       <TextInput
         style={styles.TextInput}
-        placeholder="ชื่อผู้ใช้"
-        onChangeText={val => InputValueUpdate(val, 'username')}
+        placeholder="ชื่อเมนู"
+        onChangeText={val => InputValueUpdate(val, 'name')}
       />
 
-      <Text style={styles.textNomal}>อีเมล</Text>
+      <Text style={styles.textNomal}>รูปภาพ</Text>
       <TextInput
         style={styles.TextInput}
-        placeholder="อีเมล"
-        onChangeText={val => InputValueUpdate(val, 'email')}
+        placeholder="รูปภาพ"
+        onChangeText={val => InputValueUpdate(val, 'img')}
       />
 
-<Text style={styles.textNomal}>รหัสผ่าน</Text>
+<Text style={styles.textNomal}>kcal</Text>
       <TextInput
         style={styles.TextInput}
-        placeholder="รหัสผ่าน"
-        onChangeText={(val) => InputValueUpdate(val, 'password')}
+        placeholder="kcal"
+        onChangeText={(val) => InputValueUpdate(val, 'kcal')}
       />
-
-      <TouchableOpacity style={styles.button}
-      onPress={() => StoreUser()} >
-      <Text style={styles.textButton}>ลงทะเบียน</Text>
-      </TouchableOpacity>
 
       </ScrollView>
+      <TouchableOpacity style={styles.button}
+      onPress={() => StoreUser()} >
+      <Text style={styles.textButton}>สำเร็จ</Text>
+      </TouchableOpacity>
       </KeyboardAvoidingView>
 
       </ImageBackground>
@@ -111,7 +104,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     backgroundColor: "white",
-    flex: 0.9,
+    flex: 0.6,
     width: "85%",
     justifyContent: "center",
     alignSelf: "center",

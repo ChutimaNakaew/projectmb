@@ -11,43 +11,43 @@ const UpdateMyMenu = ({ navigation, route }) => {
   const [show, setShow] = useState(true)
   const myMenu = firebase.firestore().collection("user").doc("u1").collection("myMenu")
   const [name, setName] = useState(route.params.item.name)
-  const [kcal, setKcal] = useState(route.params.item.kcal)
+  const [kcal, setKcal] = useState(route.params.item.kcal.toString())
   const [img, setImg] = useState(route.params.item.img)
 
-  const update = () => {
+  const update = (name, cal, url) => {
     if (image == null) {
       const timestamp = firebase.firestore.FieldValue.serverTimestamp()
-      const cal = Number(kcal)
-      myMenu
-        .doc(route.params.item.id)
-        .update({
-          name: name,
-          kcal: cal,
-          date: timestamp,
-        })
-        .then(() => {
-          console.log("Update " + name)
-          alert("✏️ อัพเดทเมนู " + "'" + name + "'")
-          navigation.navigate("MyMenu")
-        })
-        .catch((err) => {
-          alert(err)
-        })
-    } else {
-      const img = image
-      const timestamp = firebase.firestore.FieldValue.serverTimestamp()
+      // const cal = Number(kcal)
       myMenu
         .doc(route.params.item.id)
         .update({
           name: name,
           kcal: kcal,
-          img: img.uri,
           date: timestamp,
         })
         .then(() => {
           console.log("Update " + name)
           alert("✏️ อัพเดทเมนู " + "'" + name + "'")
-          navigation.navigate("MyMenu")
+          // navigation.navigate("MyMenu")
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    } else {
+      // const img = url
+      const timestamp = firebase.firestore.FieldValue.serverTimestamp()
+      // const cal = Number(kcal)
+      myMenu
+        .doc(route.params.item.id)
+        .update({
+          name: name,
+          kcal: cal,
+          img: url,
+          date: timestamp,
+        })
+        .then(() => {
+          console.log("Update " + name)
+          // navigation.navigate("MyMenu")
         })
         .catch((err) => {
           alert(err)
@@ -69,16 +69,31 @@ const UpdateMyMenu = ({ navigation, route }) => {
   }
 
   const uploadImage = async () => {
-    setUploading(true)
-    const response = await fetch(image.uri)
-    const blob = await response.blob()
-    const fileName = image.uri.substring(image.uri.lastIndexOf("/") + 1)
-    var ref = firebase.storage().ref().child(fileName).put(blob)
-
-    try {
-      await ref
-    } catch (e) {
-      console.log(e)
+    if (image) {
+      setUploading(true)
+      const response = await fetch(image.uri)
+      const blob = await response.blob()
+      const fileName = image.uri.substring(image.uri.lastIndexOf("/") + 1)
+      var ref = firebase.storage().ref().child(fileName)
+      ref.put(blob).then((snapshot) => {
+        snapshot.ref.getDownloadURL().then((url) => {
+          console.log("url: ", url)
+          // const name = name
+          const cal = Number(kcal)
+          update(name, cal, url)
+          navigation.navigate("MyMenu")
+          alert("✏️ อัพเดทเมนู " + "'" + name + "'")
+        })
+      })
+      try {
+        await ref
+      } catch (e) {
+        console.log(e)
+      }
+    } else {
+      const cal = Number(kcal)
+      update(name, cal)
+      navigation.navigate("MyMenu")
     }
     setUploading(false)
     // Alert.alert("Photo uploaded !")
@@ -121,7 +136,7 @@ const UpdateMyMenu = ({ navigation, route }) => {
             Kcal
           </Text>
         </View>
-        {image === null ? (
+        {/* {image === null ? (
           <TouchableOpacity
             style={{ width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }}
             // onPressIn={uploadImage}
@@ -129,15 +144,15 @@ const UpdateMyMenu = ({ navigation, route }) => {
           >
             <Text style={styles.text}>อัพเดทเมนู</Text>
           </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            style={{ width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }}
-            onPressIn={uploadImage}
-            onPressOut={update}
-          >
-            <Text style={styles.text}>อัพเดทเมนู</Text>
-          </TouchableOpacity>
-        )}
+        ) : ( */}
+        <TouchableOpacity
+          style={{ width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }}
+          onPress={uploadImage}
+          // onPressOut={update}
+        >
+          <Text style={styles.text}>อัพเดทเมนู</Text>
+        </TouchableOpacity>
+        {/* )} */}
       </View>
     </View>
   )

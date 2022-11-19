@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useFonts } from "expo-font";
 
-const QuestionSexPage = () => {
+const QuestionSexPage = ({navigation}) => {
     const [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
     });
@@ -22,25 +22,20 @@ const QuestionSexPage = () => {
                 resizeMode="cover"
                 style={styles.image}
             >
-                <KeyboardAvoidingView
-                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                <View
                     style={styles.boxInfo}
                 >
-                    <Text style={styles.textTitle}>เลือกเพศของคุณ</Text>
-                    <ScrollView style={styles.scrollView}>
-                        <TouchableOpacity style={styles.buttonF}>
-                            <Text style={styles.textButton}>👩🏻 ผู้หญิง</Text>
+                    <View style={styles.scrollView}>
+                        <TouchableOpacity style={styles.buttonF} onPress={() => navigation.navigate('LoginPage')}>
+                            <Text style={styles.textButton} >เข้าสู่ระบบ</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.buttonM}>
-                            <Text style={styles.textButton}>👱🏼‍♂️ ผู้ชาย</Text>
+                        <TouchableOpacity style={styles.buttonM} onPress={() => navigation.navigate('SignupPage')}>
+                            <Text style={styles.textButton} >ลงทะเบียน</Text>
                         </TouchableOpacity>
 
-                        {/* <TouchableOpacity style={styles.button}>
-                            <Text style={styles.textButton}>ต่อไป</Text>
-                        </TouchableOpacity> */}
-                    </ScrollView>
-                </KeyboardAvoidingView>
+                    </View>
+                </View>
             </ImageBackground>
         </View>
     );
@@ -141,7 +136,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         textColor: "balck",
         marginTop: 20,
-        marginBottom: 10,
         fontFamily: "FCMuffinRegular",
     }
 });

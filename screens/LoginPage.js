@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     width: 270,
     height: 270,
     alignSelf: "center",
-    marginBottom: 20
   },
   image: {
     flex: 1,
@@ -80,22 +79,18 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: 10,
     borderWidth: 1,
-    textColor: "balck",
     marginTop: 20,
     fontFamily: "FCMuffinRegular",
   },
   textTitle: {
     fontFamily: "FCMuffinRegular",
     fontSize: 60,
-    fontWeight: 'bold',
-    marginBottom: 20,
     marginTop: 20,
   },
   textNomal: {
     fontFamily: "FCMuffinRegular",
     fontSize: 25,
     marginBottom: 0,
-    fontWeight: 'bold',
     alignSelf: "flex-start",
     marginHorizontal: 12
   },
@@ -103,7 +98,6 @@ const styles = StyleSheet.create({
     fontFamily: "FCMuffinRegular",
     fontSize: 25,
     marginBottom: 0,
-    fontWeight: 'bold',
     alignSelf: "center",
   },
   scrollView: {

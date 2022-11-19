@@ -28,9 +28,9 @@ const Cal = ({ props, navigation }) => {
   const addFood = firebase.firestore().collection("user").doc("u1").collection("addFood")
   const [showMenu, setAddMenu] = useState([])
   useEffect(() => {
-    addFood.orderBy("date", "desc").onSnapshot((querySnapshot) => {
+    addFood.orderBy("date", "desc").onSnapshot( async (querySnapshot) => {
       const showMenu = []
-      querySnapshot.forEach((doc) => {
+      await querySnapshot.forEach((doc) => {
         const { name, kcal, id, date, img } = doc.data()
         showMenu.push({
           key: doc.id,
@@ -76,12 +76,15 @@ const Cal = ({ props, navigation }) => {
   }
 
   const sameday = showMenu.filter((item) => {
-    const date = new Date(item.date.toDate().toISOString())
-    const day = date.getDate()
-    const month = date.getMonth() + 1
-    const year = date.getFullYear()
-    const menuDate = day + "/" + month + "/" + year
-    return menuDate == getdate
+    if (item.date !== null) {
+      const date = new Date(item.date.toDate().toISOString())
+      console.log(item.name + ": " + date)
+      const day = date.getDate()
+      const month = date.getMonth() + 1
+      const year = date.getFullYear()
+      const menuDate = day + "/" + month + "/" + year
+      return menuDate == getdate
+    }
   })
 
   // --------------ดึงข้อมูลKcalมาแสดงผลจ้า------------------------
@@ -149,7 +152,7 @@ const Cal = ({ props, navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("AddMenuNavigator", { getdate })
+            navigation.navigate("AddMenuNavigator", { screen: "AddMenu", params: { getdate } })
           }}
           style={{ backgroundColor: "#bbb", width: 100, padding: 10, borderRadius: 15, marginTop: 10 }}
         >

@@ -6,15 +6,18 @@ import firebase from "../Database/firebaseDB";
 import uuid from 'react-uuid';
 
 
-const SignupPage = ({navigation}) => {
+const SignupPage = ({navigation, route}) => {
   let [fontsLoaded] = useFonts({
     'FCMuffinRegular': require('../assets/fonts/FCMuffinRegular.otf'),
   });
 
-  const [info, setInfo] = useState({username:"", email:"", password:"", uuid: uuid()});
-  const [username, setUsername] = useState("");
+  const { name_Weight, collect_name} = route.params;
+    const colName = collect_name
+    const name_weight = name_Weight;
 
-  const dbRef = firebase.firestore().collection('user');
+  const [info, setInfo] = useState({ image: "", kcal: "", posture_name: "", video: "", video_time:0 });
+
+  const dbRef = firebase.firestore().collection('workout').doc("XXVlurGq69GuDCTFmCU2").collection('exercise').doc(name_Weight).collection(collect_name);
 
   const InputValueUpdate = (val, props) =>{
     info[props] = val;
@@ -24,16 +27,14 @@ const SignupPage = ({navigation}) => {
 
   const StoreUser = () =>{
     console.log("เข้าแล้วจ้า")
-    if (info.username == "") {
-      alert('Please fill username');
+    if (info.image == "" || info.kcal == "" || info.posture_name== "" || info.video == "" || info.video_time == "" ) {
+      alert('กรุณาใส่ข้อมูลให้ครบ');
     }else {
       dbRef.add({
-        username: info.username,
-        email: info.email,
-        password: info.password,
-        uuid: info.uuid
+        image: info.image, kcal: info.kcal, posture_name: info.posture_name, video: info.video, video_time: info.video_time ,
+        id: uuid()
       })
-      navigation.navigate('QuestionSexPage')
+      navigation.navigate('AddminWorkoutCategory')
     }
     } 
 
@@ -43,7 +44,7 @@ const SignupPage = ({navigation}) => {
       {/* ใส่พื้นหลัง */}
       <ImageBackground source={require("../assets/ImageBackground/loginPageBG.png")} resizeMode="cover" style={styles.image}>
 
-      <Pressable style={styles.buttonBack} onPress={() => navigation.navigate('FristScreen')}>
+      <Pressable style={styles.buttonBack} onPress={() => navigation.navigate('AddminWorkoutCategory')}>
       <AntDesign name="arrowleft" size={40} color="white" />
       </Pressable>
       
@@ -51,37 +52,51 @@ const SignupPage = ({navigation}) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.boxInfo}
     >
-      <Text style={styles.textTitle}>สมัครสมาชิก</Text>
+      <Text style={styles.textTitle}>เพิ่มท่าออกกำลังกาย</Text>
       <ScrollView style={styles.scrollView}>
       <Image
         style={styles.logo}
         source={require('../assets/WORKY_LOGO.gif')}
       />
 
-<Text style={styles.textNomal}>ชื่อผู้ใช้</Text>
+<Text style={styles.textNomal}>ชื่อท่า</Text>
       <TextInput
         style={styles.TextInput}
-        placeholder="ชื่อผู้ใช้"
-        onChangeText={val => InputValueUpdate(val, 'username')}
+        placeholder="ชื่อท่า"
+        onChangeText={val => InputValueUpdate(val, 'posture_name')}
       />
 
-      <Text style={styles.textNomal}>อีเมล</Text>
+      <Text style={styles.textNomal}>kcal ต่อ นาที</Text>
       <TextInput
         style={styles.TextInput}
-        placeholder="อีเมล"
-        onChangeText={val => InputValueUpdate(val, 'email')}
+        placeholder="kcal ต่อ นาที<"
+        onChangeText={(val) => InputValueUpdate(val, 'kcal')}
       />
 
-<Text style={styles.textNomal}>รหัสผ่าน</Text>
+      <Text style={styles.textNomal}>รูปภาพ</Text>
       <TextInput
         style={styles.TextInput}
-        placeholder="รหัสผ่าน"
-        onChangeText={(val) => InputValueUpdate(val, 'password')}
+        placeholder="รูปภาพ"
+        onChangeText={val => InputValueUpdate(val, 'image')}
+      />
+
+<Text style={styles.textNomal}>วีดีโอ</Text>
+      <TextInput
+        style={styles.TextInput}
+        placeholder="วีดีโอ"
+        onChangeText={(val) => InputValueUpdate(val, 'video')}
+      />
+
+<Text style={styles.textNomal}>ความยาววีดีโฮ</Text>
+      <TextInput
+        style={styles.TextInput}
+        placeholder="ความยาววีดีโฮ"
+        onChangeText={(val) => InputValueUpdate(val, 'video_time')}
       />
 
       <TouchableOpacity style={styles.button}
       onPress={() => StoreUser()} >
-      <Text style={styles.textButton}>ลงทะเบียน</Text>
+      <Text style={styles.textButton}>สำเร็จ</Text>
       </TouchableOpacity>
 
       </ScrollView>

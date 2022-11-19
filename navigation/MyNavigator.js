@@ -31,6 +31,7 @@ import MyMenu from "../screens/MyMenu"
 import CreateMenu from "../screens/CreateMenu"
 import UpdateMyMenu from "../screens/UpdateMyMenu"
 import Calender from "../screens/Calender_workout"
+import SetTime from "../screens/setTime"
 
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator()
@@ -53,15 +54,7 @@ function CalNavigator() {
   return (
     <Stack.Navigator initialRouteName="Cal">
       <Stack.Screen name="Cal" component={Cal} options={{ title: "", headerShown: false }} />
-      <Stack.Screen
-        name="AddMenuNavigator"
-        component={AddMenuNavigator}
-        // options={({ navigation, route }) => ({
-        //   title: "",
-        //   props: route.params.getDate,
-        //   navigate: route.params.getDate,
-        // })}
-      />
+      <Stack.Screen name="AddMenuNavigator" component={AddMenuNavigator} options={{ title: "", headerShown: false }} />
       <Stack.Screen
         name="HistoryMenu"
         component={HistoryMenu}
@@ -77,7 +70,14 @@ function CalNavigator() {
 function AddMenuNavigator() {
   return (
     <Stack.Navigator initialRouteName="AddMenu">
-      <Stack.Screen name="AddMenu" component={AddMenu} />
+      <Stack.Screen
+        name="AddMenu"
+        component={AddMenu}
+        options={({ route }) => ({
+          title: "เมนูวันที่ " + route.params.getdate,
+          headerTitleStyle: { fontFamily: "FCMuffinRegular", fontSize: 28 },
+        })}
+      />
       <Stack.Screen
         name="AllMenu"
         component={AllMenu}

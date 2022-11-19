@@ -20,9 +20,9 @@ const MyMenu = ({ navigation }) => {
   // })
 
   useEffect(() => {
-    myMenu.onSnapshot((querySnapshot) => {
+    myMenu.onSnapshot( async (querySnapshot) => {
       const food = []
-      querySnapshot.forEach((doc) => {
+      await querySnapshot.forEach((doc) => {
         const { name, kcal, img } = doc.data()
         food.push({
           id: doc.id,
