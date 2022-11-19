@@ -81,8 +81,9 @@ const AllMenu = ({ props, navigation }) => {
   }
 
   return (
-    <View style={{marginBottom: 60, backgroundColor: "#e1e8ee"}}>
+    <View style={{ backgroundColor: "#fff", flex: 2}}>
       <SearchBar
+      platform="ios"
         placeholder="ค้นหา"
         lightTheme
         round

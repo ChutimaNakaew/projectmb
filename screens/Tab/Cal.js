@@ -6,24 +6,6 @@ import firebase from "../../Database/firebaseDB"
 import DateTimePicker from "@react-native-community/datetimepicker"
 
 const Cal = ({ props, navigation }) => {
-  // const [food, setFood] = useState([])
-  // const foodRef = firebase.firestore().collection("food")
-
-  // useEffect(() => {
-  //   foodRef.onSnapshot((querySnapshot) => {
-  //     const food = []
-  //     querySnapshot.forEach((doc) => {
-  //       const { name, kcal, img } = doc.data()
-  //       food.push({
-  //         id: doc.id,
-  //         name,
-  //         kcal,
-  //         img,
-  //       })
-  //     })
-  //     setFood(food)
-  //   })
-  // }, [])
 
   const addFood = firebase.firestore().collection("user").doc("u1").collection("addFood")
   const [showMenu, setAddMenu] = useState([])
@@ -67,7 +49,7 @@ const Cal = ({ props, navigation }) => {
     let fDate = tempDate.getDate() + "/" + (tempDate.getMonth() + 1) + "/" + tempDate.getFullYear()
     setGetdate((getdate) => (getdate = fDate)) //---------------------วันที่ที่เลือกจะถูกเก็บค่าไว้ที่ getdate
 
-    navigation.navigate("HistoryMenu", { fDate, total_kcal })
+    navigation.navigate("HistoryMenu", { fDate })
   }
 
   const showMode = (currentMode) => {
@@ -78,7 +60,7 @@ const Cal = ({ props, navigation }) => {
   const sameday = showMenu.filter((item) => {
     if (item.date !== null) {
       const date = new Date(item.date.toDate().toISOString())
-      console.log(item.name + ": " + date)
+      // console.log(item.name + ": " + date)
       const day = date.getDate()
       const month = date.getMonth() + 1
       const year = date.getFullYear()

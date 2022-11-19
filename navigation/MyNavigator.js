@@ -31,7 +31,6 @@ import MyMenu from "../screens/MyMenu"
 import CreateMenu from "../screens/CreateMenu"
 import UpdateMyMenu from "../screens/UpdateMyMenu"
 import Calender from "../screens/Calender_workout"
-import SetTime from "../screens/setTime"
 
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator()
