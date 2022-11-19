@@ -4,7 +4,9 @@ import { useFonts } from "expo-font"
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons"
 import firebase from "../Database/firebaseDB"
 
-const AddMenu = ({ props, navigation }) => {
+const AddMenu = ({ props, navigation, route }) => {
+  // const thisday = route.params.getDate
+  const thisday = "date"
   const addFood = firebase.firestore().collection("user").doc("u1").collection("addFood")
   const [showMenu, setAddMenu] = useState([])
   useEffect(() => {
@@ -37,6 +39,15 @@ const AddMenu = ({ props, navigation }) => {
         alert(err)
       })
   }
+
+  const sameday = showMenu.filter((item) => {
+    const date = new Date(item.date.toDate().toISOString())
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
+    const menuDate = day + "/" + month + "/" + year
+    return menuDate == thisday
+  })
 
   let [fontsLoaded] = useFonts({
     FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),

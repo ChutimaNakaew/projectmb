@@ -17,11 +17,12 @@ const UpdateMyMenu = ({ navigation, route }) => {
   const update = () => {
     if (image == null) {
       const timestamp = firebase.firestore.FieldValue.serverTimestamp()
+      const cal = Number(kcal)
       myMenu
         .doc(route.params.item.id)
         .update({
           name: name,
-          kcal: kcal,
+          kcal: cal,
           date: timestamp,
         })
         .then(() => {

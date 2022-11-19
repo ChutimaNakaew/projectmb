@@ -1,48 +1,44 @@
 import React, { useState, useEffect } from "react"
 import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput } from "react-native"
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons"
-// import { useFonts, Mali_400Regular, Mali_700Bold } from "@expo-google-fonts/mali"
-import { useFonts } from "expo-font";
+import { useFonts } from "expo-font"
 import firebase from "../../Database/firebaseDB"
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from "@react-native-community/datetimepicker"
 
 const Home = ({ props, navigation }) => {
   const [weight, onChangeWeight] = React.useState(null)
   const [height, onChangeHeight] = React.useState(null)
 
   // -----------------------------------ปฎิทินจ้า----------------------------------------------------------------------------
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-  const [text, setText] = useState('Empty');
-  const [getdate, setGetdate] = useState('');
+  const [date, setDate] = useState(new Date())
+  const [mode, setMode] = useState("date")
+  const [show, setShow] = useState(false)
+  const [text, setText] = useState("Empty")
+  const [getdate, setGetdate] = useState("")
 
   // ---------------------------------set default ของปฎฺิทิน--------------------------
   useEffect(() => {
-    var date = new Date().getDate(); //Current Date
-    var month = new Date().getMonth() + 1; //Current Month
-    var year = new Date().getFullYear(); //Current Year
-    setGetdate(
-      date + '/' + month + '/' + year
-    );
-  }, []);
+    var date = new Date().getDate() //Current Date
+    var month = new Date().getMonth() + 1 //Current Month
+    var year = new Date().getFullYear() //Current Year
+    setGetdate(date + "/" + month + "/" + year)
+  }, [])
   // ------------------------------------------------------------
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'androi');
-    setDate(currentDate);
+    const currentDate = selectedDate || date
+    setShow(Platform.OS === "androi")
+    setDate(currentDate)
 
-    let tempDate = new Date(currentDate);
-    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
+    let tempDate = new Date(currentDate)
+    let fDate = tempDate.getDate() + "/" + (tempDate.getMonth() + 1) + "/" + tempDate.getFullYear()
 
     setText(fDate)
     console.log(fDate)
-    setGetdate(getdate => getdate = fDate) //---------------------วันที่ที่เลือกจะถูกเก็บค่าไว้ที่ getdate
-
+    setGetdate((getdate) => (getdate = fDate)) //---------------------วันที่ที่เลือกจะถูกเก็บค่าไว้ที่ getdate
   }
 
   const showMode = (currentMode) => {
-    setShow(true);
+    setShow(true)
     setMode(currentMode)
   }
 
@@ -50,9 +46,9 @@ const Home = ({ props, navigation }) => {
 
   // --------------ดึงข้อมูลKcal workoutมาแสดงผลจ้า------------------------
   const [history, setHistory] = useState([])
-  const [history_food, setHistory_food] = useState([])
-  const workoutRef = firebase.firestore().collection("user").doc("u1").collection("addWorkout");
-  const addfoodRef = firebase.firestore().collection("user").doc("u1").collection("addFood");
+  // const [history_food, setHistory_food] = useState([])
+  const workoutRef = firebase.firestore().collection("user").doc("u1").collection("addWorkout")
+  // const addfoodRef = firebase.firestore().collection("user").doc("u1").collection("addFood")
   //-------------------------KCAl workout---------------------
   useEffect(() => {
     workoutRef.onSnapshot((querySnapshot) => {
@@ -62,7 +58,7 @@ const Home = ({ props, navigation }) => {
         history.push({
           id: doc.id,
           kcal,
-          date
+          date,
         })
       })
       setHistory(history)
@@ -70,51 +66,86 @@ const Home = ({ props, navigation }) => {
   }, [])
   //------------------------------------------------------
   //-------------------KCAL food-------------------------
+  // useEffect(() => {
+  //   addfoodRef
+  //   .orderBy("date", "desc")
+  //   .onSnapshot((querySnapshot) => {
+  //     const history_food = []
+  //     querySnapshot.forEach((doc) => {
+  //       const { kcal, date } = doc.data()
+  //       history_food.push({
+  //         id: doc.id,
+  //         kcal,
+  //         date,
+  //       })
+  //     })
+  //     setHistory_food(history_food)
+  //   })
+  // }, [])
+
+  // console.log(history_food);
+  const addFood = firebase.firestore().collection("user").doc("u1").collection("addFood")
+  const [showMenu, setAddMenu] = useState([])
   useEffect(() => {
-    addfoodRef.onSnapshot((querySnapshot) => {
-      const history_food = []
+    addFood.orderBy("date", "desc").onSnapshot((querySnapshot) => {
+      const showMenu = []
       querySnapshot.forEach((doc) => {
-        const { kcal, date } = doc.data()
-        history_food.push({
-          id: doc.id,
+        const { name, kcal, id, date, img } = doc.data()
+        showMenu.push({
+          key: doc.id,
+          name,
           kcal,
-          date
+          id,
+          date,
+          img,
         })
       })
-      setHistory_food(history_food)
+      setAddMenu(showMenu)
     })
   }, [])
-  let Kcal_food = 0;
-  history_food.forEach(item => {
-    Kcal_food += item.kcal
-    
-  })
-  console.log(Kcal_food)
-  //---------------------------------------------------
-  let total = 0;
-  history.forEach(item => {
 
-    const date_kcal = new Date(item.date.toDate().toISOString());
-    const year_kcal = date_kcal.getFullYear();
-    const month_kcal = date_kcal.getMonth() + 1;
-    const dt_kcal = date_kcal.getDate();
+  //---------------------------------------------------
+  let total = 0
+  history.forEach((item) => {
+    const date_kcal = new Date(item.date.toDate().toISOString())
+    // console.log("date_kcal: " + date_kcal)
+    const year_kcal = date_kcal.getFullYear()
+    const month_kcal = date_kcal.getMonth() + 1
+    const dt_kcal = date_kcal.getDate()
 
     if (dt_kcal < 10) {
-      dt_kcal = '0' + dt_kcal;
+      dt_kcal = "0" + dt_kcal
     }
     if (month_kcal < 10) {
-      month_kcal = '0' + month_kcal;
+      month_kcal = "0" + month_kcal
     }
-    const date_picker = (dt_kcal + '/' + month_kcal + '/' + year_kcal )
-    if(date_picker === getdate){
-      console.log('same')
+    const date_picker = dt_kcal + "/" + month_kcal + "/" + year_kcal
+    if (date_picker === getdate) {
+      // console.log("same")
       total += item.kcal
     }
-  });
-  console.log(total)
+  })
+
+  const sameday = showMenu.filter((item) => {
+    const date = new Date(item.date.toDate().toISOString())
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
+    const menuDate = day + "/" + month + "/" + year
+    return menuDate == getdate
+  })
+
+  let Kcal_food = 0
+  sameday.forEach((item) => {
+    Kcal_food += item.kcal
+  })
+
   let total_workout = total.toFixed(2)
-  let total_kcal = (Kcal_food - total).toFixed(2) 
-  console.log('total '+total_kcal)
+  let total_kcal = (Kcal_food - total).toFixed(2)
+
+  console.log("food " + Kcal_food)
+  console.log("workout " + total)
+  console.log("all " + total_kcal)
   // --------------------------------------------------------------
 
   let [fontsLoaded] = useFonts({
@@ -127,23 +158,13 @@ const Home = ({ props, navigation }) => {
 
   return (
     <View>
-      <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 5, }}>
-
+      <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 5 }}>
         {/* {show &&} */}
-        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center" }} > {getdate} </Text>
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicket"
-            value={date}
-            mode={mode}
-            is24Hour={true}
-            display='default'
-            onChange={onChange}
-          />
-        )}
+        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center" }}> {getdate} </Text>
+        {show && <DateTimePicker testID="dateTimePicket" value={date} mode={mode} is24Hour={true} display="default" onChange={onChange} />}
       </View>
 
-      <TouchableOpacity style={styles.btnCalendar} onPress={() => showMode('date')} >
+      <TouchableOpacity style={styles.btnCalendar} onPress={() => showMode("date")}>
         <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 18 }}>ปฎิทิน</Text>
       </TouchableOpacity>
 
@@ -187,7 +208,12 @@ const Home = ({ props, navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.resultWorkout} onPress={() => { navigation.navigate("Calender_workout", { date_pick: getdate}) }}>
+      <TouchableOpacity
+        style={styles.resultWorkout}
+        onPress={() => {
+          navigation.navigate("Calender_workout", { date_pick: getdate })
+        }}
+      >
         <Text style={styles.text}>
           <Ionicons name="ios-trophy" size={20} color="#ffb81c" />
           บันทึกการออกกำลังกาย

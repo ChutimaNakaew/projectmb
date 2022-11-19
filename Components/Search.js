@@ -70,8 +70,8 @@ const Search = () => {
     />
   )
 
-  const searchFunction = (text) => {
-    if (text.length > -1 && text !== " ") {
+  // const searchFunction = (text) => {
+    // if (text.length > -1 && text !== " ") {
       const updatedData = food.filter((item) => {
         const item_data = `${item.name.toUpperCase()})`
         const text_data = text.toUpperCase()
@@ -79,10 +79,10 @@ const Search = () => {
       })
       setData(updatedData)
       setInput(text)
-    } else {
-      setData("")
-    }
-  }
+    // } else {
+    //   setData("")
+    // }
+  // }
 
   return (
     <View style={styles.container}>
