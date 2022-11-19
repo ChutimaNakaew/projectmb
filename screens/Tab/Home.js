@@ -107,6 +107,7 @@ const Home = ({ props, navigation }) => {
   //---------------------------------------------------
   let total = 0
   history.forEach((item) => {
+    if (item.date !== null) {
     const date_kcal = new Date(item.date.toDate().toISOString())
     // console.log("date_kcal: " + date_kcal)
     const year_kcal = date_kcal.getFullYear()
@@ -124,6 +125,7 @@ const Home = ({ props, navigation }) => {
       // console.log("same")
       total += item.kcal
     }
+  }
   })
 
   const sameday = showMenu.filter((item) => {

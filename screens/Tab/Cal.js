@@ -106,7 +106,9 @@ const Cal = ({ props, navigation }) => {
   }, [])
 
   let total = 0
+  
   history.forEach((item) => {
+    if (item.date !== null){
     const date_kcal = new Date(item.date.toDate().toISOString())
     const year_kcal = date_kcal.getFullYear()
     const month_kcal = date_kcal.getMonth() + 1
@@ -123,6 +125,7 @@ const Cal = ({ props, navigation }) => {
       // console.log("same")
       total += item.kcal
     }
+  }
   })
 
   let Kcal_food = 0

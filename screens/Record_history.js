@@ -55,10 +55,16 @@ const History = ({ route, navigation }) => {
 
     // const time_posture = '';
     history.forEach(item => {
-        if(item.data === null){
-            total += item.kcal
-        }
-        else if (item.date !== null) {
+        // if(item.date === null){
+        //     total += item.kcal
+        //     let obj = {
+        //         name: item.name,
+        //         time: item.time
+
+        //     }
+        //     name_posture.push(obj)
+        // }
+         if (item.date !== null) {
             const date_kcal = new Date(item.date.toDate().toISOString());
             const year_kcal = date_kcal.getFullYear();
             const month_kcal = date_kcal.getMonth() + 1;
