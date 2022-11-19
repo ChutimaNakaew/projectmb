@@ -26,9 +26,11 @@ const BlogDetail = ({ route, navigation }) => {
 
       <ImageBackground style={styles.image_bg} source={{ uri: blog_image }}>
         <View style={styles.header}>
+          <Text>
           <Icon name="chevron-left" size={45} color="#000"
             onPress={navigation.goBack}
           />
+          </Text>
         </View>
 
       </ImageBackground>

@@ -5,9 +5,6 @@ import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 
 const History = ({ route, navigation }) => {
-    // const { date_pick } = route.params;
-
-    // const date_cal = date_pick
     const [history, setHistory] = useState([])
     const [date, setDate] = useState('')
     // const [total, setTotal] = useState([])
@@ -43,20 +40,6 @@ const History = ({ route, navigation }) => {
             setHistory(history)
         })
     }, [])
-    // useEffect(() => {
-    //     workoutRef.onSnapshot((querySnapshot) => {
-    //         const total = []
-    //         querySnapshot.forEach((doc) => {
-    //             const { kcal} = doc.data()
-    //             total.push({
-    //                 id: doc.id,
-    //                 kcal,
-    //             })
-    //         })
-    //         setTotal(total)
-    //     })
-    // }, [])
-    // const [total, setTotal] = useState(0)
 
     const totalCal = history.reduce((total, item) => {
         return total + item.kcal;
@@ -100,10 +83,6 @@ const History = ({ route, navigation }) => {
                 }
                 name_posture.push(obj)
                 console.log(name_posture)
-                // setName(name_posture => name_posture = item.name)
-                // setTime(time_posture => time_posture = item.time)
-                // name_posture = item.name;
-                // time_posture = item.time;
             }
 
         }
@@ -153,9 +132,9 @@ const History = ({ route, navigation }) => {
                     </View>
                 )}
             />
-
+            <View>
             <Text style={styles.text}> <FontAwesome5 name="fire-alt" size={30} color="#f29811" /> ปริมาณแคลอรี่ที่ลดไปวันนี้ {total_workout} Kcal</Text>
-
+            </View>
 
             {/* </ScrollView> */}
         </View>
@@ -189,13 +168,6 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        // borderRadius: 10,
-        // shadowColor: "black",
-        // shadowOpacity: 0.26,
-        // shadowOffset: { width: 0, height: 2 },
-        // shadowRadius: 10,
-        // elevation: 3,
-        // padding: 5,
         justifyContent: "space-between",
         alignItems: "flex-end",
         // marginBottom:20
@@ -206,11 +178,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
         textAlign: "center",
         flexWrap: "wrap",
-        //   pa
-        //   justifyContent:'center',
-        // marginBottom:10,
-        // flex: 1,
-        // backgroundColor: "#rgba(217, 217, 217, 0.8)",
     },
     img_bg: {
         flex: 1,

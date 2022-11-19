@@ -123,41 +123,6 @@ const Calender = ({ route, navigation }) => {
 
 
 
-    const calculate = (item) => {
-        console.log(history)
-
-        // return total;
-        // const total = []
-        // total.push(item.kcal)
-
-        // item.kcal ++
-        // let total = 0
-        // console.log('abc------')
-        // console.log(total)
-        // console.log(item.kcal)
-        // console.log(item.kcal)
-        // item.kcal++
-        // setTotal = setTotal + item.kcal ;
-        // console.log(total)
-        // {
-
-        // total.map((item) => {
-        //     setTotal(total + item.kcal)
-        // })}
-
-
-        // if (item.kcal) {
-        // let total = 0;
-        // for (let i = 0; i < item.kcal.length; i++) {
-
-        //     setTotal += item.kcal[i]
-        // }
-        // let final = item.kcal++
-        // console.log('final total' + total)
-        // }
-
-    }
-
     let [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
     })
@@ -173,7 +138,7 @@ const Calender = ({ route, navigation }) => {
          )} */}
             {/* <Text style={styles.title}> {name_posture} </Text> */}
             {/* <ScrollView > */}
-            <Text style={{textAlign:'center', marginTop:5, fontFamily: "FCMuffinRegular", fontSize:25}}> บันทึกการออกกำลังกายประจำวันที่ {date_cal} </Text>
+            <Text style={{textAlign:'center', marginTop:5, fontFamily: "FCMuffinRegular", fontSize:25}}>- บันทึกการออกกำลังกายประจำวันที่ {date_cal} -</Text>
             <FlatList
                 data={name_posture}
                 // scrollEnabled={false}
