@@ -361,7 +361,9 @@ const styles = StyleSheet.create({
     width: 360,
     height: 140,
     resizeMode: 'contain',
-    borderRadius: 50,
+    borderRadius: 35,
+    borderColor:"#000",
+    borderWidth:1,
     marginBottom: -30,
   },
   modalBackGround: {

@@ -5,14 +5,14 @@ import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons"
 import firebase from "../Database/firebaseDB"
 
 const AddMenu = ({ props, navigation, route }) => {
-  // const thisday = route.params.getDate
-  const thisday = "date"
+  const thisday = route.params.getdate
+  // const thisday = date
   const addFood = firebase.firestore().collection("user").doc("u1").collection("addFood")
   const [showMenu, setAddMenu] = useState([])
   useEffect(() => {
-    addFood.orderBy("date", "desc").onSnapshot((querySnapshot) => {
+    addFood.orderBy("date", "desc").onSnapshot(async (querySnapshot) => {
       const showMenu = []
-      querySnapshot.forEach((doc) => {
+      await querySnapshot.forEach((doc) => {
         const { name, kcal, id, date, img } = doc.data()
         showMenu.push({
           key: doc.id,
@@ -41,12 +41,14 @@ const AddMenu = ({ props, navigation, route }) => {
   }
 
   const sameday = showMenu.filter((item) => {
-    const date = new Date(item.date.toDate().toISOString())
-    const day = date.getDate()
-    const month = date.getMonth() + 1
-    const year = date.getFullYear()
-    const menuDate = day + "/" + month + "/" + year
-    return menuDate == thisday
+    if (item.date !== null) {
+      const date = new Date(item.date.toDate().toISOString())
+      const day = date.getDate()
+      const month = date.getMonth() + 1
+      const year = date.getFullYear()
+      const menuDate = day + "/" + month + "/" + year
+      return menuDate == thisday
+    }
   })
 
   let [fontsLoaded] = useFonts({
@@ -58,7 +60,7 @@ const AddMenu = ({ props, navigation, route }) => {
   }
 
   return (
-    <View style={{ flex: 2, marginTop: 50 }}>
+    <View style={{ flex: 2, marginTop: 10 }}>
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity
           onPress={() => {
@@ -80,7 +82,7 @@ const AddMenu = ({ props, navigation, route }) => {
       <Text style={[styles.text, { textAlign: "left", margin: 10 }]}>เมนูวันนี้</Text>
 
       <FlatList
-        data={showMenu}
+        data={sameday}
         numColumns={1}
         renderItem={({ item }) => (
           <View

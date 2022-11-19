@@ -7,7 +7,9 @@ import firebase from "../Database/firebaseDB"
 
 const HistoryMenu = ({ props, route }) => {
   // const thisday = new Date(route.params.currentDate)
-  const total_kcal = route.params.total_kcal
+  // const total_kcal = route.params.total_kcal
+  // const total_kcal = "150"
+
   const thisday = route.params.fDate
   // const day = Timestamp.fromDate(new Date()).toDate();
   // console.log("thisday " + thisday + "/" + total_kcal)
@@ -40,6 +42,52 @@ const HistoryMenu = ({ props, route }) => {
     const menuDate = day + "/" + month + "/" + year
     return menuDate == thisday
   })
+
+  const [history, setHistory] = useState([])
+  const workoutRef = firebase.firestore().collection("user").doc("u1").collection("addWorkout")
+  useEffect(() => {
+    workoutRef.onSnapshot((querySnapshot) => {
+      const history = []
+      querySnapshot.forEach((doc) => {
+        const { kcal, date } = doc.data()
+        history.push({
+          id: doc.id,
+          kcal,
+          date,
+        })
+      })
+      setHistory(history)
+    })
+  }, [])
+
+  let total = 0
+  history.forEach((item) => {
+    const date_kcal = new Date(item.date.toDate().toISOString())
+    const year_kcal = date_kcal.getFullYear()
+    const month_kcal = date_kcal.getMonth() + 1
+    const dt_kcal = date_kcal.getDate()
+
+    if (dt_kcal < 10) {
+      dt_kcal = "0" + dt_kcal
+    }
+    if (month_kcal < 10) {
+      month_kcal = "0" + month_kcal
+    }
+    const date_picker = dt_kcal + "/" + month_kcal + "/" + year_kcal
+    if (date_picker === thisday) {
+      // console.log("same")
+      total += item.kcal
+    }
+  })
+
+  let Kcal_food = 0
+  sameday.forEach((item) => {
+    Kcal_food += item.kcal
+  })
+
+  let total_kcal = (Kcal_food - total).toFixed(2)
+
+
 
   return (
     <View style={[styles.text, { flex: 2 }]}>

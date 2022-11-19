@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from "react"
-import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, ImageBackground, ScrollView, Alert } from "react-native"
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  FlatList,
+  ImageBackground,
+  ScrollView,
+  Alert,
+  SnapshotViewIOS,
+} from "react-native"
 import { Ionicons, AntDesign, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 import * as ImagePicker from "expo-image-picker"
+import { set } from "lodash"
 
 const CreateMenu = ({ navigation }) => {
   const [image, setImage] = useState(null)
@@ -11,45 +24,23 @@ const CreateMenu = ({ navigation }) => {
   const [show, setShow] = useState(true)
   const [inputName, setInputName] = useState("")
   const [inputCal, setInputCal] = useState(0)
-  // const [food, setFood] = useState([])
   const myMenu = firebase.firestore().collection("user").doc("u1").collection("myMenu")
 
-  // useEffect(() => {
-  //   myMenu.onSnapshot((querySnapshot) => {
-  //     const food = []
-  //     querySnapshot.forEach((doc) => {
-  //       const { name, kcal, img } = doc.data()
-  //       food.push({
-  //         id: doc.id,
-  //         name,
-  //         kcal,
-  //         img,
-  //       })
-  //     })
-  //     setFood(food)
-  //   })
-  // }, [])
-
-  const add = () => {
-    const name = inputName
-    const cal = Number(inputCal)
-    const img = image
-    // check have this menu
-    if (name && cal && img) {
+  const add = (name, cal, url) => {
+    if (name && cal && url) {
       // get timestamp
       const timestamp = firebase.firestore.FieldValue.serverTimestamp()
       const data = {
         name: name,
         date: timestamp,
         kcal: cal,
-        img: img.uri,
+        img: url,
       }
       myMenu
         .add(data)
         .then(() => {
           console.log("Add " + name)
           alert("✅ เพิ่มเมนู " + "'" + name + "'")
-          navigation.navigate("MyMenu")
         })
         .catch((err) => {
           alert(err)
@@ -75,7 +66,16 @@ const CreateMenu = ({ navigation }) => {
     const response = await fetch(image.uri)
     const blob = await response.blob()
     const fileName = image.uri.substring(image.uri.lastIndexOf("/") + 1)
-    var ref = firebase.storage().ref().child(fileName).put(blob)
+    var ref = firebase.storage().ref().child(fileName)
+    ref.put(blob).then((snapshot) => {
+      snapshot.ref.getDownloadURL().then((url) => {
+        console.log(" * new url", url)
+        const name = inputName
+        const cal = Number(inputCal)
+        add(name, cal, url)
+        navigation.navigate("MyMenu")
+      })
+    })
 
     try {
       await ref
@@ -121,11 +121,7 @@ const CreateMenu = ({ navigation }) => {
             Kcal
           </Text>
         </View>
-        <TouchableOpacity
-          style={{ width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }}
-          onPressIn={uploadImage}
-          onPressOut={add}
-        >
+        <TouchableOpacity style={{ width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }} onPress={uploadImage}>
           <Text style={styles.text}>สร้างเมนู</Text>
         </TouchableOpacity>
       </View>
