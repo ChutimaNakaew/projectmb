@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, ImageBackground, Image, View,TouchableOpacity, Text, TextInput, KeyboardAvoidingView, ScrollView, Alert, Pressable} from "react-native";
+import React, { useState } from 'react';
+import { StyleSheet, ImageBackground, Image, View,TouchableOpacity, Text, TextInput, KeyboardAvoidingView, ScrollView, Button, Pressable} from "react-native";
 import { useFonts } from 'expo-font';
 import { AntDesign } from '@expo/vector-icons';
-import firebase from "../Database/firebaseDB";
-import uuid from 'react-uuid';
 import { authentication } from '../Database/firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth";
+
 
 
 const SignupPage = ({navigation}) => {
@@ -13,67 +12,19 @@ const SignupPage = ({navigation}) => {
     'FCMuffinRegular': require('../assets/fonts/FCMuffinRegular.otf'),
   });
 
-  const [info, setInfo] = useState({username:"", email:"", password:"", uuid: uuid()});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const dbRef = firebase.firestore().collection('user');
-
-//   useEffect(() =>{
-//     const unsubscribe = authentication.onAuthStateChanged(user => {
-//       if (user) {
-//         navigation.replace('LogOut')
-//       }
-//     })
-//     return unsubscribe
-//  }, [])
-
-  const InputValueUpdate = (val, props) =>{
-    info[props] = val;
-    setInfo(info)
-    console.log(info)
-    if (props === "email"){
-      setEmail(val);
-      console.log("เมล")
-      console.log(email)
-    }else if(props === "password"){
-      setPassword(val);
-      console.log("รหัสผ่าน")
-      console.log(password)
-    }
-  }
   const RegigterUser = () =>{
     createUserWithEmailAndPassword(authentication, email, password).then((re)=>{
       console.log(re);
-      navigation.navigate('LoginPage')
     })
     .catch((re)=>{
       console.log(re);
-      Alert.alert('ไม่สามารถลงทะเบียนได้อาจมีการใช้อีเมลซ้ำ รูปแบบอีเมลไม่ถูกต้อง รหัสผ่านต้องไม่น้อยกว่า 6 ตัวอักษรหรือกรอกข้อมูลไม่ครบ')
     }
     )
   }
 
-//   const functionCombinedEmail = (val, props) => {
-//     InputValueUpdate(val, props)
-//     setEmail(val);
-//     console.log(email)
-// }  
-
-  const StoreUser = () =>{
-    console.log("เข้าแล้วจ้า")
-    RegigterUser()
-    if (info.username == "") {
-      alert('Please fill username');
-    }else {
-      dbRef.add({
-        username: info.username,
-        email: info.email,
-        password: info.password,
-        uuid: info.uuid
-      })
-    }
-    } 
 
 
   return (
@@ -96,18 +47,11 @@ const SignupPage = ({navigation}) => {
         source={require('../assets/WORKY_LOGO.gif')}
       />
 
-<Text style={styles.textNomal}>ชื่อผู้ใช้</Text>
-      <TextInput
-        style={styles.TextInput}
-        placeholder="ชื่อผู้ใช้"
-        onChangeText={val => InputValueUpdate(val, 'username')}
-      />
-
       <Text style={styles.textNomal}>อีเมล</Text>
       <TextInput
         style={styles.TextInput}
         placeholder="อีเมล"
-        onChangeText={val => InputValueUpdate(val, 'email')}
+        onChangeText={val => setEmail(val)}
       />
 
 <Text style={styles.textNomal}>รหัสผ่าน</Text>
@@ -115,11 +59,11 @@ const SignupPage = ({navigation}) => {
       secureTextEntry={true}
         style={styles.TextInput}
         placeholder="รหัสผ่าน"
-        onChangeText={(val) => InputValueUpdate(val, 'password')}
+        onChangeText={val => setPassword(val)}
       />
 
       <TouchableOpacity style={styles.button}
-      onPress={() => StoreUser()} >
+      onPress={() => RegigterUser()} >
       <Text style={styles.textButton}>ลงทะเบียน</Text>
       </TouchableOpacity>
 

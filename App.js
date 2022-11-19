@@ -14,6 +14,7 @@ import FristScreen from "./screens/FristScreen";
 import AllUser from "./screens/AllUser";
 import AddminFood from "./screens/AddminFood";
 import AddminNavigator from "./navigation/AddminNavigator";
+import Register from "./screens/Register";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -22,8 +23,10 @@ export default function App() {
   // เพิ่มโค้ดส่วนนี้ เพื่อจัดการ Stack Navigation
   return (
     // <MyNavigator/>
-    // <Login />
-    <QuestionActivityPage/>
+    // <Register />
+    // <QuestionActivityPage/>
+    <FristScreensNavigator/>
+    // <AddminNavigator/>
   )
 }
 

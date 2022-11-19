@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, ImageBackground, Image, View,TouchableOpacity, Text, TextInput, KeyboardAvoidingView, ScrollView, Button, Alert} from "react-native";
+import { StyleSheet, ImageBackground, Image, View,TouchableOpacity, Text, TextInput, KeyboardAvoidingView, ScrollView, Button, Pressable} from "react-native";
 import { useFonts } from 'expo-font';
 import { AntDesign } from '@expo/vector-icons';
 import firebase from "../Database/firebaseDB";
 import uuid from 'react-uuid';
 import { authentication } from '../Database/firebase';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import MyNavigator from "../navigation/MyNavigator"
 
 const LoginPage = ({navigation}) => {
@@ -15,26 +15,28 @@ const LoginPage = ({navigation}) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [islogin, setLogin] = useState(false);
+  const [islogin, setIslogin] = useState(false);
 
-   useEffect(() =>{
-     const unsubscribe = authentication.onAuthStateChanged(user => {
-       if (user) {
-         navigation.replace('LogOut')
-       }
-     })
-     return unsubscribe
-  }, [])
+  // useEffect(() =>{
+  //   const unsubscribe = authentication.onAuthStateChanged(user => {
+  //     if (user) {
+  //       navigation.navigate('QuestionSexPage')
+  //     }
+  //   })
+  //   return unsubscribe
+  // }, [])
    
 
-  const LoginUser = () =>{
-    signInWithEmailAndPassword(authentication, email, password).then((re)=>{
-      setLogin(true)
+  const LogOut = () =>{
+    signOut(authentication).then((re)=>{
+    setIslogin(false)
       console.log(re);
+      console.log("ออกจากระบบ");
+      navigation.replace('FristScreen')
     })
     .catch((re)=>{
       console.log(re);
-      Alert.alert("ข้อมูลไม่ถูกต้อง")
+      console.log("ออกจากระบบบัคจ้า");
     }
     )
   }
@@ -48,31 +50,20 @@ const LoginPage = ({navigation}) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.boxInfo}
     >
-      <Text style={styles.textTitle}>ลงชื่อเข้าใช้</Text>
+      <Text style={styles.textTitle}>ออกจากระบบ</Text>
       <ScrollView style={styles.scrollView}>
       <Image
         style={styles.logo}
         source={require('../assets/WORKY_LOGO.gif')}
       />
 
-      <Text style={styles.textNomal}>อีเมล</Text>
-      <TextInput
-      onChangeText={val => setEmail(val)}
-        style={styles.TextInput}
-        placeholder="อีเมล"
-      />
-
-<Text style={styles.textNomal}>รหัสผ่าน</Text>
-      <TextInput
-      onChangeText={val => setPassword(val)}
-        style={styles.TextInput}
-        placeholder="Password"
-      />
-
+      <Text style={styles.textNomal}>อีเมล: {authentication.currentUser?.email}</Text>
+      <Text style={styles.textNomal}>UID: {authentication.currentUser?.uid}</Text>
+    
       <TouchableOpacity style={styles.button}
-      onPress={() => LoginUser()}
+      onPress={() => LogOut()}
       >
-      <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
+      <Text style={styles.textButton}>ออกจากระบบ</Text>
       </TouchableOpacity>
 
       </ScrollView>
