@@ -32,6 +32,14 @@ import CreateMenu from "../screens/CreateMenu"
 import UpdateMyMenu from "../screens/UpdateMyMenu"
 import Calender from "../screens/Calender_workout"
 
+//zac
+import FristScreen from "../screens/FristScreen"
+import SignupPage from "../screens/SignupPage"
+import LoginPage from "../screens/LoginPage"
+import QuestionSexPage from "../screens/QuestionSexPage"
+import AllUser from "../screens/AllUser"
+import UserDetail from "../screens/UserDetail"
+import LogOut from "../screens/LogOut"
 
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator()
@@ -40,9 +48,24 @@ const info_type = createNativeStackNavigator()
 const Blogdetail = createNativeStackNavigator()
 const MainNavigator = createDrawerNavigator()
 
+function Frist() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="FristScreen" component={FristScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="SignupPage" component={SignupPage} options={{ headerShown: false }} />
+      <Stack.Screen name="LoginPage" component={LoginPage} options={{ headerShown: false }} />
+      <Stack.Screen name="QuestionSexPage" component={QuestionSexPage} options={{ headerShown: false }} />
+      <Stack.Screen name="AllUser" component={AllUser} options={{ headerShown: false }} />
+      <Stack.Screen name="UserDetail" component={UserDetail} options={{ headerShown: false }} />
+      <Stack.Screen name="LogOut" component={LogOut} options={{ headerShown: false }} />
+    </Stack.Navigator>
+  )
+}
+
 function HomeNavigator() {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="SignUp">
+            <Stack.Screen name="SignUp" component={Frist} options={{ title: "", headerShown: false }} />
       <Stack.Screen name="Home" component={Home} options={{ title: "", headerShown: false }} />
       <Stack.Screen name="Calender_workout" component={Calender} options={{ title: "", headerShown: false }} />
       {/* <Stack.Screen name="HistoryMenu" component={HistoryMenu} options={{ title: "" }} /> */}

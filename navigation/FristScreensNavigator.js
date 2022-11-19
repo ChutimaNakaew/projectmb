@@ -13,6 +13,7 @@ import LoginPage from "../screens/LoginPage"
 import QuestionSexPage from "../screens/QuestionSexPage"
 import AllUser from "../screens/AllUser"
 import UserDetail from "../screens/UserDetail"
+import LogOut from "../screens/LogOut"
 
 
 // สร้าง navigator ตามโจทย์กำหนด
@@ -28,6 +29,7 @@ function MyStack() {
       <Stack.Screen name="QuestionSexPage" component={QuestionSexPage} options={{ headerShown: false }} />
       <Stack.Screen name="AllUser" component={AllUser} options={{ headerShown: false }} />
       <Stack.Screen name="UserDetail" component={UserDetail} options={{ headerShown: false }} />
+      <Stack.Screen name="LogOut" component={LogOut} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }
@@ -45,7 +47,7 @@ function MyStack2() {
 export default function FristScreensNavigator() {
     return (
       <NavigationContainer>
-        <MyStack2/>
+        <MyStack/>
       </NavigationContainer>
     )
   }
