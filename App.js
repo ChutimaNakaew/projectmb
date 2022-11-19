@@ -9,6 +9,11 @@ import Signup from "./screens/SignupPage";
 import TallPage from "./screens/QuestionTallPage";
 import QuestionAgePage from "./screens/QuestionAgePage";
 import QuestionActivityPage from "./screens/QuestionActivityPage";
+import FristScreensNavigator from "./navigation/FristScreensNavigator";
+import FristScreen from "./screens/FristScreen";
+import AllUser from "./screens/AllUser";
+import AddminFood from "./screens/AddminFood";
+import AddminNavigator from "./navigation/AddminNavigator";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -16,9 +21,9 @@ export default function App() {
   });
   // เพิ่มโค้ดส่วนนี้ เพื่อจัดการ Stack Navigation
   return (
-    <MyNavigator/>
+    // <MyNavigator/>
     // <Login />
-    // <QuestionActivityPage/>
+    <QuestionActivityPage/>
   )
 }
 

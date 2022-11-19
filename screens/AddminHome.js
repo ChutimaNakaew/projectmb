@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     ImageBackground,
@@ -6,11 +6,12 @@ import {
     Text,
     KeyboardAvoidingView,
     ScrollView,
-    TouchableOpacity,
+    Pressable,
+    TouchableOpacity
 } from "react-native";
 import { useFonts } from "expo-font";
 
-const QuestionSexPage = () => {
+const AddminHome = ({navigation}) => {
     const [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
     });
@@ -18,7 +19,7 @@ const QuestionSexPage = () => {
         <View style={styles.container}>
             {/* ใส่พื้นหลัง */}
             <ImageBackground
-                source={require("../assets/ImageBackground/QuestionSexPageBG.png")}
+                source={require("../assets/ImageBackground/AddminHomeBG.png")}
                 resizeMode="cover"
                 style={styles.image}
             >
@@ -26,19 +27,36 @@ const QuestionSexPage = () => {
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                     style={styles.boxInfo}
                 >
-                    <Text style={styles.textTitle}>เลือกเพศของคุณ</Text>
+                    <Text style={styles.textTitle}>ผู้ดูแลระบบ</Text>
                     <ScrollView style={styles.scrollView}>
-                        <TouchableOpacity style={styles.buttonF}>
-                            <Text style={styles.textButton}>👩🏻 ผู้หญิง</Text>
+                        <TouchableOpacity style={styles.buttonF}
+                        onPress={() => navigation.navigate("AddminFood")}
+                        >
+                            <Text style={styles.textButton}>🥗 อาหาร</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.buttonM}>
-                            <Text style={styles.textButton}>👱🏼‍♂️ ผู้ชาย</Text>
+                        <TouchableOpacity style={styles.buttonM}
+                        onPress={() => navigation.navigate("AddminBlog")}
+                        >
+                            <Text style={styles.textButton}>📄 บล๊อก</Text>
                         </TouchableOpacity>
 
-                        {/* <TouchableOpacity style={styles.button}>
-                            <Text style={styles.textButton}>ต่อไป</Text>
-                        </TouchableOpacity> */}
+                        <TouchableOpacity style={styles.buttonF}
+                        onPress={() => navigation.navigate("AddminWorkoutCategory")}
+                        >
+                            <Text style={styles.textButton}>💪🏻 ออกกำลังกาย</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={styles.buttonM}
+                        onPress={() => navigation.navigate("AllUser")}
+                        >
+                            <Text style={styles.textButton}>😃 ผู้ใช้งาน</Text>
+                        </TouchableOpacity>
+                        
+
+                        <Pressable style={styles.button}>
+                            <Text style={styles.textButton}>ออกจากระบบ</Text>
+                        </Pressable>
                     </ScrollView>
                 </KeyboardAvoidingView>
             </ImageBackground>
@@ -64,7 +82,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 10,
         backgroundColor: "white",
-        flex: 0.44,
+        flex: 0.7,
         width: "85%",
         justifyContent: "center",
         alignSelf: "center",
@@ -141,8 +159,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         textColor: "balck",
         marginTop: 20,
-        marginBottom: 10,
         fontFamily: "FCMuffinRegular",
     }
 });
-export default QuestionSexPage;
+export default AddminHome;

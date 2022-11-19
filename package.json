@@ -36,6 +36,7 @@
     "react-native-webview": "11.23.0",
     "react-native-youtube-iframe": "^2.2.2",
     "react-navigation-header-buttons": "^10.0.0",
+    "react-uuid": "^2.0.0",
     "sharp-cli": "^3.0.0"
   },
   "devDependencies": {
