@@ -52,7 +52,7 @@ const QuestionTallPage = ({navigation, route}) => {
       />
                         
                         <TouchableOpacity style={styles.button}
-                        onPress ={()=> {navigation.navigate('QuestionWeightPage',{info3: info})}}
+                        onPress ={()=> {navigation.navigate('QuestionWeighPage',{info3: info})}}
                         >
                             <Text style={styles.textButton}>ต่อไป</Text>
                         </TouchableOpacity>
