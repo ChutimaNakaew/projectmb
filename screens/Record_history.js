@@ -3,12 +3,14 @@ import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, I
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
+import { authentication } from "../Database/firebase"
 
 const History = ({ route, navigation }) => {
     const [history, setHistory] = useState([])
     const [date, setDate] = useState('')
+    const user_id = authentication.currentUser?.uid
     // const [total, setTotal] = useState([])
-    const workoutRef = firebase.firestore().collection("user").doc("u1").collection("addWorkout");
+    const workoutRef = firebase.firestore().collection("addWorkOut").where('user_id', '==', user_id);
     const sumRef = firebase.firestore().collection("user").doc("u1").collection("TotalWorkout");
 
 
@@ -27,7 +29,7 @@ const History = ({ route, navigation }) => {
         workoutRef.onSnapshot((querySnapshot) => {
             const history = []
             querySnapshot.forEach((doc) => {
-                const { id, date, name, kcal, time } = doc.data()
+                const { id, date, name, kcal, time, user_id } = doc.data()
                 history.push({
                     id: doc.id,
                     kcal,
@@ -35,6 +37,7 @@ const History = ({ route, navigation }) => {
                     name,
                     date,
                     time,
+                    user_id
                 })
             })
             setHistory(history)
@@ -79,9 +82,9 @@ const History = ({ route, navigation }) => {
             }
             const date_picker = (dt_kcal + '/' + month_kcal + '/' + year_kcal)
             if (date_picker === date) {
-                console.log('kcal ' + item.kcal)
+                // console.log('kcal ' + item.kcal)
                 // setName(item.name)
-                console.log('name is ' + item.name)
+                // console.log('name is ' + item.name)
                 // name_posture = item.name
                 // console.log(name_posture)
                 total += item.kcal
@@ -91,7 +94,7 @@ const History = ({ route, navigation }) => {
 
                 }
                 name_posture.push(obj)
-                console.log(name_posture)
+                // console.log(name_posture)
             }
 
         }

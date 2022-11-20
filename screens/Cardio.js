@@ -4,7 +4,10 @@ import { Ionicons, Icon, FontAwesome5 } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 
+// import { authentication } from "../../Database/firebase"
+
 const Cardio = ({ props, navigation }) => {
+  
   const [cardio, setCardio] = useState([])
   const workoutRef = firebase.firestore().collection('workout').doc('XXVlurGq69GuDCTFmCU2').collection('exercise').doc('cardio').collection('cardio_posture')
 
