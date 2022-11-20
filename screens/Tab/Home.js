@@ -4,7 +4,7 @@ import { Ionicons, FontAwesome5 } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../../Database/firebaseDB"
 import DateTimePicker from "@react-native-community/datetimepicker"
-// import { authentication } from "../../Database/firebase"
+import { authentication } from "../../Database/firebase"
 import { Picker } from "@react-native-community/picker"
 
 const Home = ({ props, navigation }) => {

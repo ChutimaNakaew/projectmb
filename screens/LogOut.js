@@ -6,7 +6,7 @@ import firebase from "../Database/firebaseDB";
 import uuid from 'react-uuid';
 import { authentication } from '../Database/firebase';
 import { signOut } from "firebase/auth";
-import MyNavigator from "../navigation/MyNavigator"
+
 
 const LoginPage = ({navigation}) => {
   const [fontsLoaded] = useFonts({
@@ -32,7 +32,8 @@ const LoginPage = ({navigation}) => {
     setIslogin(false)
       console.log(re);
       console.log("ออกจากระบบ");
-      navigation.replace('FristScreen')
+      // navigation.navigate('FristScreen')
+      navigation.popToTop()
     })
     .catch((re)=>{
       console.log(re);
