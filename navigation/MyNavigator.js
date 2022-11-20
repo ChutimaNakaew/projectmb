@@ -339,7 +339,7 @@ function MainTab() {
 
 function MainNavigator() {
   return (
-    <Stack.Navigator initialRouteName="Main">
+    <Stack.Navigator initialRouteName="BeforeLogin">
       <Stack.Screen
         name="BeforeLogin"
         component={Frist}

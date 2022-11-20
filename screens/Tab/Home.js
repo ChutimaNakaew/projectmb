@@ -8,6 +8,33 @@ import { authentication } from "../../Database/firebase"
 import { Picker } from "@react-native-community/picker"
 
 const Home = ({ props, navigation }) => {
+  const user_id = authentication.currentUser?.uid
+  const userRef = firebase.firestore().collection('user').where('uuid', '==', user_id);
+  const [info, setInfo] = useState([])
+  useEffect(() => {
+    userRef.onSnapshot((querySnapshot) => {
+      const info= []
+      querySnapshot.forEach((doc) => {
+        const { activity, age, email, goal_weight, height, password, sex, username, weight } = doc.data()
+        info.push({
+          id: doc.id,
+          activity, 
+          age, 
+          email, 
+          goal_weight, 
+          height, 
+          password, 
+          sex, 
+          username, 
+          weight
+        })
+      })
+      setInfo(info)
+    })
+  }, [])
+  console.log(info)
+
+  // console.log(user_id)
   const [weight, onChangeWeight] = React.useState(null)
   const [height, onChangeHeight] = React.useState(null)
 
@@ -166,6 +193,7 @@ const Home = ({ props, navigation }) => {
 
   return (
     <View>
+      {/* <Text style={styles.textNomal}></Text> */}
       <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 5 }}>
         {/* {show &&} */}
         <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center" }}>
@@ -198,16 +226,25 @@ const Home = ({ props, navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity style={styles.goalWeight}>
             <Text style={styles.text}>Goal Weight</Text>
-            <Text style={[styles.text, { fontSize: 30 }]}>45</Text>
+            { info.map((item, key)=>(
+         <Text  key={key} style={[styles.text, { fontSize: 30 }]}>{ item.goal_weight } </Text>)
+         )}
+            {/* <Text style={[styles.text, { fontSize: 30 }]}>45</Text> */}
           </TouchableOpacity>
         </View>
       </View>
 
       <View>
         <TouchableOpacity style={styles.boxInfo}>
-          <Text style={[styles.text, { fontSize: 24 }]}>ฟ้า</Text>
+          {/* <Text style={[styles.text, { fontSize: 24 }]}>ฟ้า</Text> */}
+          { info.map((item, key)=>(
+         <Text  key={key} style={[styles.text, { fontSize: 24 }]}> { item.username } </Text>)
+         )}
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
-            <Text style={styles.text}>น้ำหนัก: </Text>
+            {/* <Text style={styles.text}>น้ำหนัก: {info_weight}</Text> */}
+            { info.map((item, key)=>(
+         <Text  key={key} style={styles.text} >น้ำหนัก: { item.weight } </Text>)
+         )}
             <TextInput
               style={styles.input}
               value={weight}
@@ -215,7 +252,9 @@ const Home = ({ props, navigation }) => {
               // placeholder="Enter Your Weight"
               keyboardType="numeric"
             ></TextInput>
-            <Text style={styles.text}>ส่วนสูง: </Text>
+            { info.map((item, key)=>(
+         <Text  key={key} style={styles.text}>ส่วนสูง: { item.height } </Text>)
+         )}
             <TextInput
               style={styles.input}
               value={height}
