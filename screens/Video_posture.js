@@ -69,6 +69,7 @@ const Video_posture = ({ route, navigation }) => {
         console.log('You have burned calories ' + totalKcal + ' Kcal')
 
         // if (item.pos_name && item.pos_id && item.pos_kal) {
+            
         const timestamp = firebase.firestore.FieldValue.serverTimestamp()
         firebase.firestore().collection("user").doc("u1").collection("addWorkout").add({
             name: pos_name,

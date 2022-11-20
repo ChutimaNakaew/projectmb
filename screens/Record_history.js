@@ -3,10 +3,12 @@ import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, I
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
+import { authentication } from "../Database/firebase"
 
 const History = ({ route, navigation }) => {
     const [history, setHistory] = useState([])
     const [date, setDate] = useState('')
+    const user_id = authentication.currentUser?.uid
     // const [total, setTotal] = useState([])
     const workoutRef = firebase.firestore().collection("user").doc("u1").collection("addWorkout");
     const sumRef = firebase.firestore().collection("user").doc("u1").collection("TotalWorkout");
