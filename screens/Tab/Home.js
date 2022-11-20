@@ -122,12 +122,11 @@ const Home = ({ props, navigation }) => {
   let id_users = ''
   const [bmi, setBmi] = useState(0)
   const [active, setActive] = useState(0)
-  // const []
   let bmi_img = ''
   const [img, setImg] = useState('')
   info.forEach((item) => {
-    console.log(item.activity)
-    console.log(item.sex)
+    // console.log(item.activity)
+    // console.log(item.sex)
     // console.log(item.id+'----------------------')
     id_users += item.id
     let bmi = ((parseFloat(item.weight) * 10000) / (parseFloat(item.height) * parseFloat(item.height))).toFixed(2)
@@ -217,26 +216,7 @@ const Home = ({ props, navigation }) => {
   console.log('id_users : ------' + id_users)
   // console.log('image : '+bmi_img )
   // console.log('you activity is'+ )
-  const images = ''
-  const bmi_imgs = () => {
-    console.log('momomo' + bmi_num)
-    if (bmi_num < 18.5) {
-      images += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy1-removebg-preview.png?alt=media&token=7ce82eeb-6238-4778-8551-10bbfce56e8a'
-    }
-    else if (bmi_num >= 18.5 && bmi_num < 25) {
-      images += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy2-removebg-preview.png?alt=media&token=8a371bc6-33f6-4d08-b05c-8000d4ecfebf'
-    }
-    else if (bmi_num >= 25 && bmi_num < 30) {
-
-      images += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy3-removebg-preview.png?alt=media&token=887e0699-2604-4305-938a-f4d9db6966a9'
-    }
-    else if (bmi_num >= 30) {
-
-      images += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy4-removebg-preview.png?alt=media&token=fa888a6b-4c99-42c1-b5d4-aaf666d04408'
-    }
-    return (images)
-  }
-  console.log('images--------' + images)
+ 
 
   // console.log(user_id)
   const [weight, onChangeWeight] = React.useState(null)
