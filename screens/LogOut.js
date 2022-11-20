@@ -32,7 +32,7 @@ const LoginPage = ({navigation}) => {
       console.log(re);
       console.log("ออกจากระบบ");
       // navigation.navigate('FristScreen')
-      navigation.popToTop()
+      navigation.replace("FristScreen")
     })
     .catch((re)=>{
       console.log(re);

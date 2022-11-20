@@ -4,11 +4,13 @@ import { Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 import { SearchBar } from "react-native-elements"
+import { authentication } from "../Database/firebase"
 
 const AllMenu = ({ props, navigation }) => {
+  // const user_id = authentication.currentUser?.uid
   const [food, setFood] = useState([])
   const foodRef = firebase.firestore().collection("food")
-  const addFood = firebase.firestore().collection("user").doc("u1").collection("addFood")
+  const addFood = firebase.firestore().collection("addFood")
   const [input, setInput] = useState("")
   const [data, setData] = useState("")
 
@@ -37,14 +39,17 @@ const AllMenu = ({ props, navigation }) => {
   const add = (item) => {
     // check have this menu
     if (item.name && item.id && item.kcal && item.img) {
+
       // get timestamp
       const timestamp = firebase.firestore.FieldValue.serverTimestamp()
+      const user_id = authentication.currentUser?.uid
       const data = {
         name: item.name,
         date: timestamp,
         kcal: item.kcal,
         id: item.id,
         img: item.img,
+        user_id: user_id
       }
       addFood
         .add(data)

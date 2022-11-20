@@ -6,18 +6,11 @@ import firebase from "../../Database/firebaseDB"
 import DateTimePicker from "@react-native-community/datetimepicker"
 import { authentication } from "../../Database/firebase"
 import { Picker } from "@react-native-community/picker"
-// import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-firestore.js";
+import { concat } from "react-native-reanimated"
 
 const Home = ({ props, navigation }) => {
   const user_id = authentication.currentUser?.uid
-
-  // console.log('user: '+id_user)
-  const userRef = firebase.firestore().collection('user').where('uuid', '==', user_id);
-  // const id_user =getDoc(userRef)
-  // const docSnap =  getDoc(userRef);
-  //   console.log(docSnap.data());
-  // console.log('user: '+id_user)
-
+  const userRef = firebase.firestore().collection("user").where("uuid", "==", user_id)
   const [info, setInfo] = useState([])
   const [id, setId] = useState([])
   useEffect(() => {
@@ -25,7 +18,8 @@ const Home = ({ props, navigation }) => {
       const info = []
       const id = []
       querySnapshot.forEach((doc) => {
-        const { activity, age, email, goal_weight, height, password, sex, username, weight } = doc.data()
+        const { activity, age, email, goal_weight, height, password, sex, username, weight } =
+          doc.data()
         info.push({
           id: doc.id,
           activity,
@@ -36,7 +30,7 @@ const Home = ({ props, navigation }) => {
           password,
           sex,
           username,
-          weight
+          weight,
         })
         // id.push({id: doc.id})
         // setId(id)
@@ -50,12 +44,16 @@ const Home = ({ props, navigation }) => {
   // console.log(info)
   const val_change = (val) => {
     setAct(val)
-    console.log('value is ' + val)
-    if (val === '1.2') {
+    console.log("value is " + val)
+    if (val === "1.2") {
       //  newNum += bmr*1.2
-      firebase.firestore().collection("user").doc(id_users).update({
-        activity: 'นั่งอยู่กับที่และไม่ออกกำลังกายเลย'
-      })
+      firebase
+        .firestore()
+        .collection("user")
+        .doc(id_users)
+        .update({
+          activity: "นั่งอยู่กับที่และไม่ออกกำลังกายเลย",
+        })
         .then(() => {
           console.log("Update ")
           // alert("✏️ อัพเดทกิจกรรม")
@@ -63,11 +61,14 @@ const Home = ({ props, navigation }) => {
         .catch((err) => {
           alert(err)
         })
-    }
-    else if (val === '1.375') {
-      firebase.firestore().collection("user").doc(id_users).update({
-        activity: 'ออกกำลังกายอาทิตย์ละ 1-3 วัน'
-      })
+    } else if (val === "1.375") {
+      firebase
+        .firestore()
+        .collection("user")
+        .doc(id_users)
+        .update({
+          activity: "ออกกำลังกายอาทิตย์ละ 1-3 วัน",
+        })
         .then(() => {
           console.log("Update ")
           // alert("✏️ อัพเดทกิจกรรม ")
@@ -75,132 +76,194 @@ const Home = ({ props, navigation }) => {
         .catch((err) => {
           alert(err)
         })
-    }
-    else if (val === '1.55') {
-      firebase.firestore().collection("user").doc(id_users).update({
-        activity: 'ออกกำลังกายอาทิตย์ละ 3-5 วัน'
-      })
+    } else if (val === "1.55") {
+      firebase
+        .firestore()
+        .collection("user")
+        .doc(id_users)
+        .update({
+          activity: "ออกกำลังกายอาทิตย์ละ 3-5 วัน",
+        })
         .then(() => {
           console.log("Update ")
           // alert("✏️ อัพเดทกิจกรรม ")
         })
-        .catch((err) => {
-          alert(err)
+    } else if (val === "1.725") {
+      firebase
+        .firestore()
+        .collection("user")
+        .doc(id_users)
+        .update({
+          activity: "ออกกำลังกายอาทิตย์ละ 6-7 วัน",
         })
-    }
-    else if (val === '1.725') {
-      firebase.firestore().collection("user").doc(id_users).update({
-        activity: 'ออกกำลังกายอาทิตย์ละ 6-7 วัน'
-      })
         .then(() => {
           console.log("Update ")
           // alert("✏️ อัพเดทกิจกรรม ")
         })
-        .catch((err) => {
-          alert(err)
+    } else if (val === "1.9") {
+      firebase
+        .firestore()
+        .collection("user")
+        .doc(id_users)
+        .update({
+          activity: "ออกกำลังกายทุกวันเช้าเย็น",
         })
-    }
-    else if (val === '1.9') {
-      firebase.firestore().collection("user").doc(id_users).update({
-        activity: 'ออกกำลังกายทุกวันเช้าเย็น'
-      })
         .then(() => {
           console.log("Update ")
           // alert("✏️ อัพเดทกิจกรรม ")
-        })
-        .catch((err) => {
-          alert(err)
         })
     }
   }
+
+  const [weight, onChangeWeight] = useState(0)
+  const [height, onChangeHeight] = useState(0)
+  const [doc, setDoc] = useState(0)
+  const [goal, setGoal] = useState(0)
+
+  useEffect(() => {
+    const user = firebase.firestore().collection("user")
+    if (weight === 0) {
+      info.map((item) => {
+        onChangeWeight(item.weight)
+        setDoc(item.id)
+      })
+    }
+    if (height === 0) {
+      info.map((item) => {
+        onChangeHeight(item.height)
+      })
+    }
+    if (goal === 0) {
+      info.map((item) => {
+        setGoal(item.goal_weight)
+      })
+    }
+    if (weight) {
+      user
+        .doc(doc)
+        .update({
+          weight: weight,
+        })
+        .then(() => {
+          console.log("Update " + weight)
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    }
+    if (height) {
+      user
+        .doc(doc)
+        .update({
+          height: height,
+        })
+        .then(() => {
+          console.log("Update " + height)
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    }
+    if (goal) {
+      user
+        .doc(doc)
+        .update({
+          goal_weight: goal,
+        })
+        .then(() => {
+          console.log("Update " + goal)
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    }
+  })
+
   // bmi((item) =>{
-  let bmi_num = (0)
-  let text_bmi = ''
+  let bmi_num = 0
+  let text_bmi = ""
   let bmr = 0
-  let activity = ''
+  let activity = ""
   let TDEE = 0
-  let id_users = ''
+  let id_users = ""
   const [bmi, setBmi] = useState(0)
   const [active, setActive] = useState(0)
   // const []
-  let bmi_img = ''
-  const [img, setImg] = useState('')
+  let bmi_img = ""
+  const [img, setImg] = useState("")
   info.forEach((item) => {
     console.log(item.activity)
     console.log(item.sex)
     // console.log(item.id+'----------------------')
     id_users += item.id
-    let bmi = ((parseFloat(item.weight) * 10000) / (parseFloat(item.height) * parseFloat(item.height))).toFixed(2)
+    let bmi = (
+      (parseFloat(item.weight) * 10000) /
+      (parseFloat(item.height) * parseFloat(item.height))
+    ).toFixed(2)
     bmi_num += Number(bmi)
     if (bmi_num < 18.5) {
-      if (item.sex === 'men') {
-        bmi_img += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy1-removebg-preview.png?alt=media&token=7ce82eeb-6238-4778-8551-10bbfce56e8a'
-        text_bmi += 'ผอม'
+      if (item.sex === "men") {
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy1-removebg-preview.png?alt=media&token=7ce82eeb-6238-4778-8551-10bbfce56e8a"
+        text_bmi += "ผอม"
+      } else if (item.sex === "female") {
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/g1-removebg-preview.png?alt=media&token=7d28d7ab-d808-46ba-8b59-99652ac3fb80"
+        text_bmi += "ผอม"
       }
-      else if (item.sex === 'female') {
-        bmi_img += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/g1-removebg-preview.png?alt=media&token=7d28d7ab-d808-46ba-8b59-99652ac3fb80'
-        text_bmi += 'ผอม'
+    } else if (bmi_num >= 18.5 && bmi_num < 25) {
+      if (item.sex === "men") {
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy2-removebg-preview.png?alt=media&token=8a371bc6-33f6-4d08-b05c-8000d4ecfebf"
+        text_bmi += "สมส่วน"
+      } else if (item.sex === "female") {
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/g2-removebg-preview.png?alt=media&token=83aa020d-d3e7-4f1e-83cb-32fb52725e17"
+        text_bmi += "สมส่วน"
       }
-
-    }
-    else if (bmi_num >= 18.5 && bmi_num < 25) {
-      if (item.sex === 'men') {
-        bmi_img += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy2-removebg-preview.png?alt=media&token=8a371bc6-33f6-4d08-b05c-8000d4ecfebf'
-        text_bmi += 'สมส่วน'
+    } else if (bmi_num >= 25 && bmi_num < 30) {
+      if (item.sex === "men") {
+        text_bmi += "อ้วน"
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy3-removebg-preview.png?alt=media&token=887e0699-2604-4305-938a-f4d9db6966a9"
+      } else if (item.sex === "female") {
+        text_bmi += "อ้วน"
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/g3-removebg-preview.png?alt=media&token=a7c27a51-83f4-4cc3-8d24-1efa977f3403"
       }
-      else if (item.sex === 'female') {
-        bmi_img += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/g2-removebg-preview.png?alt=media&token=83aa020d-d3e7-4f1e-83cb-32fb52725e17'
-        text_bmi += 'สมส่วน'
+    } else if (bmi_num >= 30) {
+      if (item.sex === "men") {
+        text_bmi += "อ้วนมาก"
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy4-removebg-preview.png?alt=media&token=fa888a6b-4c99-42c1-b5d4-aaf666d04408"
+      } else if (item.sex === "female") {
+        text_bmi += "อ้วนมาก"
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/g4-removebg-preview.png?alt=media&token=bde4e9de-f75a-413b-8f22-1ccd9673d4cf"
       }
-    }
-    else if (bmi_num >= 25 && bmi_num < 30) {
-      if (item.sex === 'men') {
-        text_bmi += 'อ้วน'
-        bmi_img += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy3-removebg-preview.png?alt=media&token=887e0699-2604-4305-938a-f4d9db6966a9'
-      }
-      else if (item.sex === 'female') {
-        text_bmi += 'อ้วน'
-        bmi_img += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/g3-removebg-preview.png?alt=media&token=a7c27a51-83f4-4cc3-8d24-1efa977f3403'
-      }
-    }
-    else if (bmi_num >= 30) {
-      if (item.sex === 'men') {
-        text_bmi += 'อ้วนมาก'
-        bmi_img += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy4-removebg-preview.png?alt=media&token=fa888a6b-4c99-42c1-b5d4-aaf666d04408'
-      }
-      else if (item.sex === 'female') {
-        text_bmi += 'อ้วนมาก'
-        bmi_img += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/g4-removebg-preview.png?alt=media&token=bde4e9de-f75a-413b-8f22-1ccd9673d4cf'
-      }
-
-    }
-
-    if (item.sex === 'men') {
-      bmr += 66 + (13.7 * item.weight) + (5 * item.height) - (6.8 * item.age)
-    }
-    else if (item.sex === 'female') {
-      bmr += 665 + (9.6 * item.weight) + (1.8 * item.height) - (4.7 * item.age)
     }
 
-    if (item.activity === 'นั่งอยู่กับที่และไม่ออกกำลังกายเลย') {
+    if (item.sex === "men") {
+      bmr += 66 + 13.7 * item.weight + 5 * item.height - 6.8 * item.age
+    } else if (item.sex === "female") {
+      bmr += 665 + 9.6 * item.weight + 1.8 * item.height - 4.7 * item.age
+    }
+
+    if (item.activity === "นั่งอยู่กับที่และไม่ออกกำลังกายเลย") {
       activity += 1.2
 
       TDEE += Number((bmr * activity).toFixed(0))
-    }
-    else if (item.activity === 'ออกกำลังกายอาทิตย์ละ 1-3 วัน') {
+    } else if (item.activity === "ออกกำลังกายอาทิตย์ละ 1-3 วัน") {
       activity += 1.375
 
       TDEE += Number((bmr * activity).toFixed(0))
-    }
-    else if (item.activity === 'ออกกำลังกายอาทิตย์ละ 3-5 วัน') {
+    } else if (item.activity === "ออกกำลังกายอาทิตย์ละ 3-5 วัน") {
       activity += 1.55
       TDEE += Number((bmr * activity).toFixed(0))
-    }
-    else if (item.activity === 'ออกกำลังกายอาทิตย์ละ 6-7 วัน') {
+    } else if (item.activity === "ออกกำลังกายอาทิตย์ละ 6-7 วัน") {
       activity += 1.725
       TDEE += Number((bmr * activity).toFixed(0))
-    }
-    else if (item.activity === 'ออกกำลังกายทุกวันเช้าเย็น') {
+    } else if (item.activity === "ออกกำลังกายทุกวันเช้าเย็น") {
       activity += 1.9
       TDEE += Number((bmr * activity).toFixed(0))
     }
@@ -209,38 +272,45 @@ const Home = ({ props, navigation }) => {
     // console.log('you activity is '+ item.activity)
     // console.log(item.sex)
   })
-  console.log('bmi is ' + bmi_num)
-  console.log('you are ' + text_bmi)
-  console.log('BMR : ' + bmr)
-  console.log('you activity is ' + activity)
-  console.log('TDEE : ' + TDEE)
-  console.log('id_users : ------' + id_users)
+  console.log("bmi is " + bmi_num)
+  console.log("you are " + text_bmi)
+  console.log("BMR : " + bmr)
+  console.log("you activity is " + activity)
+  console.log("TDEE : " + TDEE)
+  console.log("id_users : ------" + id_users)
   // console.log('image : '+bmi_img )
   // console.log('you activity is'+ )
-  const images = ''
+  const images = ""
   const bmi_imgs = () => {
-    console.log('momomo' + bmi_num)
+    console.log("momomo" + bmi_num)
     if (bmi_num < 18.5) {
-      images += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy1-removebg-preview.png?alt=media&token=7ce82eeb-6238-4778-8551-10bbfce56e8a'
+      images +=
+        "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy1-removebg-preview.png?alt=media&token=7ce82eeb-6238-4778-8551-10bbfce56e8a"
+    } else if (bmi_num >= 18.5 && bmi_num < 25) {
+      images +=
+        "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy2-removebg-preview.png?alt=media&token=8a371bc6-33f6-4d08-b05c-8000d4ecfebf"
+    } else if (bmi_num >= 25 && bmi_num < 30) {
+      images +=
+        "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy3-removebg-preview.png?alt=media&token=887e0699-2604-4305-938a-f4d9db6966a9"
+    } else if (bmi_num >= 30) {
+      images +=
+        "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy4-removebg-preview.png?alt=media&token=fa888a6b-4c99-42c1-b5d4-aaf666d04408"
     }
-    else if (bmi_num >= 18.5 && bmi_num < 25) {
-      images += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy2-removebg-preview.png?alt=media&token=8a371bc6-33f6-4d08-b05c-8000d4ecfebf'
-    }
-    else if (bmi_num >= 25 && bmi_num < 30) {
-
-      images += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy3-removebg-preview.png?alt=media&token=887e0699-2604-4305-938a-f4d9db6966a9'
-    }
-    else if (bmi_num >= 30) {
-
-      images += 'https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy4-removebg-preview.png?alt=media&token=fa888a6b-4c99-42c1-b5d4-aaf666d04408'
-    }
-    return (images)
+    return images
   }
-  console.log('images--------' + images)
+  console.log("images--------" + images)
 
   // console.log(user_id)
-  const [weight, onChangeWeight] = React.useState(null)
-  const [height, onChangeHeight] = React.useState(null)
+
+  // const [weigh, setWeig] = useState(0)
+  // useEffect(() => {
+  //   if ((weigh = 0)) {
+  //     info.map((item) => {
+  //       const wei = item.weight
+  //       setWeig(wei)
+  //     })
+  //   }
+  // })
 
   // -----------------------------------ปฎิทินจ้า----------------------------------------------------------------------------
   const [date, setDate] = useState(new Date())
@@ -281,13 +351,12 @@ const Home = ({ props, navigation }) => {
   const [newTdee, setNewTdee] = useState(0)
   // let newNum = 0
 
-
   // setNewTdee(newNum => newNum=0)
   // console.log('newNumber is ' + newTdee)
   // --------------ดึงข้อมูลKcal workoutมาแสดงผลจ้า------------------------
   const [history, setHistory] = useState([])
   // const [history_food, setHistory_food] = useState([])
-  const workoutRef = firebase.firestore().collection("addWorkOut").where('user_id', '==', user_id)
+  const workoutRef = firebase.firestore().collection("addWorkOut").where("user_id", "==", user_id)
   // const addfoodRef = firebase.firestore().collection("user").doc("u1").collection("addFood")
   //-------------------------KCAl workout---------------------
   useEffect(() => {
@@ -324,24 +393,27 @@ const Home = ({ props, navigation }) => {
   // }, [])
 
   // console.log(history_food);
-  const addFood = firebase.firestore().collection("user").doc("u1").collection("addFood")
+  const addFood = firebase.firestore().collection("addFood")
   const [showMenu, setAddMenu] = useState([])
   useEffect(() => {
-    addFood.orderBy("date", "desc").onSnapshot(async (querySnapshot) => {
-      const showMenu = []
-      await querySnapshot.forEach((doc) => {
-        const { name, kcal, id, date, img } = doc.data()
-        showMenu.push({
-          key: doc.id,
-          name,
-          kcal,
-          id,
-          date,
-          img,
+    addFood
+      .where("user_id", "==", user_id)
+      .orderBy("date", "desc")
+      .onSnapshot(async (querySnapshot) => {
+        const showMenu = []
+        await querySnapshot.forEach((doc) => {
+          const { name, kcal, id, date, img } = doc.data()
+          showMenu.push({
+            key: doc.id,
+            name,
+            kcal,
+            id,
+            date,
+            img,
+          })
         })
+        setAddMenu(showMenu)
       })
-      setAddMenu(showMenu)
-    })
   }, [])
 
   //---------------------------------------------------
@@ -426,8 +498,10 @@ const Home = ({ props, navigation }) => {
       </TouchableOpacity>
 
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
-        <Image style={styles.img} source={{ uri: bmi_img }}
-        // source={require("../../assets/body.png")} 
+        <Image
+          style={styles.img}
+          source={{ uri: bmi_img }}
+          // source={require("../../assets/body.png")}
         />
         <View>
           <TouchableOpacity style={styles.bmi}>
@@ -435,44 +509,46 @@ const Home = ({ props, navigation }) => {
             <Text style={styles.line}></Text>
             <Text style={[styles.text, { fontSize: 30 }]}>{text_bmi}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.goalWeight}>
+          <View style={styles.goalWeight}>
             <Text style={styles.text}>Goal Weight</Text>
-            {info.map((item, key) => (
-              <Text key={key} style={[styles.text, { fontSize: 30 }]}>{item.goal_weight} </Text>)
-            )}
-            {/* <Text style={[styles.text, { fontSize: 30 }]}>45</Text> */}
-          </TouchableOpacity>
+            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+              <TextInput
+                style={styles.input}
+                value={goal}
+                onChangeText={(goal) => setGoal(goal)}
+                keyboardType="numeric"
+              ></TextInput>
+              <Text style={[styles.text, { marginRight: 10 }]}>กก.</Text>
+            </View>
+          </View>
         </View>
       </View>
 
       <View>
         <TouchableOpacity style={styles.boxInfo}>
-          {/* <Text style={[styles.text, { fontSize: 24 }]}>ฟ้า</Text> */}
           {info.map((item, key) => (
-            <Text key={key} style={[styles.text, { fontSize: 24 }]}> {item.username} </Text>)
-          )}
+            <Text key={key} style={[styles.text, { fontSize: 24 }]}>
+              {" "}
+              {item.username}{" "}
+            </Text>
+          ))}
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
-            {/* <Text style={styles.text}>น้ำหนัก: {info_weight}</Text> */}
-            {info.map((item, key) => (
-              <Text key={key} style={styles.text} >น้ำหนัก: {item.weight} </Text>)
-            )}
+            <Text style={styles.text}>น้ำหนัก:</Text>
             <TextInput
               style={styles.input}
               value={weight}
-              onChangeText={onChangeWeight}
-              // placeholder="Enter Your Weight"
+              onChangeText={(weight) => onChangeWeight(weight)}
               keyboardType="numeric"
             ></TextInput>
-            {info.map((item, key) => (
-              <Text key={key} style={styles.text}>ส่วนสูง: {item.height} </Text>)
-            )}
+            <Text style={[styles.text, { marginRight: 10 }]}>กก.</Text>
+            <Text style={styles.text}>ส่วนสูง:</Text>
             <TextInput
               style={styles.input}
               value={height}
-              onChangeText={onChangeHeight}
-              // placeholder="Enter Your Height"
+              onChangeText={(height) => onChangeHeight(height)}
               keyboardType="numeric"
             ></TextInput>
+            <Text style={[styles.text, { marginRight: 10 }]}>ซม.</Text>
           </View>
           {info.map((item, key) => (
             <Picker
@@ -484,7 +560,6 @@ const Home = ({ props, navigation }) => {
               // onValueChange={(val) => setAct(val)}
               onValueChange={val_change}
             >
-
               {/* {info.map((item, key) => (
               <Picker.Item key={key} label={item.activity} value={item.activity} />)
             )} */}
@@ -523,7 +598,7 @@ const Home = ({ props, navigation }) => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("คำนวณแคล")
+            navigation.navigate("คำนวณแคล", { screen: "Cal" })
           }}
           style={{ backgroundColor: "lightpink", width: 115, height: 115, borderRadius: 100 }}
         >
@@ -551,7 +626,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     backgroundColor: "gray",
     color: "#fff",
-
   },
   text: {
     fontSize: 18,

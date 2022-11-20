@@ -4,14 +4,16 @@ import { Ionicons, AntDesign, FontAwesome5, MaterialCommunityIcons } from "@expo
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 // import { SearchBar } from "react-native-elements"
+import { authentication } from "../Database/firebase"
 
 const MyMenu = ({ navigation }) => {
   const [input, setInput] = useState("")
   const [showMenu, setShowMenu] = useState("")
-  const myMenu = firebase.firestore().collection("user").doc("u1").collection("myMenu")
-  const addFood = firebase.firestore().collection("user").doc("u1").collection("addFood")
+  const myMenu = firebase.firestore().collection("myMenu")
+  const addFood = firebase.firestore().collection("addFood")
   // const [data, setData] = useState("")
   const [food, setFood] = useState([])
+  const user_id = authentication.currentUser?.uid
 
   // useEffect(()=>{
   //   if(data == ""){
@@ -20,7 +22,10 @@ const MyMenu = ({ navigation }) => {
   // })
 
   useEffect(() => {
-    myMenu.onSnapshot( async (querySnapshot) => {
+    myMenu
+    .where('user_id', '==', user_id)
+    .orderBy("date", "desc")
+    .onSnapshot( async (querySnapshot) => {
       const food = []
       await querySnapshot.forEach((doc) => {
         const { name, kcal, img } = doc.data()
@@ -40,12 +45,14 @@ const MyMenu = ({ navigation }) => {
     if (item.name && item.id && item.kcal && item.img) {
       // get timestamp
       const timestamp = firebase.firestore.FieldValue.serverTimestamp()
+      const user_id = authentication.currentUser?.uid
       const data = {
         name: item.name,
         date: timestamp,
         kcal: item.kcal,
         id: item.id,
         img: item.img,
+        user_id: user_id,
       }
       addFood
         .add(data)
