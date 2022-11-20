@@ -3,11 +3,13 @@ import { View, StyleSheet, Text, ScrollView, ImageBackground, Button, useWindowD
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 import YoutubePlayer from "react-native-youtube-iframe";
+import { authentication } from "../Database/firebase"
 // import Video from 'react-native-video';
 import { Video, AVPlaybackStatus } from 'expo-av';
 const screen = Dimensions.get('window');
 
 const Video_posture = ({ route, navigation }) => {
+    const user_id = authentication.currentUser?.uid
     const { width: screenWidth } = useWindowDimensions()
     const { postureId } = route.params;
     const { postureName } = route.params;
@@ -48,12 +50,20 @@ const Video_posture = ({ route, navigation }) => {
 
         // if (item.pos_name && item.pos_id && item.pos_kal) {
         const timestamp = firebase.firestore.FieldValue.serverTimestamp()
-        firebase.firestore().collection("user").doc("u1").collection("addWorkout").add({
+        // firebase.firestore().collection("user").doc("u1").collection("addWorkout").add({
+        //     name: pos_name,
+        //     date: timestamp,
+        //     kcal: pos_kal,
+        //     id: pos_id,
+        //     time: Number((post_timing).toFixed(2)),
+        // })
+        firebase.firestore().collection("addWorkOut").add({
             name: pos_name,
             date: timestamp,
             kcal: pos_kal,
             id: pos_id,
             time: Number((post_timing).toFixed(2)),
+            user_id: user_id 
         })
             .then(() => {
                 console.log("Success to Add calories of " + pos_name)

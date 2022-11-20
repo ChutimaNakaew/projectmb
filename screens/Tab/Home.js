@@ -42,7 +42,7 @@ const Home = ({ props, navigation }) => {
   let TDEE = 0
   const [bmi, setBmi] = useState(0)
   info.forEach((item) => {
-    console.log('you activity is '+ item.activity)
+    
     // console.log(item.weight)
     let bmi = ((parseFloat(item.weight) * 10000) / (parseFloat(item.height) * parseFloat(item.height))).toFixed(2)
     bmi_num += Number(bmi)
@@ -66,27 +66,27 @@ const Home = ({ props, navigation }) => {
       bmr += 665+(9.6*item.weight)+(1.8*item.height)-(4.7*item.age)
     }
 
-    if(item.activity = 'นั่งอยู่กับที่และไม่ออกกำลังกายเลย'){
+    if(item.activity === 'นั่งอยู่กับที่และไม่ออกกำลังกายเลย'){
       activity += 1.2
       TDEE += Number((bmr*activity).toFixed(0))
     }
-    else if(item.activity = 'ออกกำลังกายอาทิตย์ละ 1-3 วัน'){
+    else if(item.activity === 'ออกกำลังกายอาทิตย์ละ 1-3 วัน'){
       activity += 1.375
       TDEE += Number((bmr*activity).toFixed(0))
     }
-    else if(item.activity = 'ออกกำลังกายอาทิตย์ละ 3-5 วัน'){
+    else if(item.activity === 'ออกกำลังกายอาทิตย์ละ 3-5 วัน'){
       activity += 1.55
       TDEE += Number((bmr*activity).toFixed(0))
     }
-    else if(item.activity = 'ออกกำลังกายอาทิตย์ละ 6-7 วัน'){
+    else if(item.activity === 'ออกกำลังกายอาทิตย์ละ 6-7 วัน'){
       activity += 1.725
       TDEE += Number((bmr*activity).toFixed(0))
     }
-    else if(item.activity = 'ออกกำลังกายทุกวันเช้าเย็น'){
+    else if(item.activity === 'ออกกำลังกายทุกวันเช้าเย็น'){
       activity += 1.9
       TDEE += Number((bmr*activity).toFixed(0))
     }
-    
+    console.log('you activity is '+ item.activity)
     // console.log(item.sex)
   })
   console.log('bmi is ' + bmi_num)
@@ -141,7 +141,7 @@ const Home = ({ props, navigation }) => {
   // --------------ดึงข้อมูลKcal workoutมาแสดงผลจ้า------------------------
   const [history, setHistory] = useState([])
   // const [history_food, setHistory_food] = useState([])
-  const workoutRef = firebase.firestore().collection("user").doc("u1").collection("addWorkout")
+  const workoutRef = firebase.firestore().collection("addWorkOut").where('user_id', '==', user_id)
   // const addfoodRef = firebase.firestore().collection("user").doc("u1").collection("addFood")
   //-------------------------KCAl workout---------------------
   useEffect(() => {
