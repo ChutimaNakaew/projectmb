@@ -6,14 +6,24 @@ import firebase from "../../Database/firebaseDB"
 import DateTimePicker from "@react-native-community/datetimepicker"
 import { authentication } from "../../Database/firebase"
 import { Picker } from "@react-native-community/picker"
+// import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-firestore.js";
 
 const Home = ({ props, navigation }) => {
   const user_id = authentication.currentUser?.uid
+
+  // console.log('user: '+id_user)
   const userRef = firebase.firestore().collection('user').where('uuid', '==', user_id);
+  // const id_user =getDoc(userRef)
+  // const docSnap =  getDoc(userRef);
+  //   console.log(docSnap.data());
+  // console.log('user: '+id_user)
+
   const [info, setInfo] = useState([])
+  const [id, setId] = useState([])
   useEffect(() => {
     userRef.onSnapshot((querySnapshot) => {
       const info = []
+      const id = []
       querySnapshot.forEach((doc) => {
         const { activity, age, email, goal_weight, height, password, sex, username, weight } = doc.data()
         info.push({
@@ -28,22 +38,94 @@ const Home = ({ props, navigation }) => {
           username,
           weight
         })
+        // id.push({id: doc.id})
+        // setId(id)
+        // console.log('doc_id :'+doc.id);
       })
       setInfo(info)
     })
   }, [])
-  console.log(info)
 
+  // console.log('----------'+id)
+  // console.log(info)
+  const val_change = (val) => {
+    setAct(val)
+    console.log('value is ' + val)
+    if (val === '1.2') {
+      //  newNum += bmr*1.2
+      firebase.firestore().collection("user").doc(id_users).update({
+        activity: 'นั่งอยู่กับที่และไม่ออกกำลังกายเลย'
+      })
+        .then(() => {
+          console.log("Update ")
+          // alert("✏️ อัพเดทกิจกรรม")
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    }
+    else if (val === '1.375') {
+      firebase.firestore().collection("user").doc(id_users).update({
+        activity: 'ออกกำลังกายอาทิตย์ละ 1-3 วัน'
+      })
+        .then(() => {
+          console.log("Update ")
+          // alert("✏️ อัพเดทกิจกรรม ")
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    }
+    else if (val === '1.55') {
+      firebase.firestore().collection("user").doc(id_users).update({
+        activity: 'ออกกำลังกายอาทิตย์ละ 3-5 วัน'
+      })
+        .then(() => {
+          console.log("Update ")
+          // alert("✏️ อัพเดทกิจกรรม ")
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    }
+    else if (val === '1.725') {
+      firebase.firestore().collection("user").doc(id_users).update({
+        activity: 'ออกกำลังกายอาทิตย์ละ 6-7 วัน'
+      })
+        .then(() => {
+          console.log("Update ")
+          // alert("✏️ อัพเดทกิจกรรม ")
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    }
+    else if (val === '1.9') {
+      firebase.firestore().collection("user").doc(id_users).update({
+        activity: 'ออกกำลังกายทุกวันเช้าเย็น'
+      })
+        .then(() => {
+          console.log("Update ")
+          // alert("✏️ อัพเดทกิจกรรม ")
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    }
+  }
   // bmi((item) =>{
   let bmi_num = (0)
   let text_bmi = ''
   let bmr = 0
   let activity = ''
   let TDEE = 0
+  let id_users = ''
   const [bmi, setBmi] = useState(0)
+  const [active, setActive] = useState(0)
   info.forEach((item) => {
-    
-    // console.log(item.weight)
+    console.log(item.activity)
+    // console.log(item.id+'----------------------')
+    id_users += item.id
     let bmi = ((parseFloat(item.weight) * 10000) / (parseFloat(item.height) * parseFloat(item.height))).toFixed(2)
     bmi_num += Number(bmi)
     if (bmi_num < 18.5) {
@@ -59,42 +141,65 @@ const Home = ({ props, navigation }) => {
       text_bmi += 'อ้วนมาก'
     }
 
-    if(item.sex = 'men'){
-      bmr += 66+(13.7*item.weight)+(5*item.height)-(6.8*item.age)
+    if (item.sex = 'men') {
+      bmr += 66 + (13.7 * item.weight) + (5 * item.height) - (6.8 * item.age)
     }
-    else if(item.sex = 'women'){
-      bmr += 665+(9.6*item.weight)+(1.8*item.height)-(4.7*item.age)
+    else if (item.sex = 'women') {
+      bmr += 665 + (9.6 * item.weight) + (1.8 * item.height) - (4.7 * item.age)
     }
 
-    if(item.activity === 'นั่งอยู่กับที่และไม่ออกกำลังกายเลย'){
+    if (item.activity === 'นั่งอยู่กับที่และไม่ออกกำลังกายเลย') {
       activity += 1.2
-      TDEE += Number((bmr*activity).toFixed(0))
+
+      TDEE += Number((bmr * activity).toFixed(0))
     }
-    else if(item.activity === 'ออกกำลังกายอาทิตย์ละ 1-3 วัน'){
+    else if (item.activity === 'ออกกำลังกายอาทิตย์ละ 1-3 วัน') {
       activity += 1.375
-      TDEE += Number((bmr*activity).toFixed(0))
+
+      TDEE += Number((bmr * activity).toFixed(0))
     }
-    else if(item.activity === 'ออกกำลังกายอาทิตย์ละ 3-5 วัน'){
+    else if (item.activity === 'ออกกำลังกายอาทิตย์ละ 3-5 วัน') {
       activity += 1.55
-      TDEE += Number((bmr*activity).toFixed(0))
+      TDEE += Number((bmr * activity).toFixed(0))
     }
-    else if(item.activity === 'ออกกำลังกายอาทิตย์ละ 6-7 วัน'){
+    else if (item.activity === 'ออกกำลังกายอาทิตย์ละ 6-7 วัน') {
       activity += 1.725
-      TDEE += Number((bmr*activity).toFixed(0))
+      TDEE += Number((bmr * activity).toFixed(0))
     }
-    else if(item.activity === 'ออกกำลังกายทุกวันเช้าเย็น'){
+    else if (item.activity === 'ออกกำลังกายทุกวันเช้าเย็น') {
       activity += 1.9
-      TDEE += Number((bmr*activity).toFixed(0))
+      TDEE += Number((bmr * activity).toFixed(0))
     }
-    console.log('you activity is '+ item.activity)
+    // setActive(activity)
+    // console.log('you activity is '+ item.activity)
     // console.log(item.sex)
   })
   console.log('bmi is ' + bmi_num)
-  console.log('you are '+ text_bmi)
-  console.log('BMR : '+bmr)
-  console.log('you activity is '+ activity)
-  console.log('TDEE : '+ TDEE)
+  console.log('you are ' + text_bmi)
+  console.log('BMR : ' + bmr)
+  console.log('you activity is ' + activity)
+  console.log('TDEE : ' + TDEE)
+  console.log('id_users : ------' + id_users)
   // console.log('you activity is'+ )
+  const acts = []
+  // let obj =
+  //   [{ activity: 'นั่งทำงานอยู่กับที่และไม่ได้ออกกำลังกายเลย' }
+  //     , { activity: 'ออกกำลังกายอาทิตย์ละ 1-3 วัน' }
+  //     , { activity: 'ออกกำลังกายอาทิตย์ละ 3-5 วัน' }
+  //     , { activity: 'ออกกำลังกายอาทิตย์ละ 6-7 วัน' }
+  //     , { activity: 'ออกกำลังกายทุกวันเช้าเย็น' }]
+
+
+  // acts.push(obj)
+  // acts.forEach((item) => {
+  //   console.log(item.activity)
+  // })
+  // console.log(obj)
+  // let result_obj = obj.map(a => a.activity);
+  // console.log('act : '+result_obj)
+
+  // setAct(act => act = activity)
+
   // })
 
   // console.log(user_id)
@@ -137,7 +242,12 @@ const Home = ({ props, navigation }) => {
   }
 
   // ----------------------------------------------------------------------จบปฎิทิน---------------------------------
+  const [newTdee, setNewTdee] = useState(0)
+  // let newNum = 0
 
+
+  // setNewTdee(newNum => newNum=0)
+  // console.log('newNumber is ' + newTdee)
   // --------------ดึงข้อมูลKcal workoutมาแสดงผลจ้า------------------------
   const [history, setHistory] = useState([])
   // const [history_food, setHistory_food] = useState([])
@@ -326,19 +436,27 @@ const Home = ({ props, navigation }) => {
               keyboardType="numeric"
             ></TextInput>
           </View>
-          <Picker
-            style={styles.pickerStyle}
-            selectedValue={act}
-            mode="dialog"
-            onValueChange={(val) => setAct(val)}
-          >
-            <Picker.Item label="นั่งทำงานอยู่กับที่และไม่ได้ออกกำลังกายเลย" value="1.2" />
-            <Picker.Item label="ออกกำลังกายอาทิตย์ละ 1-3 วัน" value="1.375" />
-            <Picker.Item label="ออกกำลังกายอาทิตย์ละ 3-5 วัน" value="1.55" />
-            <Picker.Item label="ออกกำลังกายอาทิตย์ละ 6-7 วัน" value="1.725" />
-            <Picker.Item label="ออกกำลังกายทุกวันเช้าเย็น" value="1.9" />
-          </Picker>
+          {info.map((item, key) => (
+            <Picker
+              key={key}
+              style={styles.pickerStyle}
+              selectedValue={act}
+              mode="dialog"
+              // SelectedIndex="3"
+              // onValueChange={(val) => setAct(val)}
+              onValueChange={val_change}
+            >
 
+              {/* {info.map((item, key) => (
+              <Picker.Item key={key} label={item.activity} value={item.activity} />)
+            )} */}
+              <Picker.Item label="นั่งอยู่กับที่และไม่ออกกำลังกายเลย" value="1.2" />
+              <Picker.Item label="ออกกำลังกายอาทิตย์ละ 1-3 วัน" value="1.375" />
+              <Picker.Item label="ออกกำลังกายอาทิตย์ละ 3-5 วัน" value="1.55" />
+              <Picker.Item label="ออกกำลังกายอาทิตย์ละ 6-7 วัน" value="1.725" />
+              <Picker.Item label="ออกกำลังกายทุกวันเช้าเย็น" value="1.9" />
+            </Picker>
+          ))}
           {/* <Text style={styles.resultInfo}>นั่งทำงานอยู่กับที่และไม่ได้ออกกำลังกาย</Text> */}
         </TouchableOpacity>
       </View>
