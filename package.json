@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/webpack-config": "^0.17.0",
+    "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-native-community/datetimepicker": "6.2.0",
     "@react-native-community/picker": "^1.8.1",
     "@react-native-firebase/firestore": "^16.4.3",

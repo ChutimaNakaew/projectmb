@@ -18,7 +18,6 @@ import firebase from "../Database/firebaseDB"
 import uuid from "react-uuid"
 import { authentication } from "../Database/firebase"
 import { signInWithEmailAndPassword } from "firebase/auth"
-// import MyNavigator from "../navigation/MyNavigator"
 
 const LoginPage = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
@@ -32,7 +31,7 @@ const LoginPage = ({ navigation }) => {
   useEffect(() => {
     const unsubscribe = authentication.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace("HomePage")
+        navigation.navigate("Main")
       }
     })
     return unsubscribe

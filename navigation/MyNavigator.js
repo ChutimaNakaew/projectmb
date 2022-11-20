@@ -35,15 +35,13 @@ import Calender from "../screens/Calender_workout"
 //zac
 import FristScreen from "../screens/FristScreen"
 import SignupPage from "../screens/SignupPage"
-import LoginPage from "../screens/LoginPage"
 import QuestionSexPage from "../screens/QuestionSexPage"
-import AllUser from "../screens/AllUser"
-import UserDetail from "../screens/UserDetail"
-import LogOut from "../screens/LogOut"
 import QuestionAgePage from "../screens/QuestionAgePage"
 import QuestionTallPage from "../screens/QuestionTallPage"
 import QuestionWeighPage from "../screens/QuestionWeightPage"
 import QuestionActivityPage from "../screens/QuestionActivityPage"
+import LogOut from "../screens/LogOut"
+import LoginPage from "../screens/LoginPage"
 
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator()
@@ -57,10 +55,8 @@ function Frist() {
     <Stack.Navigator initialRouteName="FristScreen">
       <Stack.Screen name="FristScreen" component={FristScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Signup" component={SignupComplete} options={{ headerShown: false }} />
-      <Stack.Screen name="Login" component={LoginComplete} options={{ headerShown: false }} />
-      <Stack.Screen name="LogOut" component={LogOut} options={{ headerShown: false }} />
+      <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
       <Stack.Screen name="Logout" component={LogOut} options={{ headerShown: false }} />
-      <Stack.Screen name="QuestionSex" component={Question} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }
@@ -99,26 +95,9 @@ function Question() {
 
 function SignupComplete() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Question">
+      <Stack.Screen name="Question" component={Question} options={{ headerShown: false }} />
       <Stack.Screen name="SignupPage" component={SignupPage} options={{ headerShown: false }} />
-      <Stack.Screen
-        name="HomePage"
-        component={MainTab}
-        options={{ title: "", headerShown: false }}
-      />
-    </Stack.Navigator>
-  )
-}
-
-function LoginComplete() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="LoginPage" component={LoginPage} options={{ headerShown: false }} />
-      <Stack.Screen
-        name="HomePage"
-        component={MainTab}
-        options={{ title: "", headerShown: false }}
-      />
     </Stack.Navigator>
   )
 }
@@ -368,7 +347,7 @@ function MainTab() {
 
 function MainNavigator() {
   return (
-    <Stack.Navigator initialRouteName="BeforeLogin">
+    <Stack.Navigator initialRouteName="FristScreen">
       <Stack.Screen
         name="BeforeLogin"
         component={Frist}
