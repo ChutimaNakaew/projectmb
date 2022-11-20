@@ -14,6 +14,11 @@ import QuestionSexPage from "../screens/QuestionSexPage"
 import AllUser from "../screens/AllUser"
 import UserDetail from "../screens/UserDetail"
 import LogOut from "../screens/LogOut"
+import QuestionAgePage from "../screens/QuestionAgePage"
+
+import QuestionTallPage from "../screens/QuestionTallPage"
+import QuestionWeightPage from "../screens/QuestionWeightPage"
+import QuestionActivityPage from "../screens/QuestionActivityPage"
 
 
 // สร้าง navigator ตามโจทย์กำหนด
@@ -27,9 +32,14 @@ function MyStack() {
       <Stack.Screen name="SignupPage" component={SignupPage} options={{ headerShown: false }} />
       <Stack.Screen name="LoginPage" component={LoginPage} options={{ headerShown: false }} />
       <Stack.Screen name="QuestionSexPage" component={QuestionSexPage} options={{ headerShown: false }} />
+      <Stack.Screen name="QuestionAgePage" component={QuestionAgePage} options={{ headerShown: false }} />
       <Stack.Screen name="AllUser" component={AllUser} options={{ headerShown: false }} />
       <Stack.Screen name="UserDetail" component={UserDetail} options={{ headerShown: false }} />
       <Stack.Screen name="LogOut" component={LogOut} options={{ headerShown: false }} />
+
+      <Stack.Screen name="QuestionTallPage" component={QuestionTallPage} options={{ headerShown: false }} />
+      <Stack.Screen name="QuestionWeightPage" component={QuestionWeightPage} options={{ headerShown: false }} />
+      <Stack.Screen name="QuestionActivityPage" component={QuestionActivityPage} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }

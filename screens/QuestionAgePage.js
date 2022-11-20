@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     ImageBackground,
@@ -8,11 +8,26 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     Button,
-    Pressable,
+    TouchableOpacity,
 } from "react-native";
 import { useFonts } from "expo-font";
 
-const QuestionAgePage = () => {
+const QuestionAgePage = ({navigation, route}) => {
+    const {data} = route.params
+    console.log(data)
+
+    const [info, setInfo] = useState(data);
+
+    const InputValueUpdate = (val, props) => {
+        console.log(val)
+        info[props] = val;
+        setInfo(info)
+        console.log(info)
+    }
+
+
+    // console.log(info)
+
     let [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
       })
@@ -39,11 +54,14 @@ const QuestionAgePage = () => {
         style={styles.TextInput}
         placeholder="ปี"
         keyboardType= "numeric"
+        onChangeText={val => InputValueUpdate(val, 'age')}
       />
                         
-                        <Pressable style={styles.button}>
+                        <TouchableOpacity style={styles.button}
+                        onPress={() => navigation.navigate('QuestionTallPage', {info2: info})}
+                        >
                             <Text style={styles.textButton}>ต่อไป</Text>
-                        </Pressable>
+                        </TouchableOpacity>
                     </ScrollView>
                 </KeyboardAvoidingView>
             </ImageBackground>

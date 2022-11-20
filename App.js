@@ -15,6 +15,7 @@ import AllUser from "./screens/AllUser";
 import AddminFood from "./screens/AddminFood";
 import AddminNavigator from "./navigation/AddminNavigator";
 import Register from "./screens/Register";
+import QuestionSexPage from "./screens/QuestionSexPage";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,7 +25,7 @@ export default function App() {
   return (
     // <MyNavigator/>
     // <Register />
-    // <QuestionActivityPage/>
+    // <QuestionSexPage />
     <FristScreensNavigator/>
     // <AddminNavigator/>
   )

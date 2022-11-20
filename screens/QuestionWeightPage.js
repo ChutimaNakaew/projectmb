@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     ImageBackground,
@@ -8,15 +8,27 @@ import {
     TextInput,
     KeyboardAvoidingView,
     ScrollView,
-    Button,
+    TouchableOpacity,
     Pressable,
 } from "react-native";
 import { useFonts } from "expo-font";
 
-const QuestionWeightPage = () => {
+const QuestionWeightPage = ({navigation, route}) => {
+
     const [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
     });
+
+    const {info3} = route.params
+    const [info, setInfo] = useState(info3);
+
+      const InputValueUpdate = (val, props) => {
+        console.log(val)
+        info[props] = val;
+        setInfo(info)
+        console.log(info)
+    }
+
     return (
         <View style={styles.container}>
             {/* ใส่พื้นหลัง */}
@@ -36,11 +48,23 @@ const QuestionWeightPage = () => {
         style={styles.TextInput}
         placeholder="กก."
         keyboardType= "numeric"
+        onChangeText={val => InputValueUpdate(val, 'weight')}
       />
+
+    <Text style={styles.textTitle}>เป้าหมาย</Text>
+      <TextInput
+        style={styles.TextInput}
+        placeholder="กก."
+        keyboardType= "numeric"
+        onChangeText={val => InputValueUpdate(val, 'goal_weight')}
+      />
+      
                         
-                        <Pressable style={styles.button}>
+                        <TouchableOpacity style={styles.button}
+                        onPress ={()=> {navigation.navigate('QuestionActivityPage',{info4: info})}}
+                        >
                             <Text style={styles.textButton}>ต่อไป</Text>
-                        </Pressable>
+                        </TouchableOpacity>
                     </ScrollView>
                 </KeyboardAvoidingView>
             </ImageBackground>
@@ -64,9 +88,9 @@ const styles = StyleSheet.create({
     },
     boxInfo: {
         borderWidth: 2,
-        borderRadius: "10%",
+        borderRadius: 10,
         backgroundColor: "white",
-        flex: 0.37,
+        flex: 0.8,
         width: "85%",
         justifyContent: "center",
         alignSelf: "center",
@@ -88,15 +112,14 @@ const styles = StyleSheet.create({
     textTitle: {
         fontFamily: "FCMuffinRegular",
         fontSize: 60,
-        fontWeight: "bold",
         marginBottom: 20,
         marginTop: 20,
+        textAlign: "center"
     },
     textNomal: {
         fontFamily: "FCMuffinRegular",
         fontSize: 25,
         marginBottom: 0,
-        fontWeight: "bold",
         alignSelf: "start",
         marginHorizontal: 12,
     },
@@ -104,7 +127,6 @@ const styles = StyleSheet.create({
         fontFamily: "FCMuffinRegular",
         fontSize: 25,
         marginBottom: 0,
-        fontWeight: "bold",
         alignSelf: "center",
     },
     scrollView: {

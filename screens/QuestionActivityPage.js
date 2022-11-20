@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import {
     StyleSheet,
     ImageBackground,
@@ -9,14 +9,24 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     Button,
-    Pressable,
+    TouchableOpacity,
 } from "react-native";
 import { useFonts } from "expo-font";
 
-const QuestionActivityPage = () => {
+const QuestionActivityPage = ({navigation, route}) => {
     const [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
     });
+
+    const {info4} = route.params
+    const [info, setInfo] = useState(info4);
+
+    const act = (props) => {
+        info.activity = props
+        console.log(info)
+        navigation.navigate('SignupPage', {info5: info})
+    }
+
     return (
         <View style={styles.container}>
             {/* ใส่พื้นหลัง */}
@@ -31,29 +41,41 @@ const QuestionActivityPage = () => {
                 >
                     <Text style={styles.textTitle}>กิจกรรมในแต่ละวัน</Text>
                     <ScrollView style={styles.scrollView}>
-                        <Pressable style={styles.buttonAct}>
+                        <TouchableOpacity style={styles.buttonAct}
+                        onPress={() => act("นั่งอยู่กับที่และไม่ออกกำลังกายเลย")}
+                        >
                             <Text style={styles.textButton}>นั่งอยู่กับที่และไม่ออกกำลังกายเลย</Text>
-                        </Pressable>
+                        </TouchableOpacity>
 
-                        <Pressable style={styles.buttonAct}>
-                            <Text style={styles.textButton}>ออกกำลังกายหรือเล่นกีฬาเล็กน้อย ประมาณอาทิตย์ละ 1-3 วัน</Text>
-                        </Pressable>
+                        <TouchableOpacity style={styles.buttonAct}
+                        onPress={() => act("ออกกำลังกายอาทิตย์ละ 1-3 วัน")}
+                        >
+                            <Text style={styles.textButton}>ออกกำลังกายอาทิตย์ละ 1-3 วัน</Text>
+                        </TouchableOpacity>
 
-                        <Pressable style={styles.buttonAct}>
-                            <Text style={styles.textButton}>ออกกำลังกายหรือเล่นกีฬาปานกลาง ประมาณอาทิตย์ละ 3-5 วัน</Text>
-                        </Pressable>
+                        <TouchableOpacity style={styles.buttonAct}
+                        onPress={() => act("ออกกำลังกายอาทิตย์ละ 3-5 วัน")}
+                        >
+                            <Text style={styles.textButton}>ออกกำลังกายอาทิตย์ละ 3-5 วัน</Text>
+                        </TouchableOpacity>
 
-                        <Pressable style={styles.buttonAct}>
-                            <Text style={styles.textButton}>ออกกำลังกายหรือเล่นกีฬาอย่างหนัก ประมาณอาทิตย์ละ 6-7 วัน</Text>
-                        </Pressable>
+                        <TouchableOpacity style={styles.buttonAct}
+                        onPress={() => act("ออกกำลังกายอาทิตย์ละ 6-7 วัน")}
+                        >
+                            <Text style={styles.textButton}>ออกกำลังกายอาทิตย์ละ 6-7 วัน</Text>
+                        </TouchableOpacity>
 
-                        <Pressable style={styles.buttonAct}>
-                            <Text style={styles.textButton}>ออกกำลังกายหรือเล่นกีฬาอย่างหนักทุกวันเช้าเย็น</Text>
-                        </Pressable>
+                        <TouchableOpacity style={styles.buttonAct}
+                        onPress={() => act("ออกกำลังกายทุกวันเช้าเย็น")}
+                        >
+                            <Text style={styles.textButton}>ออกกำลังกายทุกวันเช้าเย็น</Text>
+                        </TouchableOpacity>
 
-                        <Pressable style={styles.button}>
+                        {/* <TouchableOpacity style={styles.button}
+                        onPress={()=>Act()}
+                        >
                             <Text style={styles.textButton}>เข้าสู่โปรแกรม</Text>
-                        </Pressable>
+                        </TouchableOpacity> */}
                     </ScrollView>
                 </KeyboardAvoidingView>
             </ImageBackground>

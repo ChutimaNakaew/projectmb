@@ -59,6 +59,7 @@ const LoginPage = ({navigation}) => {
       <TextInput
       onChangeText={val => setEmail(val)}
         style={styles.TextInput}
+        // value="2@gmail.com"
         placeholder="อีเมล"
       />
 
@@ -67,6 +68,7 @@ const LoginPage = ({navigation}) => {
       onChangeText={val => setPassword(val)}
         style={styles.TextInput}
         placeholder="Password"
+        // value="111111111"
       />
 
       <TouchableOpacity style={styles.button}

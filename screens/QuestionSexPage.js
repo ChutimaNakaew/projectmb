@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     ImageBackground,
@@ -10,10 +10,20 @@ import {
 } from "react-native";
 import { useFonts } from "expo-font";
 
-const QuestionSexPage = () => {
+const QuestionSexPage = ({navigation}) => {
     const [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
     });
+
+
+    const [info, setInfo] = useState({username:"", email:"", password:"", uuid: "",sex: "", weight:"", goal_weight:"", height:"", activity:""});
+
+
+    const men = (props) => {
+        info.sex = props;
+        navigation.navigate('QuestionAgePage', {data: info})
+    }
+
     return (
         <View style={styles.container}>
             {/* ใส่พื้นหลัง */}
@@ -28,12 +38,16 @@ const QuestionSexPage = () => {
                 >
                     <Text style={styles.textTitle}>เลือกเพศของคุณ</Text>
                     <ScrollView style={styles.scrollView}>
-                        <TouchableOpacity style={styles.buttonF}>
-                            <Text style={styles.textButton}>👩🏻 ผู้หญิง</Text>
+                        <TouchableOpacity style={styles.buttonF}
+                        onPress={() => men("men")}
+                        >
+                            <Text style={styles.textButton}>👱🏼‍♂️ ผู้ชาย</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.buttonM}>
-                            <Text style={styles.textButton}>👱🏼‍♂️ ผู้ชาย</Text>
+                        <TouchableOpacity style={styles.buttonM}
+                        onPress = {() => men("female")}
+                        >
+                        <Text style={styles.textButton}>👩🏻 ผู้หญิง</Text>
                         </TouchableOpacity>
 
                         {/* <TouchableOpacity style={styles.button}>

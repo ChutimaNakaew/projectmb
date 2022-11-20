@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     ImageBackground,
@@ -7,19 +7,28 @@ import {
     TextInput,
     KeyboardAvoidingView,
     ScrollView,
-    Button,
+    TouchableOpacity,
     Pressable,
 } from "react-native";
 import { useFonts } from "expo-font";
 
-const QuestionTallPage = () => {
+const QuestionTallPage = ({navigation, route}) => {
     let [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
       })
+
+    const {info2} = route.params
+    const [info, setInfo] = useState(info2);
     
       if (!fontsLoaded) {
         return null
       }
+
+      const InputValueUpdate = (val, props) => {
+        info[props] = val;
+        setInfo(info)
+        console.log(info)
+    }
     return (
         <View style={styles.container}>
             {/* ใส่พื้นหลัง */}
@@ -39,11 +48,14 @@ const QuestionTallPage = () => {
         style={styles.TextInput}
         placeholder="ซม."
         keyboardType= "numeric"
+        onChangeText={val => InputValueUpdate(val, 'height')}
       />
                         
-                        <Pressable style={styles.button}>
+                        <TouchableOpacity style={styles.button}
+                        onPress ={()=> {navigation.navigate('QuestionWeightPage',{info3: info})}}
+                        >
                             <Text style={styles.textButton}>ต่อไป</Text>
-                        </Pressable>
+                        </TouchableOpacity>
                     </ScrollView>
                 </KeyboardAvoidingView>
             </ImageBackground>

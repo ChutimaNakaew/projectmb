@@ -8,12 +8,14 @@ import { authentication } from '../Database/firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 
-const SignupPage = ({navigation}) => {
+const SignupPage = ({navigation, route}) => {
   let [fontsLoaded] = useFonts({
     'FCMuffinRegular': require('../assets/fonts/FCMuffinRegular.otf'),
   });
+  const {info5} = route.params
+  // const [info, setInfo] = useState(info4);
 
-  const [info, setInfo] = useState({username:"", email:"", password:"", uuid: uuid()});
+  const [info, setInfo] = useState(info5);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -43,9 +45,17 @@ const SignupPage = ({navigation}) => {
     }
   }
   const RegigterUser = () =>{
-    createUserWithEmailAndPassword(authentication, email, password).then((re)=>{
+    createUserWithEmailAndPassword(authentication, email, password).then(re=>{
       console.log(re);
+      const uid = re.user.uid
+      info.uuid = uid
+      StoreUser()
       navigation.navigate('LoginPage')
+      console.log("++++++++++++++")
+      console.log(re._tokenResponse.email)
+      console.log("++++++++++++++")
+      console.log("++++++++++++++")
+      console.log(uid)
     })
     .catch((re)=>{
       console.log(re);
@@ -62,17 +72,19 @@ const SignupPage = ({navigation}) => {
 
   const StoreUser = () =>{
     console.log("เข้าแล้วจ้า")
-    RegigterUser()
-    if (info.username == "") {
-      alert('Please fill username');
-    }else {
       dbRef.add({
         username: info.username,
         email: info.email,
         password: info.password,
-        uuid: info.uuid
+        uuid: info.uuid,
+        activity: info.activity,
+        age: info.age,
+        goal_weight: info.goal_weight,
+        height: info.height,
+        sex: info.sex,
+        weight: info.weight
       })
-    }
+    
     } 
 
 
@@ -81,9 +93,9 @@ const SignupPage = ({navigation}) => {
       {/* ใส่พื้นหลัง */}
       <ImageBackground source={require("../assets/ImageBackground/loginPageBG.png")} resizeMode="cover" style={styles.image}>
 
-      <Pressable style={styles.buttonBack} onPress={() => navigation.navigate('FristScreen')}>
+      {/* <Pressable style={styles.buttonBack} onPress={() => navigation.navigate('FristScreen')}>
       <AntDesign name="arrowleft" size={40} color="white" />
-      </Pressable>
+      </Pressable> */}
       
       <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -119,7 +131,7 @@ const SignupPage = ({navigation}) => {
       />
 
       <TouchableOpacity style={styles.button}
-      onPress={() => StoreUser()} >
+      onPress={() => RegigterUser()} >
       <Text style={styles.textButton}>ลงทะเบียน</Text>
       </TouchableOpacity>
 
