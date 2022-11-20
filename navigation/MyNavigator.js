@@ -46,29 +46,63 @@ const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 const info_type = createNativeStackNavigator()
 const Blogdetail = createNativeStackNavigator()
-const MainNavigator = createDrawerNavigator()
+const Drawer = createDrawerNavigator()
 
 function Frist() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="FristScreen">
       <Stack.Screen name="FristScreen" component={FristScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="SignupPage" component={SignupPage} options={{ headerShown: false }} />
-      <Stack.Screen name="LoginPage" component={LoginPage} options={{ headerShown: false }} />
-      <Stack.Screen name="QuestionSexPage" component={QuestionSexPage} options={{ headerShown: false }} />
+      <Stack.Screen name="Signup" component={SignupComplete} options={{ headerShown: false }} />
+      <Stack.Screen name="Login" component={LoginComplete} options={{ headerShown: false }} />
+      <Stack.Screen name="LogOut" component={LogOut} options={{ headerShown: false }} />
+      <Stack.Screen name="Logout" component={LogOut} options={{ headerShown: false }} />
+      {/* <Stack.Screen
+        name="QuestionSexPage"
+        component={QuestionSexPage}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="AllUser" component={AllUser} options={{ headerShown: false }} />
       <Stack.Screen name="UserDetail" component={UserDetail} options={{ headerShown: false }} />
-      <Stack.Screen name="LogOut" component={LogOut} options={{ headerShown: false }} />
+      <Stack.Screen name="LogOut" component={LogOut} options={{ headerShown: false }} /> */}
+    </Stack.Navigator>
+  )
+}
+
+function SignupComplete() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="SignupPage" component={SignupPage} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="HomePage"
+        component={MainTab}
+        options={{ title: "", headerShown: false }}
+      />
+    </Stack.Navigator>
+  )
+}
+
+function LoginComplete() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="LoginPage" component={LoginPage} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="HomePage"
+        component={MainTab}
+        options={{ title: "", headerShown: false }}
+      />
     </Stack.Navigator>
   )
 }
 
 function HomeNavigator() {
   return (
-    <Stack.Navigator initialRouteName="SignUp">
-            <Stack.Screen name="SignUp" component={Frist} options={{ title: "", headerShown: false }} />
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={Home} options={{ title: "", headerShown: false }} />
-      <Stack.Screen name="Calender_workout" component={Calender} options={{ title: "", headerShown: false }} />
-      {/* <Stack.Screen name="HistoryMenu" component={HistoryMenu} options={{ title: "" }} /> */}
+      <Stack.Screen
+        name="Calender_workout"
+        component={Calender}
+        options={{ title: "", headerShown: false }}
+      />
     </Stack.Navigator>
   )
 }
@@ -77,7 +111,11 @@ function CalNavigator() {
   return (
     <Stack.Navigator initialRouteName="Cal">
       <Stack.Screen name="Cal" component={Cal} options={{ title: "", headerShown: false }} />
-      <Stack.Screen name="AddMenuNavigator" component={AddMenuNavigator} options={{ title: "", headerShown: false }} />
+      <Stack.Screen
+        name="AddMenuNavigator"
+        component={AddMenuNavigator}
+        options={{ title: "", headerShown: false }}
+      />
       <Stack.Screen
         name="HistoryMenu"
         component={HistoryMenu}
@@ -104,9 +142,16 @@ function AddMenuNavigator() {
       <Stack.Screen
         name="AllMenu"
         component={AllMenu}
-        options={{ title: "เมนูทั้งหมด", headerTitleStyle: { fontFamily: "FCMuffinRegular", fontSize: 28 } }}
+        options={{
+          title: "เมนูทั้งหมด",
+          headerTitleStyle: { fontFamily: "FCMuffinRegular", fontSize: 28 },
+        }}
       />
-      <Stack.Screen name="AddMyMenuNavigator" component={AddMyMenuNavigator} options={{ title: "", headerShown: false }} />
+      <Stack.Screen
+        name="AddMyMenuNavigator"
+        component={AddMyMenuNavigator}
+        options={{ title: "", headerShown: false }}
+      />
     </Stack.Navigator>
   )
 }
@@ -117,7 +162,10 @@ function AddMyMenuNavigator() {
       <Stack.Screen
         name="MyMenu"
         component={MyMenu}
-        options={{ title: "เมนูของฉัน", headerTitleStyle: { fontFamily: "FCMuffinRegular", fontSize: 28 } }}
+        options={{
+          title: "เมนูของฉัน",
+          headerTitleStyle: { fontFamily: "FCMuffinRegular", fontSize: 28 },
+        }}
       />
       <Stack.Screen name="CreateMenu" component={CreateMenu} options={{ title: "" }} />
       <Stack.Screen name="UpdateMyMenu" component={UpdateMyMenu} options={{ title: "" }} />
@@ -235,6 +283,73 @@ function Myblogdetail() {
   )
 }
 
+function MainTab() {
+  return (
+    <Tab.Navigator initialRouteName="HomeTab">
+      <Tab.Screen
+        name="HomeTab"
+        component={HomeNavigator}
+        options={{
+          title: "",
+          headerRight: () => (
+            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+              <Item title="" iconName="settings-sharp" onPress={() => {}} />
+            </HeaderButtons>
+          ),
+          tabBarIcon: () => {
+            return <Ionicons name="home-outline" size={24} color="black" />
+          },
+          tabBarLabel: "Home",
+          // headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="คำนวณแคล"
+        component={CalNavigator}
+        options={{
+          tabBarIcon: () => {
+            return <Ionicons name="calculator-outline" size={24} color="black" />
+          },
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="ออกกำลังกาย"
+        component={Myinfo_type}
+        options={{
+          tabBarIcon: () => {
+            return <Ionicons name="barbell-outline" size={24} color="black" />
+          },
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="บล็อก"
+        component={Myblogdetail}
+        options={{
+          tabBarIcon: () => {
+            return <Ionicons name="newspaper-outline" size={24} color="black" />
+          },
+          headerShown: false,
+        }}
+      />
+    </Tab.Navigator>
+  )
+}
+
+function MainNavigator() {
+  return (
+    <Stack.Navigator initialRouteName="Main">
+      <Stack.Screen
+        name="BeforeLogin"
+        component={Frist}
+        options={{ title: "", headerShown: false }}
+      />
+      <Stack.Screen name="Main" component={MainTab} options={{ title: "", headerShown: false }} />
+    </Stack.Navigator>
+  )
+}
+
 // สร้าง Navigator หลัก
 export default function MyNavigator() {
   let [fontsLoaded] = useFonts({
@@ -247,55 +362,7 @@ export default function MyNavigator() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="คำนวณแคล">
-        <Tab.Screen
-          name="หน้าหลัก"
-          component={HomeNavigator}
-          options={{
-            title: "",
-            headerRight: () => (
-              <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-                <Item title="" iconName="settings-sharp" onPress={() => {}} />
-              </HeaderButtons>
-            ),
-            tabBarIcon: () => {
-              return <Ionicons name="home-outline" size={24} color="black" />
-            },
-            tabBarLabel: "Home",
-            // headerShown: false,
-          }}
-        />
-        <Tab.Screen
-          name="คำนวณแคล"
-          component={CalNavigator}
-          options={{
-            tabBarIcon: () => {
-              return <Ionicons name="calculator-outline" size={24} color="black" />
-            },
-            headerShown: false,
-          }}
-        />
-        <Tab.Screen
-          name="ออกกำลังกาย"
-          component={Myinfo_type}
-          options={{
-            tabBarIcon: () => {
-              return <Ionicons name="barbell-outline" size={24} color="black" />
-            },
-            headerShown: false,
-          }}
-        />
-        <Tab.Screen
-          name="บล็อก"
-          component={Myblogdetail}
-          options={{
-            tabBarIcon: () => {
-              return <Ionicons name="newspaper-outline" size={24} color="black" />
-            },
-            headerShown: false,
-          }}
-        />
-      </Tab.Navigator>
+      <MainNavigator />
     </NavigationContainer>
   )
 }

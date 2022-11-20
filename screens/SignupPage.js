@@ -50,7 +50,7 @@ const SignupPage = ({navigation, route}) => {
       const uid = re.user.uid
       info.uuid = uid
       StoreUser()
-      navigation.navigate('LoginPage')
+      navigation.navigate('Login')
       console.log("++++++++++++++")
       console.log(re._tokenResponse.email)
       console.log("++++++++++++++")

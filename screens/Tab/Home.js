@@ -4,6 +4,8 @@ import { Ionicons, FontAwesome5 } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../../Database/firebaseDB"
 import DateTimePicker from "@react-native-community/datetimepicker"
+import { authentication } from "../../Database/firebase"
+import { Picker } from "@react-native-community/picker"
 
 const Home = ({ props, navigation }) => {
   const [weight, onChangeWeight] = React.useState(null)
@@ -15,6 +17,8 @@ const Home = ({ props, navigation }) => {
   const [show, setShow] = useState(false)
   const [text, setText] = useState("Empty")
   const [getdate, setGetdate] = useState("")
+
+  const [act, setAct] = useState("")
 
   // ---------------------------------set default ของปฎฺิทิน--------------------------
   useEffect(() => {
@@ -164,8 +168,20 @@ const Home = ({ props, navigation }) => {
     <View>
       <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 5 }}>
         {/* {show &&} */}
-        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center" }}> {getdate} </Text>
-        {show && <DateTimePicker testID="dateTimePicket" value={date} mode={mode} is24Hour={true} display="default" onChange={onChange} />}
+        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center" }}>
+          {" "}
+          {getdate}{" "}
+        </Text>
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicket"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+          />
+        )}
       </View>
 
       <TouchableOpacity style={styles.btnCalendar} onPress={() => showMode("date")}>
@@ -208,7 +224,20 @@ const Home = ({ props, navigation }) => {
               keyboardType="numeric"
             ></TextInput>
           </View>
-          <Text style={styles.resultInfo}>นั่งทำงานอยู่กับที่และไม่ได้ออกกำลังกาย</Text>
+          <Picker
+            style={styles.pickerStyle}
+            selectedValue={act}
+            mode="dialog"
+            onValueChange={(val) => setAct(val)}
+          >
+            <Picker.Item label="นั่งทำงานอยู่กับที่และไม่ได้ออกกำลังกายเลย" value="1.2" />
+            <Picker.Item label="ออกกำลังกายอาทิตย์ละ 1-3 วัน" value="1.375" />
+            <Picker.Item label="ออกกำลังกายอาทิตย์ละ 3-5 วัน" value="1.55" />
+            <Picker.Item label="ออกกำลังกายอาทิตย์ละ 6-7 วัน" value="1.725" />
+            <Picker.Item label="ออกกำลังกายทุกวันเช้าเย็น" value="1.9" />
+          </Picker>
+
+          {/* <Text style={styles.resultInfo}>นั่งทำงานอยู่กับที่และไม่ได้ออกกำลังกาย</Text> */}
         </TouchableOpacity>
       </View>
 
@@ -226,13 +255,31 @@ const Home = ({ props, navigation }) => {
 
       <View style={{ margin: 10, flexDirection: "row" }}>
         <View style={{ flexDirection: "column", marginRight: 120 }}>
-          <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, marginTop: 10 }}>Total Workout</Text>
-          <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, color: "red" }}> {total_workout} KCAL</Text>
+          <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, marginTop: 10 }}>
+            Total Workout
+          </Text>
+          <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, color: "red" }}>
+            {" "}
+            {total_workout} KCAL
+          </Text>
         </View>
-        <TouchableOpacity style={{ backgroundColor: "lightpink", width: 115, height: 115, borderRadius: 100 }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("คำนวณแคล")
+          }}
+          style={{ backgroundColor: "lightpink", width: 115, height: 115, borderRadius: 100 }}
+        >
           <Text style={[styles.text, { marginTop: 10 }]}> {total_kcal} </Text>
 
-          <Text style={{ borderBottomColor: "black", borderBottomWidth: 1, width: 115, alignSelf: "center", marginBottom: 10 }}></Text>
+          <Text
+            style={{
+              borderBottomColor: "black",
+              borderBottomWidth: 1,
+              width: 115,
+              alignSelf: "center",
+              marginBottom: 10,
+            }}
+          ></Text>
           <Text style={styles.text}>2430</Text>
         </TouchableOpacity>
       </View>
@@ -241,6 +288,13 @@ const Home = ({ props, navigation }) => {
 }
 
 const styles = StyleSheet.create({
+  pickerStyle: {
+    width: "100%",
+    textAlign: "center",
+    backgroundColor: "gray",
+    color: "#fff",
+    
+  },
   text: {
     fontSize: 18,
     marginTop: 5,

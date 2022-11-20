@@ -26,7 +26,7 @@ const QuestionSexPage = ({navigation}) => {
                     style={styles.boxInfo}
                 >
                     <View style={styles.scrollView}>
-                        <TouchableOpacity style={styles.buttonF} onPress={() => navigation.navigate('LoginPage')}>
+                        <TouchableOpacity style={styles.buttonF} onPress={() => navigation.navigate('Login')}>
                             <Text style={styles.textButton} >เข้าสู่ระบบ</Text>
                         </TouchableOpacity>
 
