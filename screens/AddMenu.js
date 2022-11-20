@@ -3,22 +3,26 @@ import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList } 
 import { useFonts } from "expo-font"
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons"
 import firebase from "../Database/firebaseDB"
+import { authentication } from "../Database/firebase"
 
 const AddMenu = ({ props, navigation, route }) => {
   const thisday = route.params.getdate
+  const user_id = authentication.currentUser?.uid
   // const thisday = date
-  const addFood = firebase.firestore().collection("user").doc("u1").collection("addFood")
+  const addFood = firebase.firestore().collection("addFood")
   const [showMenu, setAddMenu] = useState([])
   useEffect(() => {
-    addFood.orderBy("date", "desc").onSnapshot(async (querySnapshot) => {
+    addFood
+    .where('user_id', '==', user_id)
+    .orderBy("date", "desc")
+    .onSnapshot(async (querySnapshot) => {
       const showMenu = []
       await querySnapshot.forEach((doc) => {
-        const { name, kcal, id, date, img } = doc.data()
+        const { name, kcal, date, img, } = doc.data()
         showMenu.push({
           key: doc.id,
           name,
           kcal,
-          id,
           date,
           img,
         })
