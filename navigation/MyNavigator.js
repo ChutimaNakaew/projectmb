@@ -40,6 +40,10 @@ import QuestionSexPage from "../screens/QuestionSexPage"
 import AllUser from "../screens/AllUser"
 import UserDetail from "../screens/UserDetail"
 import LogOut from "../screens/LogOut"
+import QuestionAgePage from "../screens/QuestionAgePage"
+import QuestionTallPage from "../screens/QuestionTallPage"
+import QuestionWeighPage from "../screens/QuestionWeightPage"
+import QuestionActivityPage from "../screens/QuestionActivityPage"
 
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator()
@@ -56,14 +60,39 @@ function Frist() {
       <Stack.Screen name="Login" component={LoginComplete} options={{ headerShown: false }} />
       <Stack.Screen name="LogOut" component={LogOut} options={{ headerShown: false }} />
       <Stack.Screen name="Logout" component={LogOut} options={{ headerShown: false }} />
-      {/* <Stack.Screen
+      <Stack.Screen name="QuestionSex" component={Question} options={{ headerShown: false }} />
+    </Stack.Navigator>
+  )
+}
+
+function Question() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
         name="QuestionSexPage"
         component={QuestionSexPage}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="AllUser" component={AllUser} options={{ headerShown: false }} />
-      <Stack.Screen name="UserDetail" component={UserDetail} options={{ headerShown: false }} />
-      <Stack.Screen name="LogOut" component={LogOut} options={{ headerShown: false }} /> */}
+      <Stack.Screen
+        name="QuestionAgePage"
+        component={QuestionAgePage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="QuestionTallPage"
+        component={QuestionTallPage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="QuestionWeighPage"
+        component={QuestionWeighPage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="QuestionActivityPage"
+        component={QuestionActivityPage}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   )
 }
