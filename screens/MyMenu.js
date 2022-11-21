@@ -88,12 +88,12 @@ const MyMenu = ({ navigation }) => {
   }
 
   return (
-    <View style={{ flex: 2, backgroundColor: "#e1e8ee" }}>
+    <View style={{ flex: 2, backgroundColor: "#ffffe0" }}>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("CreateMenu")
         }}
-        style={{ backgroundColor: "#D9D9D9", padding: 10, width: 120, borderRadius: 15, marginRight: 10, marginVertical: 10, alignSelf: "flex-end" }}
+        style={{ backgroundColor: "pink", padding: 10, width: 120, borderRadius: 15, marginRight: 10, marginVertical: 10, alignSelf: "flex-end" }}
       >
         <Text style={styles.text}>สร้างเมนู</Text>
       </TouchableOpacity>
@@ -105,7 +105,7 @@ const MyMenu = ({ navigation }) => {
           <View
             style={{
               flexDirection: "row",
-              backgroundColor: "#ccc",
+              backgroundColor: "#f9f9f9",
               marginHorizontal: 30,
               marginVertical: 10,
               shadowColor: "#171717",

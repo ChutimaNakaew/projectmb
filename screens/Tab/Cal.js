@@ -265,7 +265,7 @@ const Cal = ({ props, navigation }) => {
     return null
   }
   return (
-    <View style={{ flex: 2, marginTop: 40 }}>
+    <View style={{ flex: 2, marginTop: 40, backgroundColor: "#ffffe0", }}>
       <View style={{ alignItems: "flex-end", marginTop: 10, marginRight: 10 }}>
         {show && (
           <DateTimePicker
@@ -279,7 +279,7 @@ const Cal = ({ props, navigation }) => {
         )}
 
         <TouchableOpacity
-          style={{ backgroundColor: "#bbb", width: 100, padding: 10, borderRadius: 15 }}
+          style={{ backgroundColor: "lightblue", width: 100, padding: 10, borderRadius: 15 }}
           onPress={() => showMode("date")}
         >
           <Text style={styles.text}>ประวัติ</Text>
@@ -289,7 +289,7 @@ const Cal = ({ props, navigation }) => {
             navigation.navigate("AddMenuNavigator", { screen: "AddMenu", params: { getdate } })
           }}
           style={{
-            backgroundColor: "#bbb",
+            backgroundColor: "lightgreen",
             width: 100,
             padding: 10,
             borderRadius: 15,

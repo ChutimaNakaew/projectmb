@@ -331,7 +331,7 @@ const Tab3 = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'lightblue',
     alignItems: 'center',
     marginTop:50,
     // justifyContent:'center',
