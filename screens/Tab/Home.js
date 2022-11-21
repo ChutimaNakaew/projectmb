@@ -478,7 +478,8 @@ const Home = ({ props, navigation }) => {
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <Image
           style={styles.img}
-          source={{ uri: bmi_img }}
+          // source={{ uri: bmi_img }}
+          source={{uri: bmi_img !=="" ? bmi_img : undefined}}
           // source={require("../../assets/body.png")}
         />
         <View>

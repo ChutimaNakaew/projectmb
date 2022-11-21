@@ -29,7 +29,7 @@ const CreateMenu = ({ navigation }) => {
   const user_id = authentication.currentUser?.uid
 
   const add = async (name, cal, url) => {
-    if (name && cal && url) {
+    if (name && url) {
       // get timestamp
       const timestamp = firebase.firestore.FieldValue.serverTimestamp()
       const data = {
