@@ -11,7 +11,7 @@ const SignupPage = ({navigation, route}) => {
     'FCMuffinRegular': require('../assets/fonts/FCMuffinRegular.otf'),
   });
 
-  const { name_Weight, collect_name} = route.params;
+  const { name_Weight, collect_name } = route.params;
     const colName = collect_name
     const name_weight = name_Weight;
 
@@ -31,7 +31,7 @@ const SignupPage = ({navigation, route}) => {
       alert('กรุณาใส่ข้อมูลให้ครบ');
     }else {
       dbRef.add({
-        image: info.image, kcal: info.kcal, posture_name: info.posture_name, video: info.video, video_time: info.video_time ,
+        image: info.image, kcal: parseFloat(info.kcal), posture_name: info.posture_name, video: info.video, video_time: info.video_time ,
         id: uuid()
       })
       navigation.navigate('AddminWorkoutCategory')

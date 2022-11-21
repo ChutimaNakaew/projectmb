@@ -11,11 +11,12 @@ const Home = ({ props, navigation }) => {
   const user_id = authentication.currentUser?.uid
   const userRef = firebase.firestore().collection('user').where('uuid', '==', user_id);
   const [info, setInfo] = useState([])
+
   useEffect(() => {
     userRef.onSnapshot((querySnapshot) => {
       const info = []
       querySnapshot.forEach((doc) => {
-        const { activity, age, email, goal_weight, height, password, sex, username, weight } = doc.data()
+        const { activity, age, email, goal_weight, height, password, sex, username, weight, role } = doc.data()
         info.push({
           id: doc.id,
           activity,
@@ -26,7 +27,8 @@ const Home = ({ props, navigation }) => {
           password,
           sex,
           username,
-          weight
+          weight,
+          role
         })
       })
       setInfo(info)
@@ -70,19 +72,19 @@ const Home = ({ props, navigation }) => {
       activity += 1.2
       TDEE += Number((bmr*activity).toFixed(0))
     }
-    else if(item.activity = 'ออกกำลังกายอาทิตย์ละ 1-3 วัน'){
+    else if(item.activity === 'ออกกำลังกายอาทิตย์ละ 1-3 วัน'){
       activity += 1.375
       TDEE += Number((bmr*activity).toFixed(0))
     }
-    else if(item.activity = 'ออกกำลังกายอาทิตย์ละ 3-5 วัน'){
+    else if(item.activity === 'ออกกำลังกายอาทิตย์ละ 3-5 วัน'){
       activity += 1.55
       TDEE += Number((bmr*activity).toFixed(0))
     }
-    else if(item.activity = 'ออกกำลังกายอาทิตย์ละ 6-7 วัน'){
+    else if(item.activity === 'ออกกำลังกายอาทิตย์ละ 6-7 วัน'){
       activity += 1.725
       TDEE += Number((bmr*activity).toFixed(0))
     }
-    else if(item.activity = 'ออกกำลังกายทุกวันเช้าเย็น'){
+    else if(item.activity === 'ออกกำลังกายทุกวันเช้าเย็น'){
       activity += 1.9
       TDEE += Number((bmr*activity).toFixed(0))
     }
@@ -237,7 +239,6 @@ const Home = ({ props, navigation }) => {
   sameday.forEach((item) => {
     Kcal_food += item.kcal
   })
-
   let total_workout = total.toFixed(2)
   let total_kcal = (Kcal_food - total).toFixed(2)
 
@@ -254,140 +255,152 @@ const Home = ({ props, navigation }) => {
     return null
   }
 
-  return (
-    <View>
-      {/* <Text style={styles.textNomal}></Text> */}
-      <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 5 }}>
-        {/* {show &&} */}
-        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center" }}>
-          {" "}
-          {getdate}{" "}
-        </Text>
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicket"
-            value={date}
-            mode={mode}
-            is24Hour={true}
-            display="default"
-            onChange={onChange}
-          />
-        )}
-      </View>
+  let role = ""
+  info.forEach((item) => {
+    role = item.role
+  })
 
-      <TouchableOpacity style={styles.btnCalendar} onPress={() => showMode("date")}>
-        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 18 }}>ปฎิทิน</Text>
-      </TouchableOpacity>
-
-      <View style={{ flexDirection: "row", justifyContent: "center" }}>
-        <Image style={styles.img} source={require("../../assets/body.png")} />
-        <View>
-          <TouchableOpacity style={styles.bmi}>
-            <Text style={styles.text}>BMI : {bmi_num}</Text>
-            <Text style={styles.line}></Text>
-            <Text style={[styles.text, { fontSize: 30 }]}>{text_bmi}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.goalWeight}>
-            <Text style={styles.text}>Goal Weight</Text>
-            {info.map((item, key) => (
-              <Text key={key} style={[styles.text, { fontSize: 30 }]}>{item.goal_weight} </Text>)
-            )}
-            {/* <Text style={[styles.text, { fontSize: 30 }]}>45</Text> */}
-          </TouchableOpacity>
-        </View>
-      </View>
-
+  if(role === "addmin"){
+    return(
+      <Text>"Addmin"</Text>
+    )
+  }else{
+    return (
       <View>
-        <TouchableOpacity style={styles.boxInfo}>
-          {/* <Text style={[styles.text, { fontSize: 24 }]}>ฟ้า</Text> */}
-          {info.map((item, key) => (
-            <Text key={key} style={[styles.text, { fontSize: 24 }]}> {item.username} </Text>)
-          )}
-          <View style={{ flexDirection: "row", justifyContent: "center" }}>
-            {/* <Text style={styles.text}>น้ำหนัก: {info_weight}</Text> */}
-            {info.map((item, key) => (
-              <Text key={key} style={styles.text} >น้ำหนัก: {item.weight} </Text>)
-            )}
-            <TextInput
-              style={styles.input}
-              value={weight}
-              onChangeText={onChangeWeight}
-              // placeholder="Enter Your Weight"
-              keyboardType="numeric"
-            ></TextInput>
-            {info.map((item, key) => (
-              <Text key={key} style={styles.text}>ส่วนสูง: {item.height} </Text>)
-            )}
-            <TextInput
-              style={styles.input}
-              value={height}
-              onChangeText={onChangeHeight}
-              // placeholder="Enter Your Height"
-              keyboardType="numeric"
-            ></TextInput>
-          </View>
-          <Picker
-            style={styles.pickerStyle}
-            selectedValue={act}
-            mode="dialog"
-            onValueChange={(val) => setAct(val)}
-          >
-            <Picker.Item label="นั่งทำงานอยู่กับที่และไม่ได้ออกกำลังกายเลย" value="1.2" />
-            <Picker.Item label="ออกกำลังกายอาทิตย์ละ 1-3 วัน" value="1.375" />
-            <Picker.Item label="ออกกำลังกายอาทิตย์ละ 3-5 วัน" value="1.55" />
-            <Picker.Item label="ออกกำลังกายอาทิตย์ละ 6-7 วัน" value="1.725" />
-            <Picker.Item label="ออกกำลังกายทุกวันเช้าเย็น" value="1.9" />
-          </Picker>
-
-          {/* <Text style={styles.resultInfo}>นั่งทำงานอยู่กับที่และไม่ได้ออกกำลังกาย</Text> */}
-        </TouchableOpacity>
-      </View>
-
-      <TouchableOpacity
-        style={styles.resultWorkout}
-        onPress={() => {
-          navigation.navigate("Calender_workout", { date_pick: getdate })
-        }}
-      >
-        <Text style={styles.text}>
-          <Ionicons name="ios-trophy" size={20} color="#ffb81c" />
-          บันทึกการออกกำลังกาย
-        </Text>
-      </TouchableOpacity>
-
-      <View style={{ margin: 10, flexDirection: "row" }}>
-        <View style={{ flexDirection: "column", marginRight: 120 }}>
-          <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, marginTop: 10 }}>
-            Total Workout
-          </Text>
-          <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, color: "red" }}>
+        {/* <Text style={styles.textNomal}></Text> */}
+        <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 5 }}>
+          {/* {show &&} */}
+          <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center" }}>
             {" "}
-            {total_workout} KCAL
+            {getdate}{" "}
           </Text>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicket"
+              value={date}
+              mode={mode}
+              is24Hour={true}
+              display="default"
+              onChange={onChange}
+            />
+          )}
         </View>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("คำนวณแคล")
-          }}
-          style={{ backgroundColor: "lightpink", width: 115, height: 115, borderRadius: 100 }}
-        >
-          <Text style={[styles.text, { marginTop: 10 }]}> {total_kcal} </Text>
-
-          <Text
-            style={{
-              borderBottomColor: "black",
-              borderBottomWidth: 1,
-              width: 115,
-              alignSelf: "center",
-              marginBottom: 10,
-            }}
-          ></Text>
-          <Text style={styles.text}>{TDEE} </Text>
+  
+        <TouchableOpacity style={styles.btnCalendar} onPress={() => showMode("date")}>
+          <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 18 }}>ปฎิทิน</Text>
         </TouchableOpacity>
+  
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <Image style={styles.img} source={require("../../assets/body.png")} />
+          <View>
+            <TouchableOpacity style={styles.bmi}>
+              <Text style={styles.text}>BMI : {bmi_num}</Text>
+              <Text style={styles.line}></Text>
+              <Text style={[styles.text, { fontSize: 30 }]}>{text_bmi}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.goalWeight}>
+              <Text style={styles.text}>Goal Weight</Text>
+              {info.map((item, key) => (
+                <Text key={key} style={[styles.text, { fontSize: 30 }]}>{item.goal_weight} </Text>)
+              )}
+              {/* <Text style={[styles.text, { fontSize: 30 }]}>45</Text> */}
+            </TouchableOpacity>
+          </View>
+        </View>
+  
+        <View>
+          <TouchableOpacity style={styles.boxInfo}>
+            {/* <Text style={[styles.text, { fontSize: 24 }]}>ฟ้า</Text> */}
+            {info.map((item, key) => (
+              <Text key={key} style={[styles.text, { fontSize: 24 }]}> {item.username} </Text>)
+            )}
+            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+              {/* <Text style={styles.text}>น้ำหนัก: {info_weight}</Text> */}
+              {info.map((item, key) => (
+                <Text key={key} style={styles.text} >น้ำหนัก: {item.weight} </Text>)
+              )}
+              <TextInput
+                style={styles.input}
+                value={weight}
+                onChangeText={onChangeWeight}
+                // placeholder="Enter Your Weight"
+                keyboardType="numeric"
+              ></TextInput>
+              {info.map((item, key) => (
+                <Text key={key} style={styles.text}>ส่วนสูง: {item.height} </Text>)
+              )}
+              <TextInput
+                style={styles.input}
+                value={height}
+                onChangeText={onChangeHeight}
+                // placeholder="Enter Your Height"
+                keyboardType="numeric"
+              ></TextInput>
+            </View>
+            <Picker
+              style={styles.pickerStyle}
+              selectedValue={act}
+              mode="dialog"
+              onValueChange={(val) => setAct(val)}
+            >
+              <Picker.Item label="นั่งทำงานอยู่กับที่และไม่ได้ออกกำลังกายเลย" value="1.2" />
+              <Picker.Item label="ออกกำลังกายอาทิตย์ละ 1-3 วัน" value="1.375" />
+              <Picker.Item label="ออกกำลังกายอาทิตย์ละ 3-5 วัน" value="1.55" />
+              <Picker.Item label="ออกกำลังกายอาทิตย์ละ 6-7 วัน" value="1.725" />
+              <Picker.Item label="ออกกำลังกายทุกวันเช้าเย็น" value="1.9" />
+            </Picker>
+  
+            {/* <Text style={styles.resultInfo}>นั่งทำงานอยู่กับที่และไม่ได้ออกกำลังกาย</Text> */}
+          </TouchableOpacity>
+        </View>
+  
+        <TouchableOpacity
+          style={styles.resultWorkout}
+          onPress={() => {
+            navigation.navigate("Calender_workout", { date_pick: getdate })
+          }}
+        >
+          <Text style={styles.text}>
+            <Ionicons name="ios-trophy" size={20} color="#ffb81c" />
+            บันทึกการออกกำลังกาย
+          </Text>
+        </TouchableOpacity>
+  
+        <View style={{ margin: 10, flexDirection: "row" }}>
+          <View style={{ flexDirection: "column", marginRight: 120 }}>
+            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, marginTop: 10 }}>
+              Total Workout
+            </Text>
+            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, color: "red" }}>
+              {" "}
+              {total_workout} KCAL
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("คำนวณแคล")
+            }}
+            style={{ backgroundColor: "lightpink", width: 115, height: 115, borderRadius: 100 }}
+          >
+            <Text style={[styles.text, { marginTop: 10 }]}> {total_kcal} </Text>
+  
+            <Text
+              style={{
+                borderBottomColor: "black",
+                borderBottomWidth: 1,
+                width: 115,
+                alignSelf: "center",
+                marginBottom: 10,
+              }}
+            ></Text>
+            <Text style={styles.text}>{TDEE} </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-  )
-}
+    )
+  }
+  }
+
 
 const styles = StyleSheet.create({
   pickerStyle: {

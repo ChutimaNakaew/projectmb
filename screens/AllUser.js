@@ -110,12 +110,12 @@ const SignupPage = ({ navigation }) => {
         resizeMode="cover"
         style={styles.image}
       >
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.buttonBack}
           onPress={() => navigation.navigate("AddminHome")}
         >
           <AntDesign name="arrowleft" size={40} color="white" />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}

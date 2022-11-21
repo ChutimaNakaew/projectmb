@@ -132,12 +132,12 @@ const UserDetail = ({ navigation, route }) => {
                 {/* ใส่พื้นหลัง */}
                 <ImageBackground source={require("../assets/ImageBackground/loginPageBG.png")} resizeMode="cover" style={styles.image}>
 
-                    <TouchableOpacity style={styles.buttonBack}
+                    {/* <TouchableOpacity style={styles.buttonBack}
                     onPress={() => navigation.navigate('AllUser')}
                     >
                         <AntDesign name="arrowleft" size={40} color="white" />
                         
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                     <KeyboardAvoidingView
                         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -145,6 +145,7 @@ const UserDetail = ({ navigation, route }) => {
                     >
                         <Text style={styles.textTitle}>แก้ไขสมาชิก {info.username} </Text>
                         <ScrollView style={styles.scrollView}>
+                        <Text style={styles.textNomal}>ชื่อ</Text>
                         <TextInput
         style={styles.TextInput}
         placeholder={info.username}
