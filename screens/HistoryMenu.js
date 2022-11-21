@@ -20,8 +20,10 @@ const HistoryMenu = ({ props, route }) => {
   // const thisday = new Date(route.params.currentDate)
   // const total_kcal = route.params.total_kcal
   // const total_kcal = "150"
-
+  // const {fDate} = route.params
   const thisday = route.params.fDate
+  const tdee = route.params.TDEE
+  // console.log({tdee})
   // const day = Timestamp.fromDate(new Date()).toDate();
   // console.log("thisday " + thisday + "/" + total_kcal)
   const addFood = firebase.firestore().collection("addFood")
@@ -125,7 +127,7 @@ const HistoryMenu = ({ props, route }) => {
             alignSelf: "center",
           }}
         ></Text>
-        <Text style={[styles.text, { fontSize: 30, marginTop: 20 }]}>2430</Text>
+        <Text style={[styles.text, { fontSize: 30, marginTop: 20 }]}>{tdee}</Text>
       </TouchableOpacity>
 
       <FlatList

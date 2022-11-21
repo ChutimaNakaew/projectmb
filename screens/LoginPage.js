@@ -27,15 +27,24 @@ const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [islogin, setLogin] = useState(false)
+  const [info2, setInfo2] = useState([])
+  const userRef = firebase.firestore().collection('addmin')
 
-  useEffect(() => {
+  const adminUID = "ATifhjhQALPIYiw9w8hN2bqo2ZJ2"
+  useEffect(() => {    
     const unsubscribe = authentication.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace("Main")
+        if(user.uid === "ATifhjhQALPIYiw9w8hN2bqo2ZJ2"){
+          console.log("ไปล็อกอิน")
+          navigation.navigate("Admin")
+        }else{
+          console.log("ไปโฮม")
+          navigation.replace("Main")
+        }
       }
     })
     return unsubscribe
-  }, [])
+    }, [])
 
   const LoginUser = () => {
     signInWithEmailAndPassword(authentication, email, password)

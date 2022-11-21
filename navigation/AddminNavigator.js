@@ -7,10 +7,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import { HeaderButtons, Item } from "react-navigation-header-buttons"
 
-import FristScreen from "../screens/FristScreen"
-import SignupPage from "../screens/SignupPage"
-import LoginPage from "../screens/LoginPage"
-
 import AddminFoodDetail from "../screens/AddminFoodDetail"
 import AddminFood from "../screens/AddminFood"
 import AddminHome from "../screens/AddminHome"

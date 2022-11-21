@@ -14,6 +14,7 @@ const Home = ({ props, navigation }) => {
   
   const [info, setInfo] = useState([])
   const [id, setId] = useState([])
+
   useEffect(() => {
     userRef.onSnapshot((querySnapshot) => {
       const info = []
@@ -186,8 +187,8 @@ const Home = ({ props, navigation }) => {
   let id_users = ""
   const [bmi, setBmi] = useState(0)
   const [active, setActive] = useState(0)
-  let bmi_img = ''
-  const [img, setImg] = useState('')
+  let bmi_img = ""
+  const [img, setImg] = useState("")
   info.forEach((item) => {
     // console.log(item.activity)
     // console.log(item.sex)
@@ -277,7 +278,6 @@ const Home = ({ props, navigation }) => {
   console.log("id_users : ------" + id_users)
   // console.log('image : '+bmi_img )
   // console.log('you activity is'+ )
- 
 
   // console.log(user_id)
 
@@ -434,7 +434,6 @@ const Home = ({ props, navigation }) => {
   sameday.forEach((item) => {
     Kcal_food += item.kcal
   })
-
   let total_workout = total.toFixed(2)
   let total_kcal = (Kcal_food - total).toFixed(2)
 
@@ -598,7 +597,6 @@ const Home = ({ props, navigation }) => {
     </View>
   )
 }
-
 const styles = StyleSheet.create({
   pickerStyle: {
     width: "100%",

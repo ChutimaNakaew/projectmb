@@ -36,7 +36,6 @@ function MyStack() {
       <Stack.Screen name="AllUser" component={AllUser} options={{ headerShown: false }} />
       <Stack.Screen name="UserDetail" component={UserDetail} options={{ headerShown: false }} />
       <Stack.Screen name="LogOut" component={LogOut} options={{ headerShown: false }} />
-
       <Stack.Screen name="QuestionTallPage" component={QuestionTallPage} options={{ headerShown: false }} />
       <Stack.Screen name="QuestionWeightPage" component={QuestionWeightPage} options={{ headerShown: false }} />
       <Stack.Screen name="QuestionActivityPage" component={QuestionActivityPage} options={{ headerShown: false }} />

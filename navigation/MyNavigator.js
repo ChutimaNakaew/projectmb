@@ -32,17 +32,31 @@ import CreateMenu from "../screens/CreateMenu"
 import UpdateMyMenu from "../screens/UpdateMyMenu"
 import Calender from "../screens/Calender_workout"
 
-//zac
+//q
 import FristScreen from "../screens/FristScreen"
 import SignupPage from "../screens/SignupPage"
 import QuestionSexPage from "../screens/QuestionSexPage"
+import LogOut from "../screens/LogOut"
 import QuestionAgePage from "../screens/QuestionAgePage"
 import QuestionTallPage from "../screens/QuestionTallPage"
 import QuestionWeighPage from "../screens/QuestionWeightPage"
 import QuestionActivityPage from "../screens/QuestionActivityPage"
-import LogOut from "../screens/LogOut"
 import LoginPage from "../screens/LoginPage"
 
+//admin
+import AddminFoodDetail from "../screens/AddminFoodDetail"
+import AddminFood from "../screens/AddminFood"
+import AddminHome from "../screens/AddminHome"
+import AddminAddMenu from "../screens/AddminAddMenu"
+import AddminBlog from "../screens/AddminBlog"
+import AddminAddBlog from "../screens/AddminAddBlog"
+import AddminBlogDetail from "../screens/AddminBlogDetail"
+import AllUser from "../screens/AllUser"
+import UserDetail from "../screens/UserDetail"
+import AddminWorkout from "../screens/AddminWorkout"
+import AddminWorkoutCategory from "../screens/AddminWorkoutCategory"
+import AddminWorkoutDetail from "../screens/AddminWorkoutDetail"
+import AddminAddWork from "../screens/AddminAddWork"
 
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator()
@@ -50,6 +64,26 @@ const Tab = createBottomTabNavigator()
 const info_type = createNativeStackNavigator()
 const Blogdetail = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
+
+function Addmin() {
+  return (
+    <Stack.Navigator initialRouteName="AddminHome">
+      <Stack.Screen name="AddminHome" component={AddminHome} options={{ headerShown: false }} />
+      <Stack.Screen name="AddminFood" component={AddminFood} options={{ headerShown: false }} />
+      <Stack.Screen name="AddminFoodDetail" component={AddminFoodDetail} options={{ headerShown: false }} />
+      <Stack.Screen name="AddminAddMenu" component={AddminAddMenu} options={{ headerShown: false }} />
+      <Stack.Screen name="AddminBlog" component={AddminBlog} options={{ headerShown: false }} />
+      <Stack.Screen name="AddminAddBlog" component={AddminAddBlog} options={{ headerShown: false }} />
+      <Stack.Screen name="AddminBlogDetail" component={AddminBlogDetail} options={{ headerShown: false }} />
+      <Stack.Screen name="AllUser" component={AllUser} options={{ headerShown: false }} />
+      <Stack.Screen name="UserDetail" component={UserDetail} options={{ headerShown: false }} />
+      <Stack.Screen name="AddminWorkout" component={AddminWorkout} options={{ headerShown: false }} />
+      <Stack.Screen name="AddminWorkoutCategory" component={AddminWorkoutCategory} options={{ headerShown: false }} />
+      <Stack.Screen name="AddminWorkoutDetail" component={AddminWorkoutDetail} options={{ headerShown: false }} />
+      <Stack.Screen name="AddminAddWork" component={AddminAddWork} options={{ headerShown: false }} />
+    </Stack.Navigator>
+  )
+}
 
 function Frist() {
   return (
@@ -59,6 +93,7 @@ function Frist() {
       <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
       <Stack.Screen name="AddminHome" component={Adminpage} options={{ title: "", headerShown: false }} />
       <Stack.Screen name="Logout" component={LogOut} options={{ headerShown: false }} />
+      <Stack.Screen name="Admin" component={Addmin} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }

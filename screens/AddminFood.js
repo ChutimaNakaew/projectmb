@@ -113,12 +113,12 @@ const SignupPage = ({ navigation }) => {
         resizeMode="cover"
         style={styles.image}
       >
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.buttonBack}
           onPress={() => navigation.navigate("AddminHome")}
         >
           <AntDesign name="arrowleft" size={40} color="white" />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -154,13 +154,13 @@ const SignupPage = ({ navigation }) => {
                 </ListItem>
               )
             })}
-            <TouchableOpacity
+          </ScrollView>
+          <TouchableOpacity
               style={styles.button}
               onPress={() => navigation.navigate("AddminAddMenu")}
             >
               <Text style={styles.textButton}>เพิ่มเมนู</Text>
             </TouchableOpacity>
-          </ScrollView>
         </KeyboardAvoidingView>
       </ImageBackground>
     </View>
@@ -204,7 +204,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     textColor: "balck",
     marginTop: 10,
+    marginBottom: 10,
     fontFamily: "FCMuffinRegular",
+
   },
   textTitle: {
     fontFamily: "FCMuffinRegular",
