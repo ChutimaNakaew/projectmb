@@ -13,6 +13,7 @@ const Home = ({ props, navigation }) => {
   const userRef = firebase.firestore().collection("user").where("uuid", "==", user_id)
   const [info, setInfo] = useState([])
   const [id, setId] = useState([])
+  
   useEffect(() => {
     userRef.onSnapshot((querySnapshot) => {
       const info = []

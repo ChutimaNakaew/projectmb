@@ -38,11 +38,134 @@ const Cal = ({ props, navigation }) => {
       })
   }, [])
 
+  const userRef = firebase.firestore().collection("user").where("uuid", "==", user_id)
+  const [info, setInfo] = useState([])
+  const [id, setId] = useState([])
+  useEffect(() => {
+    userRef.onSnapshot((querySnapshot) => {
+      const info = []
+      const id = []
+      querySnapshot.forEach((doc) => {
+        const { activity, age, email, goal_weight, height, password, sex, username, weight } =
+          doc.data()
+        info.push({
+          id: doc.id,
+          activity,
+          age,
+          email,
+          goal_weight,
+          height,
+          password,
+          sex,
+          username,
+          weight,
+        })
+        // id.push({id: doc.id})
+        // setId(id)
+        // console.log('doc_id :'+doc.id);
+      })
+      setInfo(info)
+    })
+  }, [])
+
   const [date, setDate] = useState(new Date())
   const [mode, setMode] = useState("date")
   const [show, setShow] = useState(false)
   const [text, setText] = useState("Empty")
   const [getdate, setGetdate] = useState("")
+
+  let bmi_num = 0
+  let text_bmi = ""
+  let bmr = 0
+  let activity = ""
+  let TDEE = 0
+  let id_users = ""
+  const [bmi, setBmi] = useState(0)
+  const [active, setActive] = useState(0)
+  // const []
+  let bmi_img = ""
+  const [img, setImg] = useState("")
+  info.forEach((item) => {
+    console.log(item.activity)
+    console.log(item.sex)
+    // console.log(item.id+'----------------------')
+    id_users += item.id
+    let bmi = (
+      (parseFloat(item.weight) * 10000) /
+      (parseFloat(item.height) * parseFloat(item.height))
+    ).toFixed(2)
+    bmi_num += Number(bmi)
+    if (bmi_num < 18.5) {
+      if (item.sex === "men") {
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy1-removebg-preview.png?alt=media&token=7ce82eeb-6238-4778-8551-10bbfce56e8a"
+        text_bmi += "ผอม"
+      } else if (item.sex === "female") {
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/g1-removebg-preview.png?alt=media&token=7d28d7ab-d808-46ba-8b59-99652ac3fb80"
+        text_bmi += "ผอม"
+      }
+    } else if (bmi_num >= 18.5 && bmi_num < 25) {
+      if (item.sex === "men") {
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy2-removebg-preview.png?alt=media&token=8a371bc6-33f6-4d08-b05c-8000d4ecfebf"
+        text_bmi += "สมส่วน"
+      } else if (item.sex === "female") {
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/g2-removebg-preview.png?alt=media&token=83aa020d-d3e7-4f1e-83cb-32fb52725e17"
+        text_bmi += "สมส่วน"
+      }
+    } else if (bmi_num >= 25 && bmi_num < 30) {
+      if (item.sex === "men") {
+        text_bmi += "อ้วน"
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy3-removebg-preview.png?alt=media&token=887e0699-2604-4305-938a-f4d9db6966a9"
+      } else if (item.sex === "female") {
+        text_bmi += "อ้วน"
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/g3-removebg-preview.png?alt=media&token=a7c27a51-83f4-4cc3-8d24-1efa977f3403"
+      }
+    } else if (bmi_num >= 30) {
+      if (item.sex === "men") {
+        text_bmi += "อ้วนมาก"
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/boy4-removebg-preview.png?alt=media&token=fa888a6b-4c99-42c1-b5d4-aaf666d04408"
+      } else if (item.sex === "female") {
+        text_bmi += "อ้วนมาก"
+        bmi_img +=
+          "https://firebasestorage.googleapis.com/v0/b/workout-5afba.appspot.com/o/g4-removebg-preview.png?alt=media&token=bde4e9de-f75a-413b-8f22-1ccd9673d4cf"
+      }
+    }
+
+    if (item.sex === "men") {
+      bmr += 66 + 13.7 * item.weight + 5 * item.height - 6.8 * item.age
+    } else if (item.sex === "female") {
+      bmr += 665 + 9.6 * item.weight + 1.8 * item.height - 4.7 * item.age
+    }
+
+    if (item.activity === "นั่งอยู่กับที่และไม่ออกกำลังกายเลย") {
+      activity += 1.2
+
+      TDEE += Number((bmr * activity).toFixed(0))
+    } else if (item.activity === "ออกกำลังกายอาทิตย์ละ 1-3 วัน") {
+      activity += 1.375
+
+      TDEE += Number((bmr * activity).toFixed(0))
+    } else if (item.activity === "ออกกำลังกายอาทิตย์ละ 3-5 วัน") {
+      activity += 1.55
+      TDEE += Number((bmr * activity).toFixed(0))
+    } else if (item.activity === "ออกกำลังกายอาทิตย์ละ 6-7 วัน") {
+      activity += 1.725
+      TDEE += Number((bmr * activity).toFixed(0))
+    } else if (item.activity === "ออกกำลังกายทุกวันเช้าเย็น") {
+      activity += 1.9
+      TDEE += Number((bmr * activity).toFixed(0))
+    }
+    // return(bmi_img)
+    // setActive(activity)
+    // console.log('you activity is '+ item.activity)
+    // console.log(item.sex)
+  })
 
   useEffect(() => {
     var date = new Date().getDate() //Current Date
@@ -60,7 +183,7 @@ const Cal = ({ props, navigation }) => {
     let fDate = tempDate.getDate() + "/" + (tempDate.getMonth() + 1) + "/" + tempDate.getFullYear()
     setGetdate((getdate) => (getdate = fDate)) //---------------------วันที่ที่เลือกจะถูกเก็บค่าไว้ที่ getdate
 
-    navigation.navigate("HistoryMenu", { fDate })
+    navigation.navigate("HistoryMenu", { fDate, TDEE })
   }
 
   const showMode = (currentMode) => {
@@ -199,7 +322,7 @@ const Cal = ({ props, navigation }) => {
             alignSelf: "center",
           }}
         ></Text>
-        <Text style={[styles.text, { fontSize: 30, marginTop: 20 }]}>2430</Text>
+        <Text style={[styles.text, { fontSize: 30, marginTop: 20 }]}>{TDEE}</Text>
       </TouchableOpacity>
       <FlatList
         data={sameday}
