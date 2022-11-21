@@ -13,7 +13,7 @@ const Home = ({ props, navigation }) => {
   const userRef = firebase.firestore().collection("user").where("uuid", "==", user_id)
   const [info, setInfo] = useState([])
   const [id, setId] = useState([])
-  
+
   useEffect(() => {
     userRef.onSnapshot((querySnapshot) => {
       const info = []
@@ -189,8 +189,8 @@ const Home = ({ props, navigation }) => {
   let id_users = ""
   const [bmi, setBmi] = useState(0)
   const [active, setActive] = useState(0)
-  let bmi_img = ''
-  const [img, setImg] = useState('')
+  let bmi_img = ""
+  const [img, setImg] = useState("")
   info.forEach((item) => {
     // console.log(item.activity)
     // console.log(item.sex)
@@ -280,7 +280,6 @@ const Home = ({ props, navigation }) => {
   console.log("id_users : ------" + id_users)
   // console.log('image : '+bmi_img )
   // console.log('you activity is'+ )
-
 
   // console.log(user_id)
 
@@ -482,7 +481,7 @@ const Home = ({ props, navigation }) => {
         <Image
           style={styles.img}
           source={{ uri: bmi_img }}
-        // source={require("../../assets/body.png")}
+          // source={require("../../assets/body.png")}
         />
         <View>
           <TouchableOpacity style={styles.bmi}>
@@ -574,18 +573,8 @@ const Home = ({ props, navigation }) => {
           </Text>
           <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, color: "red" }}>
             {" "}
-            {getdate}{" "}
+            {total_workout} KCAL
           </Text>
-          {show && (
-            <DateTimePicker
-              testID="dateTimePicket"
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              display="default"
-              onChange={onChange}
-            />
-          )}
         </View>
         <TouchableOpacity
           onPress={() => {
@@ -606,191 +595,84 @@ const Home = ({ props, navigation }) => {
           ></Text>
           <Text style={styles.text}>{TDEE} </Text>
         </TouchableOpacity>
-
-        <View style={{ flexDirection: "row", justifyContent: "center" }}>
-          <Image style={styles.img} source={require("../../assets/body.png")} />
-          <View>
-            <TouchableOpacity style={styles.bmi}>
-              <Text style={styles.text}>BMI : {bmi_num}</Text>
-              <Text style={styles.line}></Text>
-              <Text style={[styles.text, { fontSize: 30 }]}>{text_bmi}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.goalWeight}>
-              <Text style={styles.text}>Goal Weight</Text>
-              {info.map((item, key) => (
-                <Text key={key} style={[styles.text, { fontSize: 30 }]}>{item.goal_weight} </Text>)
-              )}
-              {/* <Text style={[styles.text, { fontSize: 30 }]}>45</Text> */}
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View>
-          <TouchableOpacity style={styles.boxInfo}>
-            {/* <Text style={[styles.text, { fontSize: 24 }]}>ฟ้า</Text> */}
-            {info.map((item, key) => (
-              <Text key={key} style={[styles.text, { fontSize: 24 }]}> {item.username} </Text>)
-            )}
-            <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              {/* <Text style={styles.text}>น้ำหนัก: {info_weight}</Text> */}
-              {info.map((item, key) => (
-                <Text key={key} style={styles.text} >น้ำหนัก: {item.weight} </Text>)
-              )}
-              <TextInput
-                style={styles.input}
-                value={weight}
-                onChangeText={onChangeWeight}
-                // placeholder="Enter Your Weight"
-                keyboardType="numeric"
-              ></TextInput>
-              {info.map((item, key) => (
-                <Text key={key} style={styles.text}>ส่วนสูง: {item.height} </Text>)
-              )}
-              <TextInput
-                style={styles.input}
-                value={height}
-                onChangeText={onChangeHeight}
-                // placeholder="Enter Your Height"
-                keyboardType="numeric"
-              ></TextInput>
-            </View>
-            <Picker
-              style={styles.pickerStyle}
-              selectedValue={act}
-              mode="dialog"
-              onValueChange={(val) => setAct(val)}
-            >
-              <Picker.Item label="นั่งทำงานอยู่กับที่และไม่ได้ออกกำลังกายเลย" value="1.2" />
-              <Picker.Item label="ออกกำลังกายอาทิตย์ละ 1-3 วัน" value="1.375" />
-              <Picker.Item label="ออกกำลังกายอาทิตย์ละ 3-5 วัน" value="1.55" />
-              <Picker.Item label="ออกกำลังกายอาทิตย์ละ 6-7 วัน" value="1.725" />
-              <Picker.Item label="ออกกำลังกายทุกวันเช้าเย็น" value="1.9" />
-            </Picker>
-
-            {/* <Text style={styles.resultInfo}>นั่งทำงานอยู่กับที่และไม่ได้ออกกำลังกาย</Text> */}
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity
-          style={styles.resultWorkout}
-          onPress={() => {
-            navigation.navigate("Calender_workout", { date_pick: getdate })
-          }}
-        >
-          <Text style={styles.text}>
-            <Ionicons name="ios-trophy" size={20} color="#ffb81c" />
-            บันทึกการออกกำลังกาย
-          </Text>
-        </TouchableOpacity>
-
-        <View style={{ margin: 10, flexDirection: "row" }}>
-          <View style={{ flexDirection: "column", marginRight: 120 }}>
-            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, marginTop: 10 }}>
-              Total Workout
-            </Text>
-            <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, color: "red" }}>
-              {" "}
-              {total_workout} KCAL
-            </Text>
-          </View>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("คำนวณแคล")
-            }}
-            style={{ backgroundColor: "lightpink", width: 115, height: 115, borderRadius: 100 }}
-          >
-            <Text style={[styles.text, { marginTop: 10 }]}> {total_kcal} </Text>
-
-            <Text
-              style={{
-                borderBottomColor: "black",
-                borderBottomWidth: 1,
-                width: 115,
-                alignSelf: "center",
-                marginBottom: 10,
-              }}
-            ></Text>
-            <Text style={styles.text}>{TDEE} </Text>
-          </TouchableOpacity>
-        </View>
       </View>
-      </View>
-      )
-  }
-      const styles = StyleSheet.create({
-        pickerStyle: {
-        width: "100%",
-      textAlign: "center",
-      backgroundColor: "gray",
-      color: "#fff",
+    </View>
+  )
+}
+const styles = StyleSheet.create({
+  pickerStyle: {
+    width: "100%",
+    textAlign: "center",
+    backgroundColor: "gray",
+    color: "#fff",
   },
-      text: {
-        fontSize: 18,
-      marginTop: 5,
-      alignSelf: "center",
-      textAlign: "center",
-      fontFamily: "FCMuffinRegular",
+  text: {
+    fontSize: 18,
+    marginTop: 5,
+    alignSelf: "center",
+    textAlign: "center",
+    fontFamily: "FCMuffinRegular",
   },
-      btnCalendar: {
-        backgroundColor: "#bbb",
-      padding: 5,
-      borderRadius: 10,
-      marginRight: 10,
-      alignSelf: "flex-end",
+  btnCalendar: {
+    backgroundColor: "#bbb",
+    padding: 5,
+    borderRadius: 10,
+    marginRight: 10,
+    alignSelf: "flex-end",
   },
-      img: {
-        width: 100,
-      height: 200,
+  img: {
+    width: 100,
+    height: 200,
   },
-      bmi: {
-        backgroundColor: "lightblue",
-      alignSelf: "flex-end",
-      width: 200,
-      margin: 5,
-      padding: 10,
+  bmi: {
+    backgroundColor: "lightblue",
+    alignSelf: "flex-end",
+    width: 200,
+    margin: 5,
+    padding: 10,
   },
-      line: {
-        borderBottomColor: "black",
-      borderBottomWidth: 1,
-      width: "100%",
-      margin: 2,
+  line: {
+    borderBottomColor: "black",
+    borderBottomWidth: 1,
+    width: "100%",
+    margin: 2,
   },
-      goalWeight: {
-        backgroundColor: "lightblue",
-      alignSelf: "flex-end",
-      width: 150,
-      marginRight: 30,
-      padding: 10,
+  goalWeight: {
+    backgroundColor: "lightblue",
+    alignSelf: "flex-end",
+    width: 150,
+    marginRight: 30,
+    padding: 10,
   },
-      boxInfo: {
-        backgroundColor: "lightblue",
-      width: 300,
-      alignSelf: "center",
-      margin: 5,
+  boxInfo: {
+    backgroundColor: "lightblue",
+    width: 300,
+    alignSelf: "center",
+    margin: 5,
   },
-      input: {
-        width: 50,
-      margin: 5,
-      textAlign: "center",
+  input: {
+    width: 50,
+    margin: 5,
+    textAlign: "center",
   },
-      resultInfo: {
-        backgroundColor: "lightpink",
-      borderColor: "black",
-      borderWidth: 1,
-      borderRadius: 15,
-      padding: 5,
-      margin: 10,
-      textAlign: "center",
-      fontFamily: "FCMuffinRegular",
+  resultInfo: {
+    backgroundColor: "lightpink",
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 15,
+    padding: 5,
+    margin: 10,
+    textAlign: "center",
+    fontFamily: "FCMuffinRegular",
   },
-      resultWorkout: {
-        backgroundColor: "lightblue",
-      width: 160,
-      alignSelf: "center",
-      margin: 5,
-      padding: 10,
-      textAlign: "center",
-      borderRadius: 15,
+  resultWorkout: {
+    backgroundColor: "lightblue",
+    width: 160,
+    alignSelf: "center",
+    margin: 5,
+    padding: 10,
+    textAlign: "center",
+    borderRadius: 15,
   },
 })
-      export default Home
+export default Home

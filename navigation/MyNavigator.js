@@ -65,9 +65,9 @@ const info_type = createNativeStackNavigator()
 const Blogdetail = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
 
-function addmin() {
+function Addmin() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="AddminHome">
       <Stack.Screen name="AddminHome" component={AddminHome} options={{ headerShown: false }} />
       <Stack.Screen name="AddminFood" component={AddminFood} options={{ headerShown: false }} />
       <Stack.Screen name="AddminFoodDetail" component={AddminFoodDetail} options={{ headerShown: false }} />
@@ -92,6 +92,7 @@ function Frist() {
       <Stack.Screen name="Signup" component={SignupComplete} options={{ headerShown: false }} />
       <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
       <Stack.Screen name="Logout" component={LogOut} options={{ headerShown: false }} />
+      <Stack.Screen name="Admin" component={Addmin} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }

@@ -36,12 +36,11 @@ const LoginPage = ({ navigation }) => {
       if (user) {
         if(user.uid === "ATifhjhQALPIYiw9w8hN2bqo2ZJ2"){
           console.log("ไปล็อกอิน")
-          navigation.replace("AddminHome")
+          navigation.navigate("Admin")
         }else{
           console.log("ไปโฮม")
-          navigation.replace("HomePage")
+          navigation.replace("Main")
         }
-        navigation.replace("Main")
       }
     })
     return unsubscribe
