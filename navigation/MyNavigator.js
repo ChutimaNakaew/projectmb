@@ -43,6 +43,7 @@ import QuestionActivityPage from "../screens/QuestionActivityPage"
 import LogOut from "../screens/LogOut"
 import LoginPage from "../screens/LoginPage"
 
+
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -56,6 +57,7 @@ function Frist() {
       <Stack.Screen name="FristScreen" component={FristScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Signup" component={SignupComplete} options={{ headerShown: false }} />
       <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
+      <Stack.Screen name="AddminHome" component={Adminpage} options={{ title: "", headerShown: false }} />
       <Stack.Screen name="Logout" component={LogOut} options={{ headerShown: false }} />
     </Stack.Navigator>
   )

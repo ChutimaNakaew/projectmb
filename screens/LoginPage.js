@@ -23,7 +23,7 @@ const LoginPage = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
     FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
   })
-
+  
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [islogin, setLogin] = useState(false)
@@ -78,7 +78,7 @@ const LoginPage = ({ navigation }) => {
               onChangeText={(val) => setPassword(val)}
               style={styles.TextInput}
               placeholder="Password"
-              // value="111111111"
+            // value="111111111"
             />
 
             <TouchableOpacity style={styles.button} onPress={() => LoginUser()}>

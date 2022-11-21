@@ -11,12 +11,12 @@ import { concat } from "react-native-reanimated"
 const Home = ({ props, navigation }) => {
   const user_id = authentication.currentUser?.uid
   const userRef = firebase.firestore().collection("user").where("uuid", "==", user_id)
+  
   const [info, setInfo] = useState([])
   const [id, setId] = useState([])
   useEffect(() => {
     userRef.onSnapshot((querySnapshot) => {
       const info = []
-      const id = []
       querySnapshot.forEach((doc) => {
         const { activity, age, email, goal_weight, height, password, sex, username, weight } =
           doc.data()
@@ -32,13 +32,11 @@ const Home = ({ props, navigation }) => {
           username,
           weight,
         })
-        // id.push({id: doc.id})
-        // setId(id)
-        // console.log('doc_id :'+doc.id);
       })
       setInfo(info)
     })
   }, [])
+  // console.log(info)
 
   // console.log('----------'+id)
   // console.log(info)
