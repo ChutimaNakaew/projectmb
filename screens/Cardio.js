@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, I
 import { Ionicons, Icon, FontAwesome5 } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
+
 // import { authentication } from "../../Database/firebase"
 
 const Cardio = ({ props, navigation }) => {

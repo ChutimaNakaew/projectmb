@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from "react"
-import { View, StyleSheet, Text, TouchableOpacity, FlatList, ImageBackground, ScrollView, Image } from "react-native"
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  ImageBackground,
+  ScrollView,
+  Image,
+} from "react-native"
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 // import { Timestamp } from "@firebase/firestore";
+import { authentication } from "../Database/firebase"
 
 const HistoryMenu = ({ props, route }) => {
+  const user_id = authentication.currentUser?.uid
   // const thisday = new Date(route.params.currentDate)
   // const total_kcal = route.params.total_kcal
   // const total_kcal = "150"
@@ -13,25 +24,27 @@ const HistoryMenu = ({ props, route }) => {
   const thisday = route.params.fDate
   // const day = Timestamp.fromDate(new Date()).toDate();
   // console.log("thisday " + thisday + "/" + total_kcal)
-  const addFood = firebase.firestore().collection("user").doc("u1").collection("addFood")
+  const addFood = firebase.firestore().collection("addFood")
   const [showMenu, setAddMenu] = useState([])
 
   useEffect(() => {
-    addFood.orderBy("date", "desc").onSnapshot((querySnapshot) => {
-      const showMenu = []
-      querySnapshot.forEach((doc) => {
-        const { name, kcal, id, date, img } = doc.data()
-        showMenu.push({
-          key: doc.id,
-          name,
-          kcal,
-          id,
-          date,
-          img,
+    addFood
+      .where("user_id", "==", user_id)
+      .orderBy("date", "desc")
+      .onSnapshot((querySnapshot) => {
+        const showMenu = []
+        querySnapshot.forEach((doc) => {
+          const { name, kcal, id, date, img } = doc.data()
+          showMenu.push({
+            key: doc.id,
+            name,
+            kcal,
+            date,
+            img,
+          })
         })
+        setAddMenu(showMenu)
       })
-      setAddMenu(showMenu)
-    })
   }, [])
 
   const sameday = showMenu.filter((item) => {
@@ -44,7 +57,7 @@ const HistoryMenu = ({ props, route }) => {
   })
 
   const [history, setHistory] = useState([])
-  const workoutRef = firebase.firestore().collection("user").doc("u1").collection("addWorkout")
+  const workoutRef = firebase.firestore().collection("addWorkOut").where('user_id', '==', user_id)
   useEffect(() => {
     workoutRef.onSnapshot((querySnapshot) => {
       const history = []
@@ -87,8 +100,6 @@ const HistoryMenu = ({ props, route }) => {
 
   let total_kcal = (Kcal_food - total).toFixed(2)
 
-
-
   return (
     <View style={[styles.text, { flex: 2 }]}>
       <TouchableOpacity
@@ -103,8 +114,17 @@ const HistoryMenu = ({ props, route }) => {
           borderWidth: 5,
         }}
       >
-        <Text style={[styles.text, { fontSize: 30, marginTop: 45, marginBottom: 20 }]}>{total_kcal}</Text>
-        <Text style={{ borderBottomColor: "black", borderBottomWidth: 1, width: 240, alignSelf: "center" }}></Text>
+        <Text style={[styles.text, { fontSize: 30, marginTop: 45, marginBottom: 20 }]}>
+          {total_kcal}
+        </Text>
+        <Text
+          style={{
+            borderBottomColor: "black",
+            borderBottomWidth: 1,
+            width: 240,
+            alignSelf: "center",
+          }}
+        ></Text>
         <Text style={[styles.text, { fontSize: 30, marginTop: 20 }]}>2430</Text>
       </TouchableOpacity>
 

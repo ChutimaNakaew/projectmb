@@ -30,7 +30,7 @@ const QuestionSexPage = ({navigation}) => {
                             <Text style={styles.textButton} >เข้าสู่ระบบ</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.buttonM} onPress={() => navigation.navigate('QuestionSex')}>
+                        <TouchableOpacity style={styles.buttonM} onPress={() => navigation.navigate('Signup')}>
                             <Text style={styles.textButton} >ลงทะเบียน</Text>
                         </TouchableOpacity>
 

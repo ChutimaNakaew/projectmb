@@ -12,7 +12,7 @@ const CustomHeaderButton = ( props ) => {
       IconComponent={Ionicons}
       iconSize={28}
       color={"black"}
-      onPress={() => navigation.replace("Logout")}
+      onPress={() => navigation.navigate("BeforeLogin", {screen: "Logout"})}
     />
   )
 }

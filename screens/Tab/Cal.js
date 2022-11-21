@@ -1,30 +1,41 @@
 import React, { useEffect, useState } from "react"
-import { View, StyleSheet, Text, TouchableOpacity, FlatList, ImageBackground, ScrollView } from "react-native"
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  ImageBackground,
+  ScrollView,
+} from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../../Database/firebaseDB"
 import DateTimePicker from "@react-native-community/datetimepicker"
+import { authentication } from "../../Database/firebase"
 
 const Cal = ({ props, navigation }) => {
-
-  const addFood = firebase.firestore().collection("user").doc("u1").collection("addFood")
+  const user_id = authentication.currentUser?.uid
+  const addFood = firebase.firestore().collection("addFood")
   const [showMenu, setAddMenu] = useState([])
   useEffect(() => {
-    addFood.orderBy("date", "desc").onSnapshot( async (querySnapshot) => {
-      const showMenu = []
-      await querySnapshot.forEach((doc) => {
-        const { name, kcal, id, date, img } = doc.data()
-        showMenu.push({
-          key: doc.id,
-          name,
-          kcal,
-          id,
-          date,
-          img,
+    addFood
+      .where("user_id", "==", user_id)
+      .orderBy("date", "desc")
+      .onSnapshot(async (querySnapshot) => {
+        const showMenu = []
+        await querySnapshot.forEach((doc) => {
+          const { name, kcal, id, date, img } = doc.data()
+          showMenu.push({
+            key: doc.id,
+            name,
+            kcal,
+            date,
+            img,
+          })
         })
+        setAddMenu(showMenu)
       })
-      setAddMenu(showMenu)
-    })
   }, [])
 
   const [date, setDate] = useState(new Date())
@@ -71,7 +82,8 @@ const Cal = ({ props, navigation }) => {
 
   // --------------ดึงข้อมูลKcalมาแสดงผลจ้า------------------------
   const [history, setHistory] = useState([])
-  const workoutRef = firebase.firestore().collection("user").doc("u1").collection("addWorkout")
+  const workoutRef = firebase.firestore().collection("addWorkOut").where("user_id", "==", user_id)
+  //-------------------------KCAl workout---------------------
   useEffect(() => {
     workoutRef.onSnapshot((querySnapshot) => {
       const history = []
@@ -88,26 +100,26 @@ const Cal = ({ props, navigation }) => {
   }, [])
 
   let total = 0
-  
   history.forEach((item) => {
-    if (item.date !== null){
-    const date_kcal = new Date(item.date.toDate().toISOString())
-    const year_kcal = date_kcal.getFullYear()
-    const month_kcal = date_kcal.getMonth() + 1
-    const dt_kcal = date_kcal.getDate()
+    if (item.date !== null) {
+      const date_kcal = new Date(item.date.toDate().toISOString())
+      // console.log("date_kcal: " + date_kcal)
+      const year_kcal = date_kcal.getFullYear()
+      const month_kcal = date_kcal.getMonth() + 1
+      const dt_kcal = date_kcal.getDate()
 
-    if (dt_kcal < 10) {
-      dt_kcal = "0" + dt_kcal
+      if (dt_kcal < 10) {
+        dt_kcal = "0" + dt_kcal
+      }
+      if (month_kcal < 10) {
+        month_kcal = "0" + month_kcal
+      }
+      const date_picker = dt_kcal + "/" + month_kcal + "/" + year_kcal
+      if (date_picker === getdate) {
+        // console.log("same")
+        total += item.kcal
+      }
     }
-    if (month_kcal < 10) {
-      month_kcal = "0" + month_kcal
-    }
-    const date_picker = dt_kcal + "/" + month_kcal + "/" + year_kcal
-    if (date_picker === getdate) {
-      // console.log("same")
-      total += item.kcal
-    }
-  }
   })
 
   let Kcal_food = 0
@@ -116,8 +128,10 @@ const Cal = ({ props, navigation }) => {
   })
 
   let total_kcal = (Kcal_food - total).toFixed(2)
-  // console.log("total " + total_kcal)
 
+  console.log("food " + Kcal_food)
+  console.log("workout " + total)
+  console.log("all " + total_kcal)
   // --------------------------------------------------------------
 
   let [fontsLoaded] = useFonts({
@@ -130,16 +144,34 @@ const Cal = ({ props, navigation }) => {
   return (
     <View style={{ flex: 2, marginTop: 40 }}>
       <View style={{ alignItems: "flex-end", marginTop: 10, marginRight: 10 }}>
-        {show && <DateTimePicker testID="dateTimePicket" value={date} mode={mode} is24Hour={true} display="default" onChange={onChange} />}
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicket"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+          />
+        )}
 
-        <TouchableOpacity style={{ backgroundColor: "#bbb", width: 100, padding: 10, borderRadius: 15 }} onPress={() => showMode("date")}>
+        <TouchableOpacity
+          style={{ backgroundColor: "#bbb", width: 100, padding: 10, borderRadius: 15 }}
+          onPress={() => showMode("date")}
+        >
           <Text style={styles.text}>ประวัติ</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("AddMenuNavigator", { screen: "AddMenu", params: { getdate } })
           }}
-          style={{ backgroundColor: "#bbb", width: 100, padding: 10, borderRadius: 15, marginTop: 10 }}
+          style={{
+            backgroundColor: "#bbb",
+            width: 100,
+            padding: 10,
+            borderRadius: 15,
+            marginTop: 10,
+          }}
         >
           <Text style={styles.text}>บันทึกเมนู</Text>
         </TouchableOpacity>
@@ -156,8 +188,17 @@ const Cal = ({ props, navigation }) => {
           borderWidth: 5,
         }}
       >
-        <Text style={[styles.text, { fontSize: 30, marginTop: 45, marginBottom: 20 }]}>{total_kcal}</Text>
-        <Text style={{ borderBottomColor: "black", borderBottomWidth: 1, width: 240, alignSelf: "center" }}></Text>
+        <Text style={[styles.text, { fontSize: 30, marginTop: 45, marginBottom: 20 }]}>
+          {total_kcal}
+        </Text>
+        <Text
+          style={{
+            borderBottomColor: "black",
+            borderBottomWidth: 1,
+            width: 240,
+            alignSelf: "center",
+          }}
+        ></Text>
         <Text style={[styles.text, { fontSize: 30, marginTop: 20 }]}>2430</Text>
       </TouchableOpacity>
       <FlatList

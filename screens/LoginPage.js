@@ -18,7 +18,6 @@ import firebase from "../Database/firebaseDB"
 import uuid from "react-uuid"
 import { authentication } from "../Database/firebase"
 import { signInWithEmailAndPassword } from "firebase/auth"
-import MyNavigator from "../navigation/MyNavigator"
 
 const LoginPage = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
@@ -42,6 +41,7 @@ const LoginPage = ({ navigation }) => {
           console.log("ไปโฮม")
           navigation.replace("HomePage")
         }
+        navigation.replace("Main")
       }
     })
     return unsubscribe

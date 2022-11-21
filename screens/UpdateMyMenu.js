@@ -4,12 +4,13 @@ import { Ionicons, AntDesign, FontAwesome5, MaterialCommunityIcons } from "@expo
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 import * as ImagePicker from "expo-image-picker"
+import { authentication } from "../Database/firebase"
 
 const UpdateMyMenu = ({ navigation, route }) => {
   const [image, setImage] = useState(null)
   const [uploading, setUploading] = useState(false)
   const [show, setShow] = useState(true)
-  const myMenu = firebase.firestore().collection("user").doc("u1").collection("myMenu")
+  const myMenu = firebase.firestore().collection("myMenu")
   const [name, setName] = useState(route.params.item.name)
   const [kcal, setKcal] = useState(route.params.item.kcal.toString())
   const [img, setImg] = useState(route.params.item.img)
@@ -22,7 +23,7 @@ const UpdateMyMenu = ({ navigation, route }) => {
         .doc(route.params.item.id)
         .update({
           name: name,
-          kcal: kcal,
+          kcal: cal,
           date: timestamp,
         })
         .then(() => {

@@ -3,15 +3,17 @@ import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, I
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
+import { authentication } from "../Database/firebase"
 
 const Calender = ({ route, navigation }) => {
+    const user_id = authentication.currentUser?.uid
     const { date_pick } = route.params;
 
     const date_cal = date_pick
     const [history, setHistory] = useState([])
     const [date, setDate] = useState('')
     // const [total, setTotal] = useState([])
-    const workoutRef = firebase.firestore().collection("user").doc("u1").collection("addWorkout");
+    const workoutRef = firebase.firestore().collection("addWorkOut").where('user_id', '==', user_id);
     const sumRef = firebase.firestore().collection("user").doc("u1").collection("TotalWorkout");
 
 
