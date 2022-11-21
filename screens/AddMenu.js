@@ -64,13 +64,13 @@ const AddMenu = ({ props, navigation, route }) => {
   }
 
   return (
-    <View style={{ flex: 2, marginTop: 10 }}>
+    <View style={{ flex: 2, paddingTop: 10 ,backgroundColor: "#ffffe0"}}>
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("AllMenu")
           }}
-          style={{ backgroundColor: "#d9d9d9", padding: 10, width: 120, borderRadius: 15, marginLeft: 30, marginVertical: 10 }}
+          style={{ backgroundColor: "lightblue", padding: 10, width: 120, borderRadius: 15, marginLeft: 30, marginVertical: 10 }}
         >
           <Text style={styles.text}>เมนูอาหาร</Text>
         </TouchableOpacity>
@@ -78,7 +78,7 @@ const AddMenu = ({ props, navigation, route }) => {
           onPress={() => {
             navigation.navigate("AddMyMenuNavigator")
           }}
-          style={{ backgroundColor: "#d9d9d9", padding: 10, width: 120, borderRadius: 15, marginLeft: 100, marginVertical: 10 }}
+          style={{ backgroundColor: "pink", padding: 10, width: 120, borderRadius: 15, marginLeft: 100, marginVertical: 10 }}
         >
           <Text style={styles.text}>เมนูของฉัน</Text>
         </TouchableOpacity>
@@ -92,7 +92,7 @@ const AddMenu = ({ props, navigation, route }) => {
           <View
             style={{
               flexDirection: "row",
-              backgroundColor: "#ccc",
+              backgroundColor: "#f9f9f9",
               marginHorizontal: 30,
               marginVertical: 10,
               shadowColor: "#171717",

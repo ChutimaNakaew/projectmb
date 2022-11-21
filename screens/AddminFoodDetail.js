@@ -31,6 +31,7 @@ const UserDetail = ({ navigation, route }) => {
         console.log(info)
         setName(info)
     }
+    const food = info.name
 
     const updateUser = () =>{
         console.log("รับคำร้องอัพเดท")
@@ -90,7 +91,7 @@ const UserDetail = ({ navigation, route }) => {
                         behavior={Platform.OS === "ios" ? "padding" : "height"}
                         style={styles.boxInfo}
                     >
-                        <Text style={styles.textTitle}>{info.name}</Text>
+                        <Text style={styles.textTitle}>{food}</Text>
                         <ScrollView style={styles.scrollView}>
                         <TextInput
         style={styles.TextInput}

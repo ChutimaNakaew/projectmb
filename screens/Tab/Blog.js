@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   header:{
-    marginTop:50
+    marginTop:50,
+    backgroundColor: "lightblue" 
   },
   gridItem: {
     flex: 1,

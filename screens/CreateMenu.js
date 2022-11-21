@@ -99,7 +99,7 @@ const CreateMenu = ({ navigation }) => {
   }
 
   return (
-    <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+    <View style={{ justifyContent: "center", alignItems: "center", flex: 1, backgroundColor: "#ffffe0"}}>
       {show ? (
         <TouchableOpacity onPressIn={pickImage} onPressOut={() => setShow(!show)}>
           <Image
@@ -162,8 +162,9 @@ const CreateMenu = ({ navigation }) => {
         <TouchableOpacity
           style={{
             width: 320,
-            backgroundColor: "#ddd",
+            backgroundColor: "lightgreen",
             padding: 10,
+            marginTop: 10,
             borderRadius: 20,
             marginVertical: 5,
           }}

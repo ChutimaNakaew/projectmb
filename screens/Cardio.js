@@ -67,7 +67,7 @@ const Cardio = ({ props, navigation }) => {
 const styles = StyleSheet.create({
   header:{
     marginTop:60,
-    paddingBottom:20
+    paddingBottom:20,
   },
   text: {
     fontFamily: "FCMuffinRegular",
