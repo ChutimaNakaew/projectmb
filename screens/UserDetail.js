@@ -178,7 +178,7 @@ const UserDetail = ({ navigation, route }) => {
                                 <Text style={styles.textButton}>อัพเดท</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity style={styles.button}
+                            <TouchableOpacity style={styles.buttonDel}
                                 onPress={() => DelUser()} >
                                 <Text style={styles.textButton}>ลบ</Text>
                             </TouchableOpacity>
@@ -210,7 +210,7 @@ const UserDetail = ({ navigation, route }) => {
             borderWidth: 2,
             borderRadius: 10,
             backgroundColor: "white",
-            flex: 0.9,
+            flex: 0.8,
             width: "85%",
             justifyContent: "center",
             alignSelf: "center",
@@ -218,6 +218,19 @@ const UserDetail = ({ navigation, route }) => {
         },
         button: {
             backgroundColor: "#F2DE77",
+            width: "50%",
+            height: 50,
+            alignItems: "center",
+            justifyContent: "center",
+            alignSelf: "center",
+            borderRadius: 10,
+            borderWidth: 1,
+            textColor: "balck",
+            marginTop: 10,
+            fontFamily: "FCMuffinRegular",
+        },
+        buttonDel: {
+            backgroundColor: "#DC143C",
             width: "50%",
             height: 50,
             alignItems: "center",

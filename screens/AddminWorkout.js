@@ -134,12 +134,6 @@ const SignupPage = ({ navigation, route }) => {
         resizeMode="cover"
         style={styles.image}
       >
-        <TouchableOpacity
-          style={styles.buttonBack}
-          onPress={() => navigation.navigate("AddminWorkoutCategory")}
-        >
-          <AntDesign name="arrowleft" size={40} color="white" />
-        </TouchableOpacity>
 
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -261,17 +255,19 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   TextInput: {
-    height: 40,
-    width: "90%",
-    marginTop: 2,
-    marginHorizontal: 12,
-    marginBottom: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: "lightgrey",
-    fontFamily: "FCMuffinRegular",
-  },
+            height: 40,
+            width: "90%",
+            marginTop: 2,
+            marginHorizontal: 12,
+            marginBottom: 12,
+            borderWidth: 1,
+            padding: 4,
+            paddingLeft: 9,
+            borderRadius: 10,
+            backgroundColor: "lightgrey",
+            fontFamily: "FCMuffinRegular",
+            fontSize: 24,
+        },
   buttonBack: {
     backgroundColor: "black",
     width: 70,

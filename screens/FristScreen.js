@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react"
 import {
     StyleSheet,
     ImageBackground,
@@ -6,19 +6,35 @@ import {
     Text,
     KeyboardAvoidingView,
     ScrollView,
+    Image,
     TouchableOpacity,
 } from "react-native";
 import { useFonts } from "expo-font";
+import { authentication } from "../Database/firebase"
 
 const QuestionSexPage = ({navigation}) => {
     const [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
     });
+    useEffect(() => {    
+        const unsubscribe = authentication.onAuthStateChanged((user) => {
+          if (user) {
+            if(user.uid === "ATifhjhQALPIYiw9w8hN2bqo2ZJ2"){
+              console.log("ไปล็อกอิน")
+              navigation.navigate("Admin")
+            }else{
+              console.log("ไปโฮม")
+              navigation.replace("Main")
+            }
+          }
+        })
+        return unsubscribe
+        }, [])
     return (
         <View style={styles.container}>
             {/* ใส่พื้นหลัง */}
             <ImageBackground
-                source={require("../assets/ImageBackground/QuestionSexPageBG.png")}
+                source={require("../assets/ImageBackground/FristScreenBG.png")}
                 resizeMode="cover"
                 style={styles.image}
             >
@@ -26,6 +42,10 @@ const QuestionSexPage = ({navigation}) => {
                     style={styles.boxInfo}
                 >
                     <View style={styles.scrollView}>
+                    <Image
+        style={styles.logo}
+        source={require('../assets/WORKY_LOGO.gif')}
+      />
                         <TouchableOpacity style={styles.buttonF} onPress={() => navigation.navigate('Login')}>
                             <Text style={styles.textButton} >เข้าสู่ระบบ</Text>
                         </TouchableOpacity>
@@ -59,12 +79,19 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 10,
         backgroundColor: "white",
-        flex: 0.44,
+        flex: 0.6,
         width: "85%",
         justifyContent: "center",
         alignSelf: "center",
         alignItems: "center",
     },
+    logo: {
+        width: 300,
+        height: 300,
+        alignSelf: "center",
+        marginBottom: 10,
+        marginTop: 10,
+      },
     button: {
         backgroundColor: "#F2DE77",
         width: "50%",

@@ -30,27 +30,27 @@ const AddminHome = ({ navigation }) => {
           <Text style={styles.textTitle}>ผู้ดูแลระบบ</Text>
           <ScrollView style={styles.scrollView}>
             <TouchableOpacity
-              style={styles.buttonF}
+              style={styles.button1}
               onPress={() => navigation.navigate("AddminFood")}
             >
               <Text style={styles.textButton}>🥗 อาหาร</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={styles.buttonM}
+              style={styles.button2}
               onPress={() => navigation.navigate("AddminBlog")}
             >
               <Text style={styles.textButton}>📄 บล๊อก</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={styles.buttonF}
+              style={styles.button3}
               onPress={() => navigation.navigate("AddminWorkoutCategory")}
             >
               <Text style={styles.textButton}>💪🏻 ออกกำลังกาย</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buttonM} onPress={() => navigation.navigate("AllUser")}>
+            <TouchableOpacity style={styles.button4} onPress={() => navigation.navigate("AllUser")}>
               <Text style={styles.textButton}>😃 ผู้ใช้งาน</Text>
             </TouchableOpacity>
 
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "lightgrey",
   },
-  buttonF: {
+  button1: {
     backgroundColor: "pink",
     width: "50%",
     height: 50,
@@ -148,8 +148,34 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontFamily: "FCMuffinRegular",
   },
-  buttonM: {
+  button2: {
     backgroundColor: "lightblue",
+    width: "50%",
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    borderRadius: 10,
+    borderWidth: 1,
+    textColor: "balck",
+    marginTop: 20,
+    fontFamily: "FCMuffinRegular",
+  },
+  button3: {
+    backgroundColor: "lightgreen",
+    width: "50%",
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    borderRadius: 10,
+    borderWidth: 1,
+    textColor: "balck",
+    marginTop: 20,
+    fontFamily: "FCMuffinRegular",
+  },
+  button4: {
+    backgroundColor: "#1334",
     width: "50%",
     height: 50,
     alignItems: "center",

@@ -103,10 +103,6 @@ const SignupPage = ({navigation, route}) => {
     >
       <Text style={styles.textTitle}>สมัครสมาชิก</Text>
       <ScrollView style={styles.scrollView}>
-      <Image
-        style={styles.logo}
-        source={require('../assets/WORKY_LOGO.gif')}
-      />
 
 <Text style={styles.textNomal}>ชื่อผู้ใช้</Text>
       <TextInput
@@ -162,7 +158,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     backgroundColor: "white",
-    flex: 0.9,
+    flex: 0.57,
     width: "85%",
     justifyContent: "center",
     alignSelf: "center",
@@ -184,7 +180,6 @@ const styles = StyleSheet.create({
   textTitle: {
     fontFamily: "FCMuffinRegular",
     fontSize: 60,
-    marginBottom: 10,
     marginTop: 10,
   },
   textNomal: {
@@ -205,17 +200,19 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   TextInput: {
-    height: 40,
-    width: "90%",
-    marginTop: 2,
-    marginHorizontal: 12,
-    marginBottom: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: "lightgrey",
-    fontFamily: "FCMuffinRegular",
-  },
+            height: 40,
+            width: "90%",
+            marginTop: 2,
+            marginHorizontal: 12,
+            marginBottom: 12,
+            borderWidth: 1,
+            padding: 4,
+            paddingLeft: 9,
+            borderRadius: 10,
+            backgroundColor: "lightgrey",
+            fontFamily: "FCMuffinRegular",
+            fontSize: 24,
+        },
   buttonBack: {
     backgroundColor: "black",
     width: 70,

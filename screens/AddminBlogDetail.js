@@ -58,18 +58,6 @@ const UserDetail = ({ navigation, route }) => {
             navigation.navigate('AddminBlog');
         })
     }
-
-    // const updateUser(() {
-    //     const updatedbRef = firebase.firestore().collection('user').doc(key)
-    //     updatedbRef.set({
-    //         username: info.username,
-    //         email: info.email,
-    //         password: info.password
-    //     })
-    // }
-    // )
-    //----------------
-
     //หลัง render จะเรียกใช้งานเมดตอดนี้
 
     useEffect(() => {
@@ -91,52 +79,10 @@ const UserDetail = ({ navigation, route }) => {
     //     }
     // }, []);
 
-    // const getCollection = (querySnaphot) => {
-    //     const userArr = [];
-    //     querySnaphot.forEach((res) => {
-    //         const { username, email, password } = res.data();
-    //         userArr.push({
-    //             key: res.id,
-    //             res,
-    //             username,
-    //             email,
-    //             password
-    //         })
-    //     })
-    //     setInfo((previousState) => {
-    //         const info = previousState
-    //         return {...info, userArr: userArr}
-    //       })
-    // }
-    //----------------
-
-
-    // const StoreUser = () => {
-    //     console.log("เข้าแล้วจ้า")
-    //     if (info.username == "") {
-    //         alert('Please fill username');
-    //     } else {
-    //         dbRef.add({
-    //             username: info.username,
-    //             email: info.email,
-    //             password: info.password,
-    //             uuid: info.uuid
-    //         })
-    //         navigation.navigate('QuestionSexPage')
-    //     }
-    // }
-
     return (
         <View style={styles.container}>
             {/* ใส่พื้นหลัง */}
             <ImageBackground source={require("../assets/ImageBackground/loginPageBG.png")} resizeMode="cover" style={styles.image}>
-
-                <TouchableOpacity style={styles.buttonBack}
-                    onPress={() => navigation.navigate('AddminBlog')}
-                >
-                    <AntDesign name="arrowleft" size={40} color="white" />
-
-                </TouchableOpacity>
 
                 <KeyboardAvoidingView
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -181,10 +127,10 @@ const UserDetail = ({ navigation, route }) => {
                             <Text style={styles.textButton}>อัพเดท</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.button}
-                            onPress={() => DelUser()} >
-                            <Text style={styles.textButton}>ลบ</Text>
-                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.buttonDel}
+                                onPress={() => DelUser()} >
+                                <Text style={styles.textButton}>ลบ</Text>
+                            </TouchableOpacity>
 
                     </ScrollView>
                 </KeyboardAvoidingView>
@@ -218,6 +164,19 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignSelf: "center",
         alignItems: "center",
+    },
+    buttonDel: {
+        backgroundColor: "#DC143C",
+        width: "50%",
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        alignSelf: "center",
+        borderRadius: 10,
+        borderWidth: 1,
+        textColor: "balck",
+        marginTop: 10,
+        fontFamily: "FCMuffinRegular",
     },
     button: {
         backgroundColor: "#F2DE77",

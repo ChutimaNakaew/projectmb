@@ -91,7 +91,7 @@ function Frist() {
       <Stack.Screen name="FristScreen" component={FristScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Signup" component={SignupComplete} options={{ headerShown: false }} />
       <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
-      <Stack.Screen name="AddminHome" component={Adminpage} options={{ title: "", headerShown: false }} />
+      <Stack.Screen name="AddminHome" component={AddminHome} options={{ title: "", headerShown: false }} />
       <Stack.Screen name="Logout" component={LogOut} options={{ headerShown: false }} />
       <Stack.Screen name="Admin" component={Addmin} options={{ headerShown: false }} />
     </Stack.Navigator>

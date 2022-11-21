@@ -29,12 +29,12 @@ const LoginPage = ({ navigation }) => {
   const [islogin, setLogin] = useState(false)
   const [info2, setInfo2] = useState([])
   const userRef = firebase.firestore().collection('addmin')
-
   const adminUID = "ATifhjhQALPIYiw9w8hN2bqo2ZJ2"
+
   useEffect(() => {    
     const unsubscribe = authentication.onAuthStateChanged((user) => {
       if (user) {
-        if(user.uid === "ATifhjhQALPIYiw9w8hN2bqo2ZJ2"){
+        if(user.uid === adminUID){
           console.log("ไปล็อกอิน")
           navigation.navigate("Admin")
         }else{
@@ -72,7 +72,6 @@ const LoginPage = ({ navigation }) => {
         >
           <Text style={styles.textTitle}>ลงชื่อเข้าใช้</Text>
           <ScrollView style={styles.scrollView}>
-            <Image style={styles.logo} source={require("../assets/WORKY_LOGO.gif")} />
 
             <Text style={styles.textNomal}>อีเมล</Text>
             <TextInput
@@ -117,7 +116,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     backgroundColor: "white",
-    flex: 0.82,
+    flex: 0.5,
     width: "85%",
     justifyContent: "center",
     alignSelf: "center",
@@ -158,16 +157,18 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   TextInput: {
-    height: 40,
-    width: "90%",
-    marginTop: 2,
-    marginHorizontal: 12,
-    marginBottom: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: "lightgrey",
-    fontFamily: "FCMuffinRegular",
-  },
+  height: 40,
+  width: "90%",
+  marginTop: 2,
+  marginHorizontal: 12,
+  marginBottom: 10,
+  borderWidth: 1,
+  padding: 4,
+  paddingLeft: 9,
+  borderRadius: 10,
+  backgroundColor: "lightgrey",
+  fontFamily: "FCMuffinRegular",
+  fontSize: 24,
+        },
 })
 export default LoginPage

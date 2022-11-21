@@ -52,10 +52,6 @@ const LoginPage = ({navigation}) => {
     >
       <Text style={styles.textTitle}>ออกจากระบบ</Text>
       <ScrollView style={styles.scrollView}>
-      <Image
-        style={styles.logo}
-        source={require('../assets/WORKY_LOGO.gif')}
-      />
 
       <Text style={styles.textNomal}>อีเมล: {authentication.currentUser?.email}</Text>
       <Text style={styles.textNomal}>UID: {authentication.currentUser?.uid}</Text>
@@ -92,14 +88,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     backgroundColor: "white",
-    flex: 0.82,
+    flex: 0.38,
     width: "85%",
     justifyContent: "center",
     alignSelf: "center",
     alignItems: "center"
   },
   button: {
-    backgroundColor: "lightblue",
+    backgroundColor: "pink",
     width: "50%",
     height: 50,
     alignItems: "center",

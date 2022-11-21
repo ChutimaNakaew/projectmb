@@ -198,18 +198,13 @@ const UserDetail = ({ navigation, route }) => {
                 {/* ใส่พื้นหลัง */}
                 <ImageBackground source={require("../assets/ImageBackground/loginPageBG.png")} resizeMode="cover" style={styles.image}>
 
-                    <TouchableOpacity style={styles.buttonBack}
-                    onPress={() => navigation.navigate('AddminWorkoutCategory')}
-                    >
-                        <AntDesign name="arrowleft" size={40} color="white" />
-                    </TouchableOpacity>
-
                     <KeyboardAvoidingView
                         behavior={Platform.OS === "ios" ? "padding" : "height"}
                         style={styles.boxInfo}
                     >
                         <Text style={styles.textTitle}>{info.posture_name}</Text>
                         <ScrollView style={styles.scrollView}>
+                        <Text style={styles.textNomal}>ชื่อ</Text>
                         <TextInput
         style={styles.TextInput}
         placeholder={info.posture_name}
@@ -249,7 +244,7 @@ const UserDetail = ({ navigation, route }) => {
                                 <Text style={styles.textButton}>อัพเดท</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity style={styles.button}
+                            <TouchableOpacity style={styles.buttonDel}
                                 onPress={() => DelUser()} >
                                 <Text style={styles.textButton}>ลบ</Text>
                             </TouchableOpacity>
@@ -302,7 +297,7 @@ const UserDetail = ({ navigation, route }) => {
         },
         textTitle: {
             fontFamily: "FCMuffinRegular",
-            fontSize: 60,
+            fontSize: 40,
             marginBottom: 10,
             marginTop: 10,
         },
@@ -319,6 +314,19 @@ const UserDetail = ({ navigation, route }) => {
             marginBottom: 0,
             alignSelf: "center",
         },
+        buttonDel: {
+            backgroundColor: "#DC143C",
+            width: "50%",
+            height: 50,
+            alignItems: "center",
+            justifyContent: "center",
+            alignSelf: "center",
+            borderRadius: 10,
+            borderWidth: 1,
+            textColor: "balck",
+            marginTop: 10,
+            fontFamily: "FCMuffinRegular",
+        },
         scrollView: {
             height: "100%",
             width: "100%",
@@ -330,10 +338,12 @@ const UserDetail = ({ navigation, route }) => {
             marginHorizontal: 12,
             marginBottom: 12,
             borderWidth: 1,
-            padding: 10,
+            padding: 4,
+            paddingLeft: 9,
             borderRadius: 10,
             backgroundColor: "lightgrey",
             fontFamily: "FCMuffinRegular",
+            fontSize: 24,
         },
         buttonBack: {
             backgroundColor: "black",

@@ -73,12 +73,6 @@ const SignupPage = ({ navigation }) => {
                 {/* ใส่พื้นหลัง */}
                 <ImageBackground source={require("../assets/ImageBackground/loginPageBG.png")} resizeMode="cover" style={styles.image}>
 
-                    <TouchableOpacity style={styles.buttonBack}
-                    onPress={() => navigation.navigate('AddminHome')}
-                    >
-                        <AntDesign name="arrowleft" size={40} color="white" />
-                    </TouchableOpacity>
-
                     <KeyboardAvoidingView
                         behavior={Platform.OS === "ios" ? "padding" : "height"}
                         style={styles.boxInfo}
@@ -107,10 +101,10 @@ const SignupPage = ({ navigation }) => {
                                 }
                                 )
                             }
-                            <TouchableOpacity style={styles.button}
+                            {/* <TouchableOpacity style={styles.button}
                                 onPress={() => navigation.navigate('AddminWorkout')} >
                                 <Text style={styles.textButton}>เพิ่มประเภท</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
 
                         </ScrollView>
                     </KeyboardAvoidingView>

@@ -44,20 +44,12 @@ const SignupPage = ({navigation, route}) => {
       {/* ใส่พื้นหลัง */}
       <ImageBackground source={require("../assets/ImageBackground/loginPageBG.png")} resizeMode="cover" style={styles.image}>
 
-      <Pressable style={styles.buttonBack} onPress={() => navigation.navigate('AddminWorkoutCategory')}>
-      <AntDesign name="arrowleft" size={40} color="white" />
-      </Pressable>
-      
       <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.boxInfo}
     >
       <Text style={styles.textTitle}>เพิ่มท่าออกกำลังกาย</Text>
       <ScrollView style={styles.scrollView}>
-      <Image
-        style={styles.logo}
-        source={require('../assets/WORKY_LOGO.gif')}
-      />
 
 <Text style={styles.textNomal}>ชื่อท่า</Text>
       <TextInput
@@ -126,7 +118,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     backgroundColor: "white",
-    flex: 0.9,
+    flex: 0.83,
     width: "85%",
     justifyContent: "center",
     alignSelf: "center",
@@ -169,17 +161,19 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   TextInput: {
-    height: 40,
-    width: "90%",
-    marginTop: 2,
-    marginHorizontal: 12,
-    marginBottom: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: "lightgrey",
-    fontFamily: "FCMuffinRegular",
-  },
+            height: 40,
+            width: "90%",
+            marginTop: 2,
+            marginHorizontal: 12,
+            marginBottom: 12,
+            borderWidth: 1,
+            padding: 4,
+            paddingLeft: 9,
+            borderRadius: 10,
+            backgroundColor: "lightgrey",
+            fontFamily: "FCMuffinRegular",
+            fontSize: 24,
+        },
   buttonBack: {
     backgroundColor: "black",
     width: 70,
