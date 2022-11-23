@@ -11,7 +11,7 @@ import { concat } from "react-native-reanimated"
 const Home = ({ props, navigation }) => {
   const user_id = authentication.currentUser?.uid
   const userRef = firebase.firestore().collection("user").where("uuid", "==", user_id)
-  
+
   const [info, setInfo] = useState([])
   const [id, setId] = useState([])
 
@@ -451,11 +451,11 @@ const Home = ({ props, navigation }) => {
   }
 
   return (
-    <View>
+    <View style={{backgroundColor: "#a2cdfd", }}>
       {/* <Text style={styles.textNomal}></Text> */}
-      <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 5 }}>
+      <View style={{ flexDirection: "row", marginTop: 5, }}>
         {/* {show &&} */}
-        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center" }}>
+        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center", marginLeft: 150, color: "#000",}}>
           {" "}
           {getdate}{" "}
         </Text>
@@ -469,17 +469,16 @@ const Home = ({ props, navigation }) => {
             onChange={onChange}
           />
         )}
+        <TouchableOpacity style={styles.btnCalendar} onPress={() => showMode("date")}>
+          <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 18 }}>ปฎิทิน</Text>
+        </TouchableOpacity>
       </View>
-
-      <TouchableOpacity style={styles.btnCalendar} onPress={() => showMode("date")}>
-        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 18 }}>ปฎิทิน</Text>
-      </TouchableOpacity>
 
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <Image
           style={styles.img}
           // source={{ uri: bmi_img }}
-          source={{uri: bmi_img !=="" ? bmi_img : undefined}}
+          source={{ uri: bmi_img !== "" ? bmi_img : undefined }}
           // source={require("../../assets/body.png")}
         />
         <View>
@@ -539,9 +538,6 @@ const Home = ({ props, navigation }) => {
               // onValueChange={(val) => setAct(val)}
               onValueChange={val_change}
             >
-              {/* {info.map((item, key) => (
-              <Picker.Item key={key} label={item.activity} value={item.activity} />)
-            )} */}
               <Picker.Item label="นั่งอยู่กับที่และไม่ออกกำลังกายเลย" value="1.2" />
               <Picker.Item label="ออกกำลังกายอาทิตย์ละ 1-3 วัน" value="1.375" />
               <Picker.Item label="ออกกำลังกายอาทิตย์ละ 3-5 วัน" value="1.55" />
@@ -549,9 +545,10 @@ const Home = ({ props, navigation }) => {
               <Picker.Item label="ออกกำลังกายทุกวันเช้าเย็น" value="1.9" />
             </Picker>
           ))}
-          {/* <Text style={styles.resultInfo}>นั่งทำงานอยู่กับที่และไม่ได้ออกกำลังกาย</Text> */}
         </TouchableOpacity>
+        
       </View>
+      
 
       <TouchableOpacity
         style={styles.resultWorkout}
@@ -579,9 +576,9 @@ const Home = ({ props, navigation }) => {
           onPress={() => {
             navigation.navigate("คำนวณแคล", { screen: "Cal" })
           }}
-          style={{ backgroundColor: "lightpink", width: 115, height: 115, borderRadius: 100 }}
+          style={{ backgroundColor: "#eb5e93", width: 115, height: 115, borderRadius: 100 }}
         >
-          <Text style={[styles.text, { marginTop: 10 }]}> {total_kcal} </Text>
+          <Text style={[styles.text, { marginTop: 10, color: "black" }]}> {total_kcal} </Text>
 
           <Text
             style={{
@@ -589,7 +586,7 @@ const Home = ({ props, navigation }) => {
               borderBottomWidth: 1,
               width: 115,
               alignSelf: "center",
-              marginBottom: 10,
+              marginBottom: 5,
             }}
           ></Text>
           <Text style={styles.text}>{TDEE} </Text>
@@ -602,33 +599,39 @@ const styles = StyleSheet.create({
   pickerStyle: {
     width: "100%",
     textAlign: "center",
-    backgroundColor: "gray",
-    color: "#fff",
+    backgroundColor: "#0090fd",
+    color: "#000",
+    alignSelf: "center"
   },
   text: {
-    fontSize: 18,
+    fontSize: 24,
     marginTop: 5,
     alignSelf: "center",
     textAlign: "center",
     fontFamily: "FCMuffinRegular",
+    color: "#000",
   },
   btnCalendar: {
-    backgroundColor: "#bbb",
+    backgroundColor: "#f6bd64",
     padding: 5,
     borderRadius: 10,
-    marginRight: 10,
+    marginLeft: 80,
     alignSelf: "flex-end",
   },
   img: {
     width: 100,
     height: 200,
+    resizeMode: "cover",
+    marginLeft: 20,
+    marginRight: 20,
   },
   bmi: {
-    backgroundColor: "lightblue",
+    backgroundColor: "#0090fd",
     alignSelf: "flex-end",
-    width: 200,
-    margin: 5,
+    width: 210,
+    marginVertical: 5,
     padding: 10,
+    borderRadius: 20,
   },
   line: {
     borderBottomColor: "black",
@@ -637,17 +640,20 @@ const styles = StyleSheet.create({
     margin: 2,
   },
   goalWeight: {
-    backgroundColor: "lightblue",
+    backgroundColor: "#0090fd",
     alignSelf: "flex-end",
-    width: 150,
-    marginRight: 30,
+    width: 210,
+    marginLeft: 0,
     padding: 10,
+    borderRadius: 20,
   },
   boxInfo: {
-    backgroundColor: "lightblue",
-    width: 300,
+    backgroundColor: "#0090fd",
+    width: 350,
     alignSelf: "center",
     margin: 5,
+    borderRadius: 20,
+    height: 150,
   },
   input: {
     width: 50,
@@ -658,15 +664,15 @@ const styles = StyleSheet.create({
     backgroundColor: "lightpink",
     borderColor: "black",
     borderWidth: 1,
-    borderRadius: 15,
+    borderRadius: 20,
     padding: 5,
     margin: 10,
     textAlign: "center",
     fontFamily: "FCMuffinRegular",
   },
   resultWorkout: {
-    backgroundColor: "lightblue",
-    width: 160,
+    backgroundColor: "#0090fd",
+    width: 200,
     alignSelf: "center",
     margin: 5,
     padding: 10,
