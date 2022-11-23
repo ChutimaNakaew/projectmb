@@ -23,16 +23,7 @@ const Video_posture = ({ route, navigation }) => {
     const pos_kal = postureKcal
     const post_timing = postureTiming
 
-    // const addWorkout = firebase.firestore().collection("user").doc("u1").collection("addWorkout")
-    // const video = React.useRef(null);
     const [status, setStatus] = React.useState({});
-    //   const {blogImage} = route.params;
-    //   const blogid = blogId;
-    //   const blog_detail = blogdetail
-    //   const blog_name = blogName
-    //   const blog_image = blogImage
-
-    //   console.log(blogid)
 
     let [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
@@ -41,22 +32,7 @@ const Video_posture = ({ route, navigation }) => {
 
     record = () => {
 
-        // let totalKcal = pos_kal 
-        // setTotalKcal(totalKcal => (totalKcal + pos_kal)*(remainingSecs/60));
-        // alert('You have burned calories ' + pos_kal + ' Kcal')
-        // console.log('you time is : ' + remainingSecs + ' sec.')
-        console.log('this posture Kcal is : ' + pos_kal + ' Kcal')
-        console.log('You have burned calories ' + pos_kal + ' Kcal')
-
-        // if (item.pos_name && item.pos_id && item.pos_kal) {
         const timestamp = firebase.firestore.FieldValue.serverTimestamp()
-        // firebase.firestore().collection("user").doc("u1").collection("addWorkout").add({
-        //     name: pos_name,
-        //     date: timestamp,
-        //     kcal: pos_kal,
-        //     id: pos_id,
-        //     time: Number((post_timing).toFixed(2)),
-        // })
         firebase.firestore().collection("addWorkOut").add({
             name: pos_name,
             date: timestamp,
@@ -74,8 +50,6 @@ const Video_posture = ({ route, navigation }) => {
 
             ;
         navigation.navigate("Record_history")
-        // setRemainingSecs(0);
-        // setIsActive(false);
     }
 
     return (
@@ -108,10 +82,7 @@ const styles = StyleSheet.create({
         marginTop: 60,
     },
     container: {
-        // flex: 1,
-        // padding: 5,
         marginTop: 60,
-        // backgroundColor:'#000',
     },
     subcontainer: {
         marginTop: -20,
@@ -119,33 +90,25 @@ const styles = StyleSheet.create({
     textTitle: {
         fontSize: 40,
         textAlign: 'center',
-        // fontWeight: "bold",
-        // justifyContent: "center",
         marginBottom: 50,
         fontFamily: "FCMuffinRegular",
-        // color:'white'
     },
     text: {
-        // flex: 1,
         justifyContent: "center",
         fontSize: 30,
         fontFamily: "FCMuffinRegular",
-        // alignItems: "center",
     },
     video: {
         flex: 1,
         alignSelf: 'stretch',
-        // alignSelf: 'center',
         width: 320,
         height: 150,
-        // marginTop:60,
     },
     time: {
         fontSize: 70,
         textAlign: 'center',
         marginTop: -10,
         marginBottom: 5,
-        // color:'white'
     },
     buttonStart: {
         borderWidth: 10,

@@ -38,7 +38,6 @@ const Blog = ({ props, navigation }) => {
     <View style={styles.header}>
       <FlatList
         data={blog}
-        // numColumns={1}
         renderItem={({ item }) => (
           <View>
             <TouchableOpacity
@@ -80,14 +79,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "flex-end",
-    // flexWrap: "wrap",
   },
   title: {
     fontFamily: "FCMuffinRegular",
     fontSize: 22,
     textAlign: 'center',
     flexWrap: "wrap",
-    // paddingLeft:5,
     flex: 1,
     backgroundColor: "#e6edfa",
   },

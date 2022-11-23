@@ -13,7 +13,6 @@ const BlogDetail = ({ route, navigation }) => {
   const blog_name = blogName
   const blog_image = blogImage
 
-  console.log(blogid)
 
   let [fontsLoaded] = useFonts({
     FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
@@ -76,16 +75,11 @@ const styles = StyleSheet.create({
     // alignItems: "center",
   },
   image_bg: {
-    // width: '100%',
     height: 280,
-    // borderColor:'#000',
-    // borderWidth:10,
     borderRadius: 30,
     overflow: 'hidden',
     shadowColor: '#f5cbcb',
     shadowOffset: { width: 5, height: 10 },
-    // shadowRadius: 5,
-    // height:'50%',
   },
   cards: {
     // borderColor:'#000',
