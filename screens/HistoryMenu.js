@@ -103,7 +103,7 @@ const HistoryMenu = ({ props, route }) => {
   let total_kcal = (Kcal_food - total).toFixed(2)
 
   return (
-    <View style={[styles.text, { flex: 2 }]}>
+    <View style={[styles.text, { flex: 2, backgroundColor: "#ffffe0", }]}>
       <TouchableOpacity
         style={{
           backgroundColor: "lightpink",
@@ -137,7 +137,7 @@ const HistoryMenu = ({ props, route }) => {
           <View
             style={{
               flexDirection: "row",
-              backgroundColor: "#ccc",
+              backgroundColor: "#eee",
               marginHorizontal: 30,
               marginVertical: 10,
               shadowColor: "#171717",
