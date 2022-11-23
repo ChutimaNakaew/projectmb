@@ -63,7 +63,7 @@ const Video_posture = ({ route, navigation }) => {
             user_id: user_id
         })
             .then(() => {
-                console.log("Success to Add calories of " + pos_name)
+                // console.log("Success to Add calories of " + pos_name)
             })
             .catch((err) => {
                 alert(err)

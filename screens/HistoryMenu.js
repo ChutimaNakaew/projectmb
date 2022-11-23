@@ -1,31 +1,13 @@
 import React, { useEffect, useState } from "react"
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  ImageBackground,
-  ScrollView,
-  Image,
-} from "react-native"
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons"
+import { View, StyleSheet, Text, TouchableOpacity, FlatList, Image } from "react-native"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
-// import { Timestamp } from "@firebase/firestore";
 import { authentication } from "../Database/firebase"
 
 const HistoryMenu = ({ props, route }) => {
   const user_id = authentication.currentUser?.uid
-  // const thisday = new Date(route.params.currentDate)
-  // const total_kcal = route.params.total_kcal
-  // const total_kcal = "150"
-  // const {fDate} = route.params
   const thisday = route.params.fDate
   const tdee = route.params.TDEE
-  // console.log({tdee})
-  // const day = Timestamp.fromDate(new Date()).toDate();
-  // console.log("thisday " + thisday + "/" + total_kcal)
   const addFood = firebase.firestore().collection("addFood")
   const [showMenu, setAddMenu] = useState([])
 
@@ -36,7 +18,7 @@ const HistoryMenu = ({ props, route }) => {
       .onSnapshot((querySnapshot) => {
         const showMenu = []
         querySnapshot.forEach((doc) => {
-          const { name, kcal, id, date, img } = doc.data()
+          const { name, kcal, date, img } = doc.data()
           showMenu.push({
             key: doc.id,
             name,
@@ -59,7 +41,7 @@ const HistoryMenu = ({ props, route }) => {
   })
 
   const [history, setHistory] = useState([])
-  const workoutRef = firebase.firestore().collection("addWorkOut").where('user_id', '==', user_id)
+  const workoutRef = firebase.firestore().collection("addWorkOut").where("user_id", "==", user_id)
   useEffect(() => {
     workoutRef.onSnapshot((querySnapshot) => {
       const history = []
@@ -90,7 +72,6 @@ const HistoryMenu = ({ props, route }) => {
     }
     const date_picker = dt_kcal + "/" + month_kcal + "/" + year_kcal
     if (date_picker === thisday) {
-      // console.log("same")
       total += item.kcal
     }
   })
@@ -102,8 +83,16 @@ const HistoryMenu = ({ props, route }) => {
 
   let total_kcal = (Kcal_food - total).toFixed(2)
 
+  let [fontsLoaded] = useFonts({
+    FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
+  })
+
+  if (!fontsLoaded) {
+    return null
+  }
+
   return (
-    <View style={[styles.text, { flex: 2, backgroundColor: "#ffffe0", }]}>
+    <View style={[styles.text, { flex: 2, backgroundColor: "#ffffe0" }]}>
       <TouchableOpacity
         style={{
           backgroundColor: "lightpink",

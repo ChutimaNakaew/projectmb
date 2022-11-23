@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, ImageBackground, ScrollView, Alert } from "react-native"
-import { Ionicons, AntDesign, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
+import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput } from "react-native"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 import * as ImagePicker from "expo-image-picker"
-import { authentication } from "../Database/firebase"
 
 const UpdateMyMenu = ({ navigation, route }) => {
   const [image, setImage] = useState(null)
@@ -18,7 +16,6 @@ const UpdateMyMenu = ({ navigation, route }) => {
   const update = (name, cal, url) => {
     if (image == null) {
       const timestamp = firebase.firestore.FieldValue.serverTimestamp()
-      // const cal = Number(kcal)
       myMenu
         .doc(route.params.item.id)
         .update({
@@ -29,15 +26,12 @@ const UpdateMyMenu = ({ navigation, route }) => {
         .then(() => {
           console.log("Update " + name)
           alert("✏️ อัพเดทเมนู " + "'" + name + "'")
-          // navigation.navigate("MyMenu")
         })
         .catch((err) => {
           alert(err)
         })
     } else {
-      // const img = url
       const timestamp = firebase.firestore.FieldValue.serverTimestamp()
-      // const cal = Number(kcal)
       myMenu
         .doc(route.params.item.id)
         .update({
@@ -48,7 +42,6 @@ const UpdateMyMenu = ({ navigation, route }) => {
         })
         .then(() => {
           console.log("Update " + name)
-          // navigation.navigate("MyMenu")
         })
         .catch((err) => {
           alert(err)
@@ -97,7 +90,6 @@ const UpdateMyMenu = ({ navigation, route }) => {
       navigation.navigate("MyMenu")
     }
     setUploading(false)
-    // Alert.alert("Photo uploaded !")
     setImage(null)
   }
 
@@ -122,7 +114,16 @@ const UpdateMyMenu = ({ navigation, route }) => {
         <TextInput
           value={name}
           onChangeText={setName}
-          style={[styles.text, { width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }]}
+          style={[
+            styles.text,
+            {
+              width: 320,
+              backgroundColor: "#ddd",
+              padding: 10,
+              borderRadius: 20,
+              marginVertical: 5,
+            },
+          ]}
         ></TextInput>
 
         <Text style={[styles.text, { textAlign: "left" }]}>ปริมาณแคลอรี่</Text>
@@ -131,29 +132,45 @@ const UpdateMyMenu = ({ navigation, route }) => {
             value={kcal}
             onChangeText={setKcal}
             keyboardType="numeric"
-            style={[styles.text, { width: 220, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }]}
+            style={[
+              styles.text,
+              {
+                width: 220,
+                backgroundColor: "#ddd",
+                padding: 10,
+                borderRadius: 20,
+                marginVertical: 5,
+              },
+            ]}
           ></TextInput>
-          <Text style={[styles.text, { width: 95, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginLeft: 5, marginVertical: 5 }]}>
+          <Text
+            style={[
+              styles.text,
+              {
+                width: 95,
+                backgroundColor: "#ddd",
+                padding: 10,
+                borderRadius: 20,
+                marginLeft: 5,
+                marginVertical: 5,
+              },
+            ]}
+          >
             Kcal
           </Text>
         </View>
-        {/* {image === null ? (
-          <TouchableOpacity
-            style={{ width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }}
-            // onPressIn={uploadImage}
-            onPress={update}
-          >
-            <Text style={styles.text}>อัพเดทเมนู</Text>
-          </TouchableOpacity>
-        ) : ( */}
         <TouchableOpacity
-          style={{ width: 320, backgroundColor: "#ddd", padding: 10, borderRadius: 20, marginVertical: 5 }}
+          style={{
+            width: 320,
+            backgroundColor: "#ddd",
+            padding: 10,
+            borderRadius: 20,
+            marginVertical: 5,
+          }}
           onPress={uploadImage}
-          // onPressOut={update}
         >
           <Text style={styles.text}>อัพเดทเมนู</Text>
         </TouchableOpacity>
-        {/* )} */}
       </View>
     </View>
   )

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, ImageBackground, ScrollView } from "react-native"
-import { Ionicons, AntDesign, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
+import { View, StyleSheet, Text, TouchableOpacity, Image, FlatList,} from "react-native"
+import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
-// import { SearchBar } from "react-native-elements"
 import { authentication } from "../Database/firebase"
 
 const MyMenu = ({ navigation }) => {
@@ -11,15 +10,8 @@ const MyMenu = ({ navigation }) => {
   const [showMenu, setShowMenu] = useState("")
   const myMenu = firebase.firestore().collection("myMenu")
   const addFood = firebase.firestore().collection("addFood")
-  // const [data, setData] = useState("")
   const [food, setFood] = useState([])
   const user_id = authentication.currentUser?.uid
-
-  // useEffect(()=>{
-  //   if(data == ""){
-  //     return setData(food)
-  //   } 
-  // })
 
   useEffect(() => {
     myMenu
