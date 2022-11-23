@@ -35,10 +35,8 @@ const LoginPage = ({ navigation }) => {
     const unsubscribe = authentication.onAuthStateChanged((user) => {
       if (user) {
         if(user.uid === adminUID){
-          console.log("ไปล็อกอิน")
           navigation.navigate("Admin")
         }else{
-          console.log("ไปโฮม")
           navigation.replace("Main")
         }
       }
@@ -50,10 +48,8 @@ const LoginPage = ({ navigation }) => {
     signInWithEmailAndPassword(authentication, email, password)
       .then((re) => {
         setLogin(true)
-        console.log(re)
       })
       .catch((re) => {
-        console.log(re)
         Alert.alert("ข้อมูลไม่ถูกต้อง")
       })
   }
@@ -83,6 +79,7 @@ const LoginPage = ({ navigation }) => {
 
             <Text style={styles.textNomal}>รหัสผ่าน</Text>
             <TextInput
+            secureTextEntry={true}
               onChangeText={(val) => setPassword(val)}
               style={styles.TextInput}
               placeholder="Password"

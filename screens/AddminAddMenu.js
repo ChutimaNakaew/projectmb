@@ -18,11 +18,9 @@ const SignupPage = ({navigation}) => {
   const InputValueUpdate = (val, props) =>{
     info[props] = val;
     setInfo(info)
-    console.log(info)
   }
 
   const StoreUser = () =>{
-    console.log("เข้าแล้วจ้า")
     if (info.name == "" || info.img == "" || info.kcal == "") {
       alert('กรุณาใส่ข้อมูลให้ครบ');
     }else {
@@ -31,7 +29,7 @@ const SignupPage = ({navigation}) => {
         name: info.name,
         kcal: parseFloat(info.kcal),
       })
-      navigation.navigate('AddminFood')
+      navigation.navigate('AddminHome')
     }
     } 
 

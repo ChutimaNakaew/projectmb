@@ -33,45 +33,27 @@ const SignupPage = ({navigation, route}) => {
   const InputValueUpdate = (val, props) =>{
     info[props] = val;
     setInfo(info)
-    console.log(info)
+     
     if (props === "email"){
       setEmail(val);
-      console.log("เมล")
-      console.log(email)
     }else if(props === "password"){
       setPassword(val);
-      console.log("รหัสผ่าน")
-      console.log(password)
     }
   }
   const RegigterUser = () =>{
     createUserWithEmailAndPassword(authentication, email, password).then(re=>{
-      console.log(re);
       const uid = re.user.uid
       info.uuid = uid
       StoreUser()
       navigation.navigate('Login')
-      console.log("++++++++++++++")
-      console.log(re._tokenResponse.email)
-      console.log("++++++++++++++")
-      console.log("++++++++++++++")
-      console.log(uid)
     })
     .catch((re)=>{
-      console.log(re);
       Alert.alert('ไม่สามารถลงทะเบียนได้อาจมีการใช้อีเมลซ้ำ รูปแบบอีเมลไม่ถูกต้อง รหัสผ่านต้องไม่น้อยกว่า 6 ตัวอักษรหรือกรอกข้อมูลไม่ครบ')
     }
     )
   }
 
-//   const functionCombinedEmail = (val, props) => {
-//     InputValueUpdate(val, props)
-//     setEmail(val);
-//     console.log(email)
-// }  
-
   const StoreUser = () =>{
-    console.log("เข้าแล้วจ้า")
       dbRef.add({
         username: info.username,
         email: info.email,

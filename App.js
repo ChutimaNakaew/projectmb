@@ -3,6 +3,7 @@ import { StyleSheet, View, Text } from "react-native"
 import { useFonts } from "expo-font"
 
 import MyNavigator from "./navigation/MyNavigator"
+import AddminNavigator from "./navigation/AddminNavigator"
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -11,6 +12,7 @@ export default function App() {
 
   return (
     <MyNavigator/>
+    // <AddminNavigator/>
   )
 }
 

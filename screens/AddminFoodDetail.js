@@ -25,52 +25,46 @@ const UserDetail = ({ navigation, route }) => {
     //       })
     
     const InputValueUpdate = (val, props) => {
-        console.log(val)
         info[props] = val;
         setInfo(info)
-        console.log(info)
+         
         setName(info)
     }
     const food = info.name
 
     const updateUser = () =>{
-        console.log("รับคำร้องอัพเดท")
-        console.log(info)
+         
         const updatedbRef = firebase.firestore().collection('food').doc(key)
         updatedbRef.set({
             img: info.img,
             kcal: info.kcal,
             name: info.name,
         }).then((docRef) => {
-            console.log(info)
+             
             setInfo({
                 img:"", kcal:"", name:""
             })
-            console.log("อัพเดทแล้วจ้า")
-            console.log(info)
-            navigation.navigate('AddminFood');
+             
+            navigation.navigate('AddminHome');
         })
     }
 
     const DelUser = ( )=> {
-        console.log("กำลังลบจ้า");
         const dbRef = firebase.firestore().collection('food').doc(key)
         dbRef.delete().then((res) => {
-            console.log("ลบแล้วจ้า");
-            navigation.navigate('AddminFood');
+            navigation.navigate('AddminHome');
         })
     }
 
     //หลัง render จะเรียกใช้งานเมดตอดนี้
 
     useEffect(() => {
-        console.log("ใช้ UseEff");
         dbRef.get().then((res)=> {
             if (res.exists) {
             const food = res.data();
             setInfo({key: res.id, name: food.name, img: food.img, kcal:food.kcal})
             } else{
-                console.log("ไม่มีข้อมูลจ้า")
+                console.log("ไม่มีข้อมูล")
             }
         })
     }, []);

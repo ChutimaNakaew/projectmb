@@ -41,11 +41,10 @@ const SignupPage = ({ navigation }) => {
 
   //หลัง render จะเรียกใช้งานเมดตอดนี้
   useEffect(() => {
-    console.log("ใช้งาน UseEff")
-    const unsub = dbRef.onSnapshot(getCollection)
+    dbRef.onSnapshot(getCollection)
   }, [])
 
-  //ถ้า element ถูกลบออกจะอัพเดท
+  // ถ้า element ถูกลบออกจะอัพเดท
   // useEffect(() => {
   //     unsub();
   //     return () => {
@@ -70,28 +69,6 @@ const SignupPage = ({ navigation }) => {
       return { ...info, infoArr: infoArr }
     })
   }
-  //----------------
-
-  // const InputValueUpdate = (val, props) => {
-  //     info[props] = val;
-  //     setInfo(info)
-  // }
-
-  // const StoreUser = () => {
-  //     console.log("เข้าแล้วจ้า")
-  //     if (info.username == "") {
-  //         alert('Please fill username');
-  //     } else {
-  //         dbRef.add({
-  //             username: info.username,
-  //             email: info.email,
-  //             password: info.password,
-  //             uuid: info.uuid
-  //         })
-  //         navigation.navigate('QuestionSexPage')
-  //     }
-  // }
-  // console.log("info");
 
   const searchFunction = (text) => {
     if (text.length > -1 && text !== " ") {
@@ -149,13 +126,13 @@ const SignupPage = ({ navigation }) => {
                 </ListItem>
               )
             })}
-            <TouchableOpacity
+          </ScrollView>
+          <TouchableOpacity
               style={styles.button}
               onPress={() => navigation.navigate("AddminAddBlog")}
             >
               <Text style={styles.textButton}>เพิ่มบล๊อก</Text>
             </TouchableOpacity>
-          </ScrollView>
         </KeyboardAvoidingView>
       </ImageBackground>
     </View>
@@ -199,6 +176,7 @@ const styles = StyleSheet.create({
     textColor: "balck",
     marginTop: 10,
     fontFamily: "FCMuffinRegular",
+    marginBottom: 10,
   },
   textTitle: {
     fontFamily: "FCMuffinRegular",

@@ -27,7 +27,7 @@ const QuestionTallPage = ({navigation, route}) => {
       const InputValueUpdate = (val, props) => {
         info[props] = val;
         setInfo(info)
-        console.log(info)
+         
     }
     return (
         <View style={styles.container}>

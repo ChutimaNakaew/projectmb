@@ -18,22 +18,15 @@ const UserDetail = ({ navigation, route }) => {
     const [info2, setInfo2] = useState({username:"", email:"", password:"", uuid: ""});
 
     const dbRef = firebase.firestore().collection('user').doc(key)
-
-    //     setInfo((previousState) => {
-    //         const info = previousState
-    //         return {...info, userArr: userArr}
-    //       })
     
     const InputValueUpdate = (val, props) => {
-        console.log(val)
         info[props] = val;
         setInfo(info)
-        console.log(info)
+         
     }
 
     const updateUser = () =>{
-        console.log("รับคำร้องอัพเดท")
-        console.log(info)
+         
         const updatedbRef = firebase.firestore().collection('user').doc(key)
         updatedbRef.set({
             username: info.username,
@@ -41,40 +34,24 @@ const UserDetail = ({ navigation, route }) => {
              password: info.password,
              uuid: info.uuid
         }).then((docRef) => {
-            console.log(info)
+             
             setInfo({
                 username:"", email:"", password:"", uuid: ""
             })
-            console.log("อัพเดทแล้วจ้า")
-            console.log(info)
-            navigation.navigate('AllUser');
+             
+            navigation.navigate('AddminHome');
         })
     }
 
     const DelUser = ( )=> {
-        console.log("กำลังลบจ้า");
         const dbRef = firebase.firestore().collection('user').doc(key)
         dbRef.delete().then((res) => {
-            console.log("ลบแล้วจ้า");
-            navigation.navigate('AllUser');
+            navigation.navigate('AddminHome');
         })
     }
-
-    // const updateUser(() {
-    //     const updatedbRef = firebase.firestore().collection('user').doc(key)
-    //     updatedbRef.set({
-    //         username: info.username,
-    //         email: info.email,
-    //         password: info.password
-    //     })
-    // }
-    // )
-    //----------------
-
     //หลัง render จะเรียกใช้งานเมดตอดนี้
 
     useEffect(() => {
-        console.log("ใช้ UseEff");
         dbRef.get().then((res)=> {
             if (res.exists) {
             const user = res.data();
@@ -85,60 +62,10 @@ const UserDetail = ({ navigation, route }) => {
         })
     }, []);
 
-    //ถ้า element ถูกลบออกจะอัพเดท
-    // useEffect(() => {
-    //     unsub();
-    //     return () => {
-    //     }
-    // }, []);
-
-    // const getCollection = (querySnaphot) => {
-    //     const userArr = [];
-    //     querySnaphot.forEach((res) => {
-    //         const { username, email, password } = res.data();
-    //         userArr.push({
-    //             key: res.id,
-    //             res,
-    //             username,
-    //             email,
-    //             password
-    //         })
-    //     })
-    //     setInfo((previousState) => {
-    //         const info = previousState
-    //         return {...info, userArr: userArr}
-    //       })
-    // }
-        //----------------
-
-
-        // const StoreUser = () => {
-        //     console.log("เข้าแล้วจ้า")
-        //     if (info.username == "") {
-        //         alert('Please fill username');
-        //     } else {
-        //         dbRef.add({
-        //             username: info.username,
-        //             email: info.email,
-        //             password: info.password,
-        //             uuid: info.uuid
-        //         })
-        //         navigation.navigate('QuestionSexPage')
-        //     }
-        // }
-
         return (
             <View style={styles.container}>
                 {/* ใส่พื้นหลัง */}
                 <ImageBackground source={require("../assets/ImageBackground/loginPageBG.png")} resizeMode="cover" style={styles.image}>
-
-                    {/* <TouchableOpacity style={styles.buttonBack}
-                    onPress={() => navigation.navigate('AllUser')}
-                    >
-                        <AntDesign name="arrowleft" size={40} color="white" />
-                        
-                    </TouchableOpacity> */}
-
                     <KeyboardAvoidingView
                         behavior={Platform.OS === "ios" ? "padding" : "height"}
                         style={styles.boxInfo}

@@ -14,19 +14,17 @@ import { useFonts } from "expo-font";
 
 const QuestionAgePage = ({navigation, route}) => {
     const {data} = route.params
-    console.log(data)
 
     const [info, setInfo] = useState(data);
 
     const InputValueUpdate = (val, props) => {
-        console.log(val)
         info[props] = val;
         setInfo(info)
-        console.log(info)
+         
     }
 
 
-    // console.log(info)
+    //  
 
     let [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),

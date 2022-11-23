@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, ImageBackground, Image, View,TouchableOpacity, Text, TextInput, KeyboardAvoidingView, ScrollView, Button, Pressable} from "react-native";
+import { StyleSheet, ImageBackground, View,TouchableOpacity, Text, TextInput, KeyboardAvoidingView, ScrollView} from "react-native";
 import { useFonts } from 'expo-font';
-import { AntDesign } from '@expo/vector-icons';
 import firebase from "../Database/firebaseDB";
 import uuid from 'react-uuid';
 
@@ -18,11 +17,9 @@ const SignupPage = ({navigation}) => {
   const InputValueUpdate = (val, props) =>{
     info[props] = val;
     setInfo(info)
-    console.log(info)
   }
 
   const StoreUser = () =>{
-    console.log("เข้าแล้วจ้า")
     if (info.image == "" || info.detail == "" || info.name == "" || info.background == "") {
       alert('กรุณาใส่ข้อมูลให้ครบ');
     }else {
@@ -33,7 +30,7 @@ const SignupPage = ({navigation}) => {
         image: info.image,
         id: uuid()
       })
-      navigation.navigate('AddminBlog')
+      navigation.navigate('AddminHome')
     }
     } 
 

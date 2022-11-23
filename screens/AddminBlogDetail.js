@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, ImageBackground, View, TouchableOpacity, Text, TextInput, KeyboardAvoidingView, ScrollView, Button, Pressable } from "react-native";
 import { useFonts } from 'expo-font';
-import { AntDesign } from '@expo/vector-icons';
 import firebase from "../Database/firebaseDB";
-import uuid from 'react-uuid';
-import { Badge, ListItem } from 'react-native-elements'
 
 
 const UserDetail = ({ navigation, route }) => {
@@ -24,15 +21,11 @@ const UserDetail = ({ navigation, route }) => {
     //       })
 
     const InputValueUpdate = (val, props) => {
-        console.log(val)
         info[props] = val;
         setInfo(info)
-        console.log(info)
     }
 
     const updateUser = () => {
-        console.log("รับคำร้องอัพเดท")
-        console.log(info)
         const updatedbRef = firebase.firestore().collection('workout').doc("XXVlurGq69GuDCTFmCU2").collection('blog').doc(key)
         updatedbRef.set({
             image: info.image,
@@ -40,26 +33,20 @@ const UserDetail = ({ navigation, route }) => {
             name: info.name,
             background: info.background
         }).then((docRef) => {
-            console.log(info)
             setInfo({
                 image: "", detail: "", name:"", background:""
             })
-            console.log("อัพเดทแล้วจ้า")
-            console.log(info)
-            navigation.navigate('AddminBlog');
+            navigation.navigate('AddminHome');
         })
     }
 
     const DelUser = () => {
-        console.log("กำลังลบจ้า");
         const dbRef = firebase.firestore().collection('workout').doc("XXVlurGq69GuDCTFmCU2").collection('blog').doc(key)
         dbRef.delete().then((res) => {
-            console.log("ลบแล้วจ้า");
-            navigation.navigate('AddminBlog');
+            navigation.navigate('AddminHome');
         })
     }
     //หลัง render จะเรียกใช้งานเมดตอดนี้
-
     useEffect(() => {
         console.log("ใช้ UseEff");
         dbRef.get().then((res) => {
@@ -72,12 +59,6 @@ const UserDetail = ({ navigation, route }) => {
         })
     }, []);
 
-    //ถ้า element ถูกลบออกจะอัพเดท
-    // useEffect(() => {
-    //     unsub();
-    //     return () => {
-    //     }
-    // }, []);
 
     return (
         <View style={styles.container}>

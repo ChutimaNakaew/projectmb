@@ -16,32 +16,21 @@ const UserDetail = ({ navigation, route }) => {
     const name_weight = name_Weight;
     const key = userKey
 
-    console.log(colName)
-    console.log(name_weight)
-
     const [info, setInfo] = useState({image: "",
     kcal: "",
     posture_name: "",
     video: "",
     video_time: 0});
     const dbRef = firebase.firestore().collection('workout').doc("XXVlurGq69GuDCTFmCU2").collection('exercise').doc(name_weight).collection(colName).doc(key);
-
-
-    //     setInfo((previousState) => {
-    //         const info = previousState
-    //         return {...info, userArr: userArr}
-    //       })
     
     const InputValueUpdate = (val, props) => {
-        console.log(val)
         info[props] = val;
         setInfo(info)
-        console.log(info)
+         
     }
 
     const updateUser = () => {
-        console.log("รับคำร้องอัพเดท")
-        console.log(info)
+         
 
         if (name_weight === "Weight Training"){
             const updatedbRef = firebase.firestore().collection('workout').doc("XXVlurGq69GuDCTFmCU2").collection('exercise').doc(name_weight).collection("Weight_Training_posture").doc(key);
@@ -52,7 +41,7 @@ const UserDetail = ({ navigation, route }) => {
                 video: info.video,
                 video_time: info.video_time
             }).then((docRef) => {
-                console.log(info)
+                 
                 setInfo({
                     image: "",
                 kcal: "",
@@ -60,9 +49,8 @@ const UserDetail = ({ navigation, route }) => {
                 video: "",
                 video_time: 0
                 })
-                console.log("อัพเดทแล้วจ้า")
-                console.log(info)
-                navigation.navigate('AddminWorkoutCategory');
+                 
+                navigation.navigate('AddminHome');
             })
         }else{
             const updatedbRef = firebase.firestore().collection('workout').doc("XXVlurGq69GuDCTFmCU2").collection('exercise').doc(name_weight).collection(colName).doc(key);
@@ -74,7 +62,7 @@ const UserDetail = ({ navigation, route }) => {
                 video: info.video,
                 video_time: info.video_time
             }).then((docRef) => {
-                console.log(info)
+                 
                 setInfo({
                     image: "",
                 kcal: "",
@@ -82,27 +70,23 @@ const UserDetail = ({ navigation, route }) => {
                 video: "",
                 video_time: 0
                 })
-                console.log("อัพเดทแล้วจ้า")
-                console.log(info)
-                navigation.navigate('AddminWorkoutCategory');
+                 
+                navigation.navigate('AddminHome');
             })
         }
     }
 
     const DelUser = ( )=> {
-        console.log("กำลังลบจ้า");
 
         if (name_weight === "Weight Training"){
             const dbRef = firebase.firestore().collection('workout').doc("XXVlurGq69GuDCTFmCU2").collection('exercise').doc(name_weight).collection("Weight_Training_posture").doc(key);
             dbRef.delete().then((res) => {
-                console.log("ลบแล้วจ้า");
-                navigation.navigate('AddminWorkoutCategory');
+                navigation.navigate('AddminHome');
             })
         }else{
             const dbRef = firebase.firestore().collection('workout').doc("XXVlurGq69GuDCTFmCU2").collection('exercise').doc(name_weight).collection(colName).doc(key);
             dbRef.delete().then((res) => {
-                console.log("ลบแล้วจ้า");
-                navigation.navigate('AddminWorkoutCategory');
+                navigation.navigate('AddminHome');
             })
         }
 
@@ -122,10 +106,6 @@ const UserDetail = ({ navigation, route }) => {
     //หลัง render จะเรียกใช้งานเมดตอดนี้
 
     useEffect(() => {
-        console.log("ใช้ UseEff");
-
-
-
         if (name_weight === "Weight Training"){
             const dbRef = firebase.firestore().collection('workout').doc("XXVlurGq69GuDCTFmCU2").collection('exercise').doc(name_weight).collection("Weight_Training_posture").doc(key);
             dbRef.get().then((res)=> {
@@ -133,7 +113,7 @@ const UserDetail = ({ navigation, route }) => {
                 const work = res.data();
                 setInfo({key: res.id, image: work.image, kcal: work.kcal, posture_name: work.posture_name, video: work.video, video_time: work.video_time})
                 } else{
-                    console.log("ไม่มีข้อมูลจ้า1")
+                    console.log("ไม่มีข้อมูล")
                 }
             })
         }else{
@@ -143,55 +123,13 @@ const UserDetail = ({ navigation, route }) => {
                 const work = res.data();
                 setInfo({key: res.id, image: work.image, kcal: work.kcal, posture_name: work.posture_name, video: work.video, video_time: work.video_time})
                 } else{
-                    console.log("ไม่มีข้อมูลจ้า2")
+                    console.log("ไม่มีข้อมูล")
                 }
             })
         }
 
 
     }, []);
-
-    //ถ้า element ถูกลบออกจะอัพเดท
-    // useEffect(() => {
-    //     unsub();
-    //     return () => {
-    //     }
-    // }, []);
-
-    // const getCollection = (querySnaphot) => {
-    //     const userArr = [];
-    //     querySnaphot.forEach((res) => {
-    //         const { username, email, password } = res.data();
-    //         userArr.push({
-    //             key: res.id,
-    //             res,
-    //             username,
-    //             email,
-    //             password
-    //         })
-    //     })
-    //     setInfo((previousState) => {
-    //         const info = previousState
-    //         return {...info, userArr: userArr}
-    //       })
-    // }
-        //----------------
-
-
-        // const StoreUser = () => {
-        //     console.log("เข้าแล้วจ้า")
-        //     if (info.username == "") {
-        //         alert('Please fill username');
-        //     } else {
-        //         dbRef.add({
-        //             username: info.username,
-        //             email: info.email,
-        //             password: info.password,
-        //             uuid: info.uuid
-        //         })
-        //         navigation.navigate('QuestionSexPage')
-        //     }
-        // }
 
         return (
             <View style={styles.container}>

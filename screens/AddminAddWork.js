@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, ImageBackground, Image, View,TouchableOpacity, Text, TextInput, KeyboardAvoidingView, ScrollView, Button, Pressable} from "react-native";
 import { useFonts } from 'expo-font';
-import { AntDesign } from '@expo/vector-icons';
 import firebase from "../Database/firebaseDB";
 import uuid from 'react-uuid';
 
@@ -22,11 +21,9 @@ const SignupPage = ({navigation, route}) => {
   const InputValueUpdate = (val, props) =>{
     info[props] = val;
     setInfo(info)
-    console.log(info)
   }
 
   const StoreUser = () =>{
-    console.log("เข้าแล้วจ้า")
     if (info.image == "" || info.kcal == "" || info.posture_name== "" || info.video == "" || info.video_time == "" ) {
       alert('กรุณาใส่ข้อมูลให้ครบ');
     }else {
@@ -34,7 +31,7 @@ const SignupPage = ({navigation, route}) => {
         image: info.image, kcal: parseFloat(info.kcal), posture_name: info.posture_name, video: info.video, video_time: info.video_time ,
         id: uuid()
       })
-      navigation.navigate('AddminWorkoutCategory')
+      navigation.navigate('AddminHome')
     }
     } 
 

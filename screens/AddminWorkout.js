@@ -25,9 +25,6 @@ const SignupPage = ({ navigation, route }) => {
   const colName = name + "_posture"
   const name_weight = name
 
-  console.log(colName)
-  console.log(name_weight)
-
   const [info, setInfo] = useState({ infoArr: [], islod: false })
   const [data, setData] = useState([])
   const [input, setInput] = useState("")
@@ -38,13 +35,8 @@ const SignupPage = ({ navigation, route }) => {
     }
   })
 
-  // const dbRef = firebase.firestore().collection('workout').doc("XXVlurGq69GuDCTFmCU2").collection('exercise').doc(key).collection(colName);
-
-  //----------------
-
   //หลัง render จะเรียกใช้งานเมดตอดนี้
   useEffect(() => {
-    console.log("ใช้งาน UseEff")
     if (name_weight === "Weight Training") {
       const dbRef = firebase
         .firestore()
@@ -66,13 +58,6 @@ const SignupPage = ({ navigation, route }) => {
     }
   }, [])
 
-  //ถ้า element ถูกลบออกจะอัพเดท
-  // useEffect(() => {
-  //     unsub();
-  //     return () => {
-  //     }
-  // }, []);
-
   const getCollection = (querySnaphot) => {
     const infoArr = []
     querySnaphot.forEach((res) => {
@@ -89,28 +74,7 @@ const SignupPage = ({ navigation, route }) => {
       return { ...info, infoArr: infoArr }
     })
   }
-  //----------------
 
-  // const InputValueUpdate = (val, props) => {
-  //     info[props] = val;
-  //     setInfo(info)
-  // }
-
-  // const StoreUser = () => {
-  //     console.log("เข้าแล้วจ้า")
-  //     if (info.username == "") {
-  //         alert('Please fill username');
-  //     } else {
-  //         dbRef.add({
-  //             username: info.username,
-  //             email: info.email,
-  //             password: info.password,
-  //             uuid: info.uuid
-  //         })
-  //         navigation.navigate('QuestionSexPage')
-  //     }
-  // }
-  // console.log("info");
 
   const searchFunction = (text) => {
     if (text.length > -1 && text !== " ") {

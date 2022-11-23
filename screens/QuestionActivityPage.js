@@ -23,7 +23,7 @@ const QuestionActivityPage = ({ navigation, route }) => {
 
   const act = (props) => {
     info.activity = props
-    console.log(info)
+     
     navigation.navigate("Signup", { screen: "SignupPage", params: { info5: info } })
   }
 

@@ -23,10 +23,9 @@ const QuestionWeightPage = ({navigation, route}) => {
     const [info, setInfo] = useState(info3);
 
       const InputValueUpdate = (val, props) => {
-        console.log(val)
         info[props] = val;
         setInfo(info)
-        console.log(info)
+         
     }
 
     return (
