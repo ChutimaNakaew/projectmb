@@ -21,7 +21,6 @@ const History = ({ route, navigation }) => {
             date + '/' + month + '/' + year
         );
     }, []);
-    console.log(date)
     //----------------------------------------------------------
     useEffect(() => {
         workoutRef.onSnapshot((querySnapshot) => {
