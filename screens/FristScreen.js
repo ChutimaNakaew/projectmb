@@ -12,6 +12,8 @@ import {
 import { useFonts } from "expo-font";
 import { authentication } from "../Database/firebase"
 
+const adminUID = "Uo5njNSrNcab9KdNvmrgR0vnB0s2"
+
 const QuestionSexPage = ({navigation}) => {
     const [fontsLoaded] = useFonts({
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
@@ -19,11 +21,9 @@ const QuestionSexPage = ({navigation}) => {
     useEffect(() => {    
         const unsubscribe = authentication.onAuthStateChanged((user) => {
           if (user) {
-            if(user.uid === "ATifhjhQALPIYiw9w8hN2bqo2ZJ2"){
-              console.log("ไปล็อกอิน")
-              navigation.navigate("Admin")
+            if(user.uid === adminUID){
+              navigation.replace("Admin")
             }else{
-              console.log("ไปโฮม")
               navigation.replace("Main")
             }
           }

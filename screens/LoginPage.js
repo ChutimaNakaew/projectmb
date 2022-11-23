@@ -29,13 +29,13 @@ const LoginPage = ({ navigation }) => {
   const [islogin, setLogin] = useState(false)
   const [info2, setInfo2] = useState([])
   const userRef = firebase.firestore().collection('addmin')
-  const adminUID = "ATifhjhQALPIYiw9w8hN2bqo2ZJ2"
+  const adminUID = "Uo5njNSrNcab9KdNvmrgR0vnB0s2"
 
   useEffect(() => {    
     const unsubscribe = authentication.onAuthStateChanged((user) => {
       if (user) {
         if(user.uid === adminUID){
-          navigation.navigate("Admin")
+          navigation.replace("Admin")
         }else{
           navigation.replace("Main")
         }
@@ -48,8 +48,10 @@ const LoginPage = ({ navigation }) => {
     signInWithEmailAndPassword(authentication, email, password)
       .then((re) => {
         setLogin(true)
+        console.log(re)
       })
       .catch((re) => {
+        console.log(re)
         Alert.alert("ข้อมูลไม่ถูกต้อง")
       })
   }
@@ -79,10 +81,10 @@ const LoginPage = ({ navigation }) => {
 
             <Text style={styles.textNomal}>รหัสผ่าน</Text>
             <TextInput
-            secureTextEntry={true}
               onChangeText={(val) => setPassword(val)}
               style={styles.TextInput}
               placeholder="Password"
+              secureTextEntry={true}
             // value="111111111"
             />
 
