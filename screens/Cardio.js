@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
   header:{
     marginTop:60,
     paddingBottom:20,
+    backgroundColor: 'lightblue',
   },
   text: {
     fontFamily: "FCMuffinRegular",

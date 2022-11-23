@@ -134,7 +134,7 @@ const Calender = ({ route, navigation }) => {
     }
 
     return (
-        <View style={{ flex: 2 }}>
+        <View style={{ flex: 2, backgroundColor: 'lightblue' }}>
              {/* { name_posture.map((item, key)=>(
          <Text key={key} >{ item.name } </Text>)
          )} */}
@@ -181,7 +181,7 @@ const Calender = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     text: {
         // marginTop: 10,
-        marginLeft: 20,
+        marginLeft: 15,
         fontFamily: "FCMuffinRegular",
         fontSize: 28,
         marginBottom: 10,

@@ -93,7 +93,7 @@ const Tab3 = (props) => {
         <View style={styles.div}>
           <Text style={styles.text}>Cardio
             <TouchableOpacity onPress={() => setVisible(true)}>
-              <Text> <FontAwesome5 name="exclamation-circle" size={24} color="#e3c629" />
+              <Text> <FontAwesome5 name="exclamation-circle" size={24} color="#e3a909" />
               </Text>
             </TouchableOpacity>
           </Text>
@@ -140,7 +140,7 @@ const Tab3 = (props) => {
           <TouchableOpacity onPress={() => { props.navigation.navigate("HIIT") }}>
             <Text style={styles.text}>HIIT
               <TouchableOpacity onPress={() => setVis2(true)}>
-                <Text > <FontAwesome5 name="exclamation-circle" size={24} color="#e3c629" />
+                <Text > <FontAwesome5 name="exclamation-circle" size={24} color="#e3a909" />
                 </Text>
               </TouchableOpacity>
             </Text>
@@ -183,7 +183,7 @@ const Tab3 = (props) => {
           <TouchableOpacity onPress={() => { props.navigation.navigate("Weight_Training") }}>
             <Text style={styles.text}>Weight Training
               <TouchableOpacity onPress={() => setVis3(true)}>
-                <Text > <FontAwesome5 name="exclamation-circle" size={24} color="#e3c629" />
+                <Text > <FontAwesome5 name="exclamation-circle" size={24} color="#e3a909" />
                 </Text>
               </TouchableOpacity>
             </Text>
@@ -226,7 +226,7 @@ const Tab3 = (props) => {
           <TouchableOpacity onPress={() => { props.navigation.navigate("Pilates") }}>
             <Text style={styles.text}>Pilates
               <TouchableOpacity onPress={() => setVis4(true)}>
-                <Text > <FontAwesome5 name="exclamation-circle" size={24} color="#e3c629" />
+                <Text > <FontAwesome5 name="exclamation-circle" size={24} color="#e3a909" />
                 </Text>
               </TouchableOpacity>
             </Text>
@@ -269,7 +269,7 @@ const Tab3 = (props) => {
           <TouchableOpacity onPress={() => { props.navigation.navigate("Yoga") }}>
             <Text style={styles.text}>Yoga
               <TouchableOpacity onPress={() => setVis5(true)}>
-                <Text > <FontAwesome5 name="exclamation-circle" size={24} color="#e3c629" />
+                <Text > <FontAwesome5 name="exclamation-circle" size={24} color="#e3a909" />
                 </Text>
               </TouchableOpacity>
             </Text>
@@ -312,7 +312,7 @@ const Tab3 = (props) => {
           <TouchableOpacity onPress={() => { props.navigation.navigate("Aerobic") }}>
             <Text style={styles.text}>Aerobic Exercise
               <TouchableOpacity onPress={() => setVis6(true)}>
-                <Text > <FontAwesome5 name="exclamation-circle" size={24} color="#e3c629" />
+                <Text > <FontAwesome5 name="exclamation-circle" size={24} color="#e3a909" />
                 </Text>
               </TouchableOpacity>
             </Text>

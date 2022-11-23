@@ -122,7 +122,7 @@ const History = ({ route, navigation }) => {
     }
 
     return (
-        <View style={{ flex: 2 }}>
+        <View style={{ flex: 2, backgroundColor:'lightblue' }}>
             {/* { name_posture.map((item, key)=>(
          <Text key={key} >{ item.name } </Text>)
          )} */}

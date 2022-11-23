@@ -65,6 +65,7 @@ const Pilates = ({ props, navigation }) => {
 const styles = StyleSheet.create({
   header:{
     marginTop:60,
+    backgroundColor: 'lightblue',
   },
   text: {
     fontFamily: "FCMuffinRegular",

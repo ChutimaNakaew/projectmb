@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
   },
   header:{
     marginTop:60,
+    backgroundColor: 'lightblue',
   },
   container: {
     flex: 1,
