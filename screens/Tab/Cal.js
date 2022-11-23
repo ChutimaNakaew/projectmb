@@ -40,11 +40,9 @@ const Cal = ({ props, navigation }) => {
 
   const userRef = firebase.firestore().collection("user").where("uuid", "==", user_id)
   const [info, setInfo] = useState([])
-  const [id, setId] = useState([])
   useEffect(() => {
     userRef.onSnapshot((querySnapshot) => {
       const info = []
-      const id = []
       querySnapshot.forEach((doc) => {
         const { activity, age, email, goal_weight, height, password, sex, username, weight } =
           doc.data()
@@ -60,9 +58,6 @@ const Cal = ({ props, navigation }) => {
           username,
           weight,
         })
-        // id.push({id: doc.id})
-        // setId(id)
-        // console.log('doc_id :'+doc.id);
       })
       setInfo(info)
     })
@@ -82,13 +77,10 @@ const Cal = ({ props, navigation }) => {
   let id_users = ""
   const [bmi, setBmi] = useState(0)
   const [active, setActive] = useState(0)
-  // const []
+  
   let bmi_img = ""
   const [img, setImg] = useState("")
   info.forEach((item) => {
-    console.log(item.activity)
-    console.log(item.sex)
-    // console.log(item.id+'----------------------')
     id_users += item.id
     let bmi = (
       (parseFloat(item.weight) * 10000) /
@@ -161,10 +153,6 @@ const Cal = ({ props, navigation }) => {
       activity += 1.9
       TDEE += Number((bmr * activity).toFixed(0))
     }
-    // return(bmi_img)
-    // setActive(activity)
-    // console.log('you activity is '+ item.activity)
-    // console.log(item.sex)
   })
 
   useEffect(() => {
@@ -194,7 +182,6 @@ const Cal = ({ props, navigation }) => {
   const sameday = showMenu.filter((item) => {
     if (item.date !== null) {
       const date = new Date(item.date.toDate().toISOString())
-      // console.log(item.name + ": " + date)
       const day = date.getDate()
       const month = date.getMonth() + 1
       const year = date.getFullYear()
@@ -226,7 +213,6 @@ const Cal = ({ props, navigation }) => {
   history.forEach((item) => {
     if (item.date !== null) {
       const date_kcal = new Date(item.date.toDate().toISOString())
-      // console.log("date_kcal: " + date_kcal)
       const year_kcal = date_kcal.getFullYear()
       const month_kcal = date_kcal.getMonth() + 1
       const dt_kcal = date_kcal.getDate()
@@ -239,7 +225,6 @@ const Cal = ({ props, navigation }) => {
       }
       const date_picker = dt_kcal + "/" + month_kcal + "/" + year_kcal
       if (date_picker === getdate) {
-        // console.log("same")
         total += item.kcal
       }
     }
@@ -252,9 +237,6 @@ const Cal = ({ props, navigation }) => {
 
   let total_kcal = (Kcal_food - total).toFixed(2)
 
-  console.log("food " + Kcal_food)
-  console.log("workout " + total)
-  console.log("all " + total_kcal)
   // --------------------------------------------------------------
 
   let [fontsLoaded] = useFonts({
@@ -367,16 +349,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    // borderRadius: 10,
-    // shadowColor: "black",
-    // shadowOpacity: 0.26,
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowRadius: 10,
-    // elevation: 3,
-    // padding: 5,
     justifyContent: "space-between",
     alignItems: "flex-end",
-    // flexWrap: "wrap",
   },
   title: {
     fontFamily: "FCMuffinRegular",

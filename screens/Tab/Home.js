@@ -13,7 +13,6 @@ const Home = ({ props, navigation }) => {
   const userRef = firebase.firestore().collection("user").where("uuid", "==", user_id)
 
   const [info, setInfo] = useState([])
-  const [id, setId] = useState([])
 
   useEffect(() => {
     userRef.onSnapshot((querySnapshot) => {
@@ -37,15 +36,10 @@ const Home = ({ props, navigation }) => {
       setInfo(info)
     })
   }, [])
-  // console.log(info)
-
-  // console.log('----------'+id)
-  // console.log(info)
   const val_change = (val) => {
     setAct(val)
-    console.log("value is " + val)
+    
     if (val === "1.2") {
-      //  newNum += bmr*1.2
       firebase
         .firestore()
         .collection("user")
@@ -54,8 +48,6 @@ const Home = ({ props, navigation }) => {
           activity: "นั่งอยู่กับที่และไม่ออกกำลังกายเลย",
         })
         .then(() => {
-          console.log("Update ")
-          // alert("✏️ อัพเดทกิจกรรม")
         })
         .catch((err) => {
           alert(err)
@@ -69,8 +61,6 @@ const Home = ({ props, navigation }) => {
           activity: "ออกกำลังกายอาทิตย์ละ 1-3 วัน",
         })
         .then(() => {
-          console.log("Update ")
-          // alert("✏️ อัพเดทกิจกรรม ")
         })
         .catch((err) => {
           alert(err)
@@ -84,8 +74,6 @@ const Home = ({ props, navigation }) => {
           activity: "ออกกำลังกายอาทิตย์ละ 3-5 วัน",
         })
         .then(() => {
-          console.log("Update ")
-          // alert("✏️ อัพเดทกิจกรรม ")
         })
     } else if (val === "1.725") {
       firebase
@@ -96,8 +84,6 @@ const Home = ({ props, navigation }) => {
           activity: "ออกกำลังกายอาทิตย์ละ 6-7 วัน",
         })
         .then(() => {
-          console.log("Update ")
-          // alert("✏️ อัพเดทกิจกรรม ")
         })
     } else if (val === "1.9") {
       firebase
@@ -108,8 +94,6 @@ const Home = ({ props, navigation }) => {
           activity: "ออกกำลังกายทุกวันเช้าเย็น",
         })
         .then(() => {
-          console.log("Update ")
-          // alert("✏️ อัพเดทกิจกรรม ")
         })
     }
   }
@@ -144,7 +128,7 @@ const Home = ({ props, navigation }) => {
           weight: weight,
         })
         .then(() => {
-          console.log("Update " + weight)
+          
         })
         .catch((err) => {
           alert(err)
@@ -157,7 +141,7 @@ const Home = ({ props, navigation }) => {
           height: height,
         })
         .then(() => {
-          console.log("Update " + height)
+          
         })
         .catch((err) => {
           alert(err)
@@ -170,7 +154,7 @@ const Home = ({ props, navigation }) => {
           goal_weight: goal,
         })
         .then(() => {
-          console.log("Update " + goal)
+          
         })
         .catch((err) => {
           alert(err)
@@ -178,21 +162,14 @@ const Home = ({ props, navigation }) => {
     }
   })
 
-  // bmi((item) =>{
   let bmi_num = 0
   let text_bmi = ""
   let bmr = 0
   let activity = ""
   let TDEE = 0
   let id_users = ""
-  const [bmi, setBmi] = useState(0)
-  const [active, setActive] = useState(0)
   let bmi_img = ""
-  const [img, setImg] = useState("")
   info.forEach((item) => {
-    // console.log(item.activity)
-    // console.log(item.sex)
-    // console.log(item.id+'----------------------')
     id_users += item.id
     let bmi = (
       (parseFloat(item.weight) * 10000) /
@@ -265,32 +242,7 @@ const Home = ({ props, navigation }) => {
       activity += 1.9
       TDEE += Number((bmr * activity).toFixed(0))
     }
-    // return(bmi_img)
-    // setActive(activity)
-    // console.log('you activity is '+ item.activity)
-    // console.log(item.sex)
   })
-  console.log("bmi is " + bmi_num)
-  console.log("you are " + text_bmi)
-  console.log("BMR : " + bmr)
-  console.log("you activity is " + activity)
-  console.log("TDEE : " + TDEE)
-  console.log("id_users : ------" + id_users)
-  // console.log('image : '+bmi_img )
-  // console.log('you activity is'+ )
-
-  // console.log(user_id)
-
-  // const [weigh, setWeig] = useState(0)
-  // useEffect(() => {
-  //   if ((weigh = 0)) {
-  //     info.map((item) => {
-  //       const wei = item.weight
-  //       setWeig(wei)
-  //     })
-  //   }
-  // })
-
   // -----------------------------------ปฎิทินจ้า----------------------------------------------------------------------------
   const [date, setDate] = useState(new Date())
   const [mode, setMode] = useState("date")
@@ -317,7 +269,7 @@ const Home = ({ props, navigation }) => {
     let fDate = tempDate.getDate() + "/" + (tempDate.getMonth() + 1) + "/" + tempDate.getFullYear()
 
     setText(fDate)
-    console.log(fDate)
+    
     setGetdate((getdate) => (getdate = fDate)) //---------------------วันที่ที่เลือกจะถูกเก็บค่าไว้ที่ getdate
   }
 
@@ -327,16 +279,10 @@ const Home = ({ props, navigation }) => {
   }
 
   // ----------------------------------------------------------------------จบปฎิทิน---------------------------------
-  const [newTdee, setNewTdee] = useState(0)
-  // let newNum = 0
 
-  // setNewTdee(newNum => newNum=0)
-  // console.log('newNumber is ' + newTdee)
   // --------------ดึงข้อมูลKcal workoutมาแสดงผลจ้า------------------------
   const [history, setHistory] = useState([])
-  // const [history_food, setHistory_food] = useState([])
   const workoutRef = firebase.firestore().collection("addWorkOut").where("user_id", "==", user_id)
-  // const addfoodRef = firebase.firestore().collection("user").doc("u1").collection("addFood")
   //-------------------------KCAl workout---------------------
   useEffect(() => {
     workoutRef.onSnapshot((querySnapshot) => {
@@ -353,25 +299,7 @@ const Home = ({ props, navigation }) => {
     })
   }, [])
   //------------------------------------------------------
-  //-------------------KCAL food-------------------------
-  // useEffect(() => {
-  //   addfoodRef
-  //   .orderBy("date", "desc")
-  //   .onSnapshot((querySnapshot) => {
-  //     const history_food = []
-  //     querySnapshot.forEach((doc) => {
-  //       const { kcal, date } = doc.data()
-  //       history_food.push({
-  //         id: doc.id,
-  //         kcal,
-  //         date,
-  //       })
-  //     })
-  //     setHistory_food(history_food)
-  //   })
-  // }, [])
 
-  // console.log(history_food);
   const addFood = firebase.firestore().collection("addFood")
   const [showMenu, setAddMenu] = useState([])
   useEffect(() => {
@@ -400,7 +328,6 @@ const Home = ({ props, navigation }) => {
   history.forEach((item) => {
     if (item.date !== null) {
       const date_kcal = new Date(item.date.toDate().toISOString())
-      // console.log("date_kcal: " + date_kcal)
       const year_kcal = date_kcal.getFullYear()
       const month_kcal = date_kcal.getMonth() + 1
       const dt_kcal = date_kcal.getDate()
@@ -413,7 +340,6 @@ const Home = ({ props, navigation }) => {
       }
       const date_picker = dt_kcal + "/" + month_kcal + "/" + year_kcal
       if (date_picker === getdate) {
-        // console.log("same")
         total += item.kcal
       }
     }
@@ -436,10 +362,6 @@ const Home = ({ props, navigation }) => {
   })
   let total_workout = total.toFixed(2)
   let total_kcal = (Kcal_food - total).toFixed(2)
-
-  console.log("food " + Kcal_food)
-  console.log("workout " + total)
-  console.log("all " + total_kcal)
   // --------------------------------------------------------------
 
   let [fontsLoaded] = useFonts({
@@ -452,9 +374,7 @@ const Home = ({ props, navigation }) => {
 
   return (
     <View style={{backgroundColor: "#a2cdfd", }}>
-      {/* <Text style={styles.textNomal}></Text> */}
       <View style={{ flexDirection: "row", marginTop: 5, }}>
-        {/* {show &&} */}
         <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center", marginLeft: 150, color: "#000",}}>
           {" "}
           {getdate}{" "}
@@ -477,9 +397,7 @@ const Home = ({ props, navigation }) => {
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <Image
           style={styles.img}
-          // source={{ uri: bmi_img }}
           source={{ uri: bmi_img !== "" ? bmi_img : undefined }}
-          // source={require("../../assets/body.png")}
         />
         <View>
           <TouchableOpacity style={styles.bmi}>
@@ -534,8 +452,6 @@ const Home = ({ props, navigation }) => {
               style={styles.pickerStyle}
               selectedValue={act}
               mode="dialog"
-              // SelectedIndex="3"
-              // onValueChange={(val) => setAct(val)}
               onValueChange={val_change}
             >
               <Picker.Item label="นั่งอยู่กับที่และไม่ออกกำลังกายเลย" value="1.2" />
