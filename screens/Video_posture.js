@@ -27,7 +27,7 @@ const Video_posture = ({ route, navigation }) => {
         FCMuffinRegular: require("../assets/fonts/FCMuffinRegular.otf"),
     })
 
-    
+
 
     const formatNumber = number => `0${number}`.slice(-2);
 
@@ -50,22 +50,17 @@ const Video_posture = ({ route, navigation }) => {
     }
 
     record = () => {
-        
+
         let totalKcal = ((pos_kal) * (remainingSecs / 60)).toFixed(0) //หาร60เพราะคิดเป็นper minute
 
-        // console.log('you time second is : ' + remainingSecs/60 + ' min.')
-        // console.log('this posture Kcal is : ' + pos_kal + ' Kcal')
-        // console.log('You have burned calories ' + totalKcal + ' Kcal')
-
-            
         const timestamp = firebase.firestore.FieldValue.serverTimestamp()
         firebase.firestore().collection("addWorkOut").add({
             name: pos_name,
             date: timestamp,
             kcal: Number((totalKcal)),
             id: pos_id,
-            time: Number((remainingSecs/60).toFixed(2)),
-            user_id: user_id 
+            time: Number((remainingSecs / 60).toFixed(2)),
+            user_id: user_id
         })
             .then(() => {
                 console.log("Success to Add calories of " + pos_name)

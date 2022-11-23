@@ -12,12 +12,12 @@ const Blog = ({ props, navigation }) => {
     blogRef.onSnapshot((querySnapshot) => {
       const blog = []
       querySnapshot.forEach((res) => {
-        const {name, id, detail, image, background} = res.data()
+        const { name, id, detail, image, background } = res.data()
         blog.push({
           id: res.id,
           name,
           id,
-          detail, 
+          detail,
           image,
           background
         })
@@ -42,9 +42,9 @@ const Blog = ({ props, navigation }) => {
           <View>
             <TouchableOpacity
               style={styles.gridItem}
-              onPress={()=> {navigation.navigate("BlogDetail",{blogId:item.id, blogdetail:item.detail, blogName:item.name, blogImage:item.image})}}
+              onPress={() => { navigation.navigate("BlogDetail", { blogId: item.id, blogdetail: item.detail, blogName: item.name, blogImage: item.image }) }}
             >
-              <ImageBackground source={{ uri: item.background}} style={{ flex: 1 }} resizeMode="cover">
+              <ImageBackground source={{ uri: item.background }} style={{ flex: 1 }} resizeMode="cover">
                 <View style={[styles.container, { flexDirection: "row" }]}>
                   <Text style={styles.title} numberOfLines={1}>
                     {item.name}
@@ -65,16 +65,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
   },
-  header:{
-    marginTop:50,
-    backgroundColor: "lightblue" 
+  header: {
+    marginTop: 50,
+    backgroundColor: "lightblue"
   },
   gridItem: {
     flex: 1,
     // margin: 5,
     height: 250,
     width: '100%',
-    padding:10,
+    padding: 10,
   },
   container: {
     flex: 1,

@@ -77,7 +77,7 @@ const Cal = ({ props, navigation }) => {
   let id_users = ""
   const [bmi, setBmi] = useState(0)
   const [active, setActive] = useState(0)
-  
+
   let bmi_img = ""
   const [img, setImg] = useState("")
   info.forEach((item) => {
@@ -323,7 +323,7 @@ const Cal = ({ props, navigation }) => {
                     {item.name}
                   </Text>
                   <Text style={styles.title} numberOfLines={1}>
-                    {} {item.kcal} Kcal
+                    { } {item.kcal} Kcal
                   </Text>
                 </View>
               </ImageBackground>

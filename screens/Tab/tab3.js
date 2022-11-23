@@ -334,8 +334,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightblue',
     alignItems: 'center',
     marginTop:50,
-    // justifyContent:'center',
-    // marginHorizontal:10,
   },
   div: {
     padding: 15,

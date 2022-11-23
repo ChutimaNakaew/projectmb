@@ -39,7 +39,7 @@ const Video_posture = ({ route, navigation }) => {
             kcal: pos_kal,
             id: pos_id,
             time: Number((post_timing).toFixed(2)),
-            user_id: user_id 
+            user_id: user_id
         })
             .then(() => {
                 console.log("Success to Add calories of " + pos_name)
@@ -55,23 +55,23 @@ const Video_posture = ({ route, navigation }) => {
     return (
 
         <View style={styles.container}>
-                <YoutubePlayer
-                    height={220}
-                    play={true}
-                    videoId={pos_video}
-                />
-                <Text style={styles.textTitle}>{'- ' + pos_name + ' -'}</Text>
+            <YoutubePlayer
+                height={220}
+                play={true}
+                videoId={pos_video}
+            />
+            <Text style={styles.textTitle}>{'- ' + pos_name + ' -'}</Text>
 
-                <View style={styles.subcontainer}>
+            <View style={styles.subcontainer}>
 
-                    <View>
-                        <View style={styles.btn2}>
-                            <TouchableOpacity onPress={() => record()} style={styles.buttonRecord}>
-                                <Text style={styles.text}>บันทึกผล</Text>
-                            </TouchableOpacity>
-                        </View>
+                <View>
+                    <View style={styles.btn2}>
+                        <TouchableOpacity onPress={() => record()} style={styles.buttonRecord}>
+                            <Text style={styles.text}>บันทึกผล</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
+            </View>
         </View>
     );
 

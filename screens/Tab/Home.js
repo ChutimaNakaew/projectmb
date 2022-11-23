@@ -38,7 +38,7 @@ const Home = ({ props, navigation }) => {
   }, [])
   const val_change = (val) => {
     setAct(val)
-    
+
     if (val === "1.2") {
       firebase
         .firestore()
@@ -128,7 +128,7 @@ const Home = ({ props, navigation }) => {
           weight: weight,
         })
         .then(() => {
-          
+
         })
         .catch((err) => {
           alert(err)
@@ -141,7 +141,7 @@ const Home = ({ props, navigation }) => {
           height: height,
         })
         .then(() => {
-          
+
         })
         .catch((err) => {
           alert(err)
@@ -154,7 +154,7 @@ const Home = ({ props, navigation }) => {
           goal_weight: goal,
         })
         .then(() => {
-          
+
         })
         .catch((err) => {
           alert(err)
@@ -269,7 +269,7 @@ const Home = ({ props, navigation }) => {
     let fDate = tempDate.getDate() + "/" + (tempDate.getMonth() + 1) + "/" + tempDate.getFullYear()
 
     setText(fDate)
-    
+
     setGetdate((getdate) => (getdate = fDate)) //---------------------วันที่ที่เลือกจะถูกเก็บค่าไว้ที่ getdate
   }
 
@@ -373,9 +373,9 @@ const Home = ({ props, navigation }) => {
   }
 
   return (
-    <View style={{backgroundColor: "#a2cdfd", }}>
+    <View style={{ backgroundColor: "#a2cdfd", }}>
       <View style={{ flexDirection: "row", marginTop: 5, }}>
-        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center", marginLeft: 150, color: "#000",}}>
+        <Text style={{ fontFamily: "FCMuffinRegular", fontSize: 30, alignSelf: "center", marginLeft: 150, color: "#000", }}>
           {" "}
           {getdate}{" "}
         </Text>
@@ -462,9 +462,9 @@ const Home = ({ props, navigation }) => {
             </Picker>
           ))}
         </TouchableOpacity>
-        
+
       </View>
-      
+
 
       <TouchableOpacity
         style={styles.resultWorkout}
