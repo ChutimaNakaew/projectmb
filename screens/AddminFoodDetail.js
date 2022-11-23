@@ -19,10 +19,6 @@ const UserDetail = ({ navigation, route }) => {
 
     const dbRef = firebase.firestore().collection('food').doc(key)
 
-    //     setInfo((previousState) => {
-    //         const info = previousState
-    //         return {...info, userArr: userArr}
-    //       })
     
     const InputValueUpdate = (val, props) => {
         info[props] = val;
@@ -37,7 +33,7 @@ const UserDetail = ({ navigation, route }) => {
         const updatedbRef = firebase.firestore().collection('food').doc(key)
         updatedbRef.set({
             img: info.img,
-            kcal: info.kcal,
+            kcal: parseFloat(info.kcal),
             name: info.name,
         }).then((docRef) => {
              
@@ -104,6 +100,7 @@ const UserDetail = ({ navigation, route }) => {
       <TextInput
         style={styles.TextInput}
         placeholder={info.kcal.toString()}
+        keyboardType={'numeric'}
         onChangeText={(val) => InputValueUpdate(val, 'kcal')}
       />
 

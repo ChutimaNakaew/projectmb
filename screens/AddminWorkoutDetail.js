@@ -36,7 +36,7 @@ const UserDetail = ({ navigation, route }) => {
             const updatedbRef = firebase.firestore().collection('workout').doc("XXVlurGq69GuDCTFmCU2").collection('exercise').doc(name_weight).collection("Weight_Training_posture").doc(key);
             updatedbRef.set({
                 image: info.image,
-                kcal: info.kcal,
+                kcal: parseFloat(info.kcal),
                 posture_name: info.posture_name,
                 video: info.video,
                 video_time: info.video_time
@@ -57,7 +57,7 @@ const UserDetail = ({ navigation, route }) => {
             
             updatedbRef.set({
                 image: info.image,
-                kcal: info.kcal,
+                kcal: parseFloat(info.kcal),
                 posture_name: info.posture_name,
                 video: info.video,
                 video_time: info.video_time
@@ -151,6 +151,7 @@ const UserDetail = ({ navigation, route }) => {
 
 <Text style={styles.textNomal}>kcal</Text>
       <TextInput
+      keyboardType={'numeric'}
         style={styles.TextInput}
         placeholder={info.kcal.toString()}
         onChangeText={(val) => InputValueUpdate(val, 'kcal')}

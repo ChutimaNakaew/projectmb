@@ -58,6 +58,7 @@ const SignupPage = ({navigation, route}) => {
       <Text style={styles.textNomal}>kcal ต่อ นาที</Text>
       <TextInput
         style={styles.TextInput}
+        keyboardType={'numeric'}
         placeholder="kcal ต่อ นาที<"
         onChangeText={(val) => InputValueUpdate(val, 'kcal')}
       />

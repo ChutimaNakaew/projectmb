@@ -64,6 +64,7 @@ const SignupPage = ({navigation}) => {
       <TextInput
         style={styles.TextInput}
         placeholder="kcal"
+        keyboardType={'numeric'}
         onChangeText={(val) => InputValueUpdate(val, 'kcal')}
       />
       <TouchableOpacity style={styles.button}
