@@ -1,22 +1,8 @@
 import React, { useEffect, useState } from "react"
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  FlatList,
-  ImageBackground,
-  ScrollView,
-  Alert,
-  SnapshotViewIOS,
-} from "react-native"
-import { Ionicons, AntDesign, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
+import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput } from "react-native"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 import * as ImagePicker from "expo-image-picker"
-import { set } from "lodash"
 import { authentication } from "../Database/firebase"
 
 const CreateMenu = ({ navigation }) => {
@@ -29,7 +15,7 @@ const CreateMenu = ({ navigation }) => {
   const user_id = authentication.currentUser?.uid
 
   const add = async (name, cal, url) => {
-    if (name && url) {
+    if (name !== "" && url !== null && cal !== "") {
       // get timestamp
       const timestamp = firebase.firestore.FieldValue.serverTimestamp()
       const data = {
@@ -48,6 +34,9 @@ const CreateMenu = ({ navigation }) => {
         .catch((err) => {
           alert(err)
         })
+    } else {
+      alert("⚠️ โปรดกรอกข้อมูลให้ครบถ้วน")
+      navigation.navigate("CreateMenu")
     }
   }
 
@@ -65,29 +54,32 @@ const CreateMenu = ({ navigation }) => {
   }
 
   const uploadImage = async () => {
-    navigation.navigate("MyMenu")
-    setUploading(true)
-    const response = await fetch(image.uri)
-    const blob = await response.blob()
-    const fileName = image.uri.substring(image.uri.lastIndexOf("/") + 1)
-    var ref = firebase.storage().ref().child(fileName)
-    ref.put(blob).then((snapshot) => {
-      snapshot.ref.getDownloadURL().then((url) => {
-        // console.log(" * new url", url)
-        const name = inputName
-        const cal = Number(inputCal)
-        add(name, cal, url)
+    if (inputName !== "" && image !== null) {
+      navigation.navigate("MyMenu")
+      setUploading(true)
+      const response = await fetch(image.uri)
+      const blob = await response.blob()
+      const fileName = image.uri.substring(image.uri.lastIndexOf("/") + 1)
+      var ref = firebase.storage().ref().child(fileName)
+      ref.put(blob).then((snapshot) => {
+        snapshot.ref.getDownloadURL().then((url) => {
+          const name = inputName
+          const cal = Number(inputCal)
+          add(name, cal, url)
+        })
       })
-    })
 
-    try {
-      await ref
-    } catch (e) {
-      console.log(e)
+      try {
+        await ref
+      } catch (e) {
+        console.log(e)
+      }
+      setUploading(false)
+      setImage(null)
+    } else if(inputName == "" || image == null) {
+      alert("⚠️ โปรดกรอกข้อมูลให้ครบถ้วน")
+      navigation.navigate("MyMenu")
     }
-    setUploading(false)
-    // Alert.alert("Photo uploaded !")
-    setImage(null)
   }
 
   let [fontsLoaded] = useFonts({
@@ -99,7 +91,14 @@ const CreateMenu = ({ navigation }) => {
   }
 
   return (
-    <View style={{ justifyContent: "center", alignItems: "center", flex: 1, backgroundColor: "#ffffe0"}}>
+    <View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 1,
+        backgroundColor: "#ffffe0",
+      }}
+    >
       {show ? (
         <TouchableOpacity onPressIn={pickImage} onPressOut={() => setShow(!show)}>
           <Image

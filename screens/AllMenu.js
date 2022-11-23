@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react"
-import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, FlatList, ImageBackground, ScrollView } from "react-native"
-import { Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons"
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Image,
+  FlatList,
+} from "react-native"
+import { FontAwesome5 } from "@expo/vector-icons"
 import { useFonts } from "expo-font"
 import firebase from "../Database/firebaseDB"
 import { SearchBar } from "react-native-elements"
 import { authentication } from "../Database/firebase"
 
 const AllMenu = ({ props, navigation }) => {
-  // const user_id = authentication.currentUser?.uid
+
   const [food, setFood] = useState([])
   const foodRef = firebase.firestore().collection("food")
   const addFood = firebase.firestore().collection("addFood")
   const [input, setInput] = useState("")
   const [data, setData] = useState("")
 
-  useEffect(()=>{
-    if(data == ""){
+  useEffect(() => {
+    if (data == "") {
       return setData(food)
-    } 
+    }
   })
 
   useEffect(() => {
@@ -39,7 +46,6 @@ const AllMenu = ({ props, navigation }) => {
   const add = (item) => {
     // check have this menu
     if (item.name && item.id && item.kcal && item.img) {
-
       // get timestamp
       const timestamp = firebase.firestore.FieldValue.serverTimestamp()
       const user_id = authentication.currentUser?.uid
@@ -49,7 +55,7 @@ const AllMenu = ({ props, navigation }) => {
         kcal: item.kcal,
         id: item.id,
         img: item.img,
-        user_id: user_id
+        user_id: user_id,
       }
       addFood
         .add(data)
@@ -86,9 +92,9 @@ const AllMenu = ({ props, navigation }) => {
   }
 
   return (
-    <View style={{ backgroundColor: "#fff", flex: 2}}>
+    <View style={{ backgroundColor: "#fff", flex: 2 }}>
       <SearchBar
-      platform="ios"
+        platform="ios"
         placeholder="ค้นหา"
         lightTheme
         round
@@ -123,7 +129,6 @@ const AllMenu = ({ props, navigation }) => {
             </View>
             <TouchableOpacity
               onPress={() => add(item)}
-              // onPressIn={() => (setAddName(item.name), setAddId(item.id), setAddKcal(item.kcal), setAddImg(item.img))}
               style={{
                 marginRight: 5,
                 marginTop: 5,
