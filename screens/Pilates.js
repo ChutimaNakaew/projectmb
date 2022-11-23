@@ -65,6 +65,7 @@ const Pilates = ({ props, navigation }) => {
 const styles = StyleSheet.create({
   header:{
     marginTop:60,
+    paddingBottom:280,
     backgroundColor: 'lightblue',
   },
   text: {
@@ -87,8 +88,8 @@ const styles = StyleSheet.create({
     // shadowRadius: 10,
     // elevation: 3,
     // padding: 5,
-    justifyContent: "space-between",
-    alignItems: "flex-end",
+    // justifyContent: "space-between",
+    // alignItems: "flex-end",
     // marginBottom:20
     // flexWrap: "wrap",
   },
