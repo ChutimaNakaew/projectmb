@@ -39,7 +39,7 @@ const Video_posture = ({ route, navigation }) => {
             kcal: pos_kal,
             id: pos_id,
             time: Number((post_timing).toFixed(2)),
-            user_id: user_id
+            user_id: user_id,
         })
             .then(() => {
                 console.log("Success to Add calories of " + pos_name)
