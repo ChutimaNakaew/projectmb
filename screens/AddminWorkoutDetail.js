@@ -39,7 +39,7 @@ const UserDetail = ({ navigation, route }) => {
                 kcal: parseFloat(info.kcal),
                 posture_name: info.posture_name,
                 video: info.video,
-                video_time: info.video_time
+                video_time: parseFloat(info.video_time)
             }).then((docRef) => {
                  
                 setInfo({
@@ -60,7 +60,7 @@ const UserDetail = ({ navigation, route }) => {
                 kcal: parseFloat(info.kcal),
                 posture_name: info.posture_name,
                 video: info.video,
-                video_time: info.video_time
+                video_time: parseFloat(info.video_time)
             }).then((docRef) => {
                  
                 setInfo({

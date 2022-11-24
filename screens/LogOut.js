@@ -29,7 +29,6 @@ const LoginPage = ({navigation}) => {
   const LogOut = () =>{
     signOut(authentication).then((re)=>{
     setIslogin(false)
-      console.log(re);
       console.log("ออกจากระบบ");
       // navigation.navigate('FristScreen')
       navigation.replace("FristScreen")
