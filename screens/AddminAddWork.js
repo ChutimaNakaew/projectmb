@@ -28,7 +28,7 @@ const SignupPage = ({navigation, route}) => {
       alert('กรุณาใส่ข้อมูลให้ครบ');
     }else {
       dbRef.add({
-        image: info.image, kcal: parseFloat(info.kcal), posture_name: info.posture_name, video: info.video, video_time: info.video_time ,
+        image: info.image, kcal: parseFloat(info.kcal), posture_name: info.posture_name, video: info.video, video_time: parseFloat(info.video_time) ,
         id: uuid()
       })
       navigation.navigate('AddminHome')
@@ -55,11 +55,11 @@ const SignupPage = ({navigation, route}) => {
         onChangeText={val => InputValueUpdate(val, 'posture_name')}
       />
 
-      <Text style={styles.textNomal}>kcal ต่อ นาที</Text>
+      <Text style={styles.textNomal}>kcal</Text>
       <TextInput
         style={styles.TextInput}
         keyboardType={'numeric'}
-        placeholder="kcal ต่อ นาที<"
+        placeholder="kcal<"
         onChangeText={(val) => InputValueUpdate(val, 'kcal')}
       />
 
@@ -77,10 +77,10 @@ const SignupPage = ({navigation, route}) => {
         onChangeText={(val) => InputValueUpdate(val, 'video')}
       />
 
-<Text style={styles.textNomal}>ความยาววีดีโฮ</Text>
+<Text style={styles.textNomal}>ความยาววีดีโอ</Text>
       <TextInput
         style={styles.TextInput}
-        placeholder="ความยาววีดีโฮ"
+        placeholder="ความยาววีดีโอ"
         onChangeText={(val) => InputValueUpdate(val, 'video_time')}
       />
 
