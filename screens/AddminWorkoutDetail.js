@@ -92,6 +92,17 @@ const UserDetail = ({ navigation, route }) => {
 
     }
 
+    // const updateUser(() {
+    //     const updatedbRef = firebase.firestore().collection('user').doc(key)
+    //     updatedbRef.set({
+    //         username: info.username,
+    //         email: info.email,
+    //         password: info.password
+    //     })
+    // }
+    // )
+    //----------------
+
     //หลัง render จะเรียกใช้งานเมดตอดนี้
 
     useEffect(() => {
