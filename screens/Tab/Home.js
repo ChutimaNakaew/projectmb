@@ -5,7 +5,7 @@ import { useFonts } from "expo-font"
 import firebase from "../../Database/firebaseDB"
 import DateTimePicker from "@react-native-community/datetimepicker"
 import { authentication } from "../../Database/firebase"
-import { Picker } from "@react-native-community/picker"
+import {Picker} from '@react-native-picker/picker';
 import { concat } from "react-native-reanimated"
 
 const Home = ({ props, navigation }) => {
